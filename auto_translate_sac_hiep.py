@@ -165,6 +165,8 @@ async def translate_chapter(client: httpx.AsyncClient, ch_id: int, novel_id: int
     conn.close()
 
     print(f"     [✓] Hoàn thành Chương {ch_index} ({len(full_translation)} ký tự tiếng Việt)")
+    # Auto sync to GitHub immediately after each chapter
+    git_commit_and_push(f"auto: translate novel {novel_id} chapter {ch_index}")
     return True
 
 async def run_continuous_worker(novel_id: int = 6, batch_size: int = 5, loop: bool = False):
