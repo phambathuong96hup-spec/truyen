@@ -131,9 +131,9 @@ class TranslationService:
 
         settings = await self.get_ai_settings()
 
-        # If no cloud API key is configured or base_url is localhost:
-        # DO NOT call localhost or Ollama! Queue for Antigravity instead.
-        if not settings.get("api_key") or "localhost" in settings.get("api_base_url", ""):
+        # If no cloud API key is configured and not pointing to local AI:
+        is_local_ai = "localhost" in settings.get("api_base_url", "") or "127.0.0.1" in settings.get("api_base_url", "")
+        if not settings.get("api_key") and not is_local_ai:
             async with AsyncSessionLocal() as session:
                 ch = await session.get(Chapter, chapter_id)
                 if ch:
@@ -190,7 +190,10 @@ class TranslationService:
                     raise ValueError(f"AI API returned error: {resp.status_code} - {resp.text}")
 
                 res_json = resp.json()
-                translated_text = res_json["choices"][0]["message"]["content"].strip()
+                msg = res_json["choices"][0]["message"]
+                translated_text = (msg.get("content") or msg.get("reasoning_content") or "").strip()
+                # Clean think tags if model outputted reasoning
+                translated_text = re.sub(r'<think>.*?</think>', '', translated_text, flags=re.DOTALL).strip()
 
             # Extract translated title if present in first line
             lines = [line.strip() for line in translated_text.splitlines() if line.strip()]
@@ -248,9 +251,9 @@ class TranslationService:
 
         settings = await self.get_ai_settings()
 
-        # If no cloud API key is configured or base_url is localhost:
-        # DO NOT call localhost or Ollama! Queue for Antigravity instead.
-        if not settings.get("api_key") or "localhost" in settings.get("api_base_url", ""):
+        # If no cloud API key is configured and not pointing to local AI:
+        is_local_ai = "localhost" in settings.get("api_base_url", "") or "127.0.0.1" in settings.get("api_base_url", "")
+        if not settings.get("api_key") and not is_local_ai:
             async with AsyncSessionLocal() as session:
                 ch = await session.get(Chapter, chapter_id)
                 if ch:
@@ -324,7 +327,7 @@ class TranslationService:
                         try:
                             chunk_obj = json.loads(line_data)
                             delta = chunk_obj["choices"][0].get("delta", {})
-                            content_piece = delta.get("content", "")
+                            content_piece = delta.get("content") or delta.get("reasoning_content") or ""
                             if content_piece:
                                 full_text.append(content_piece)
                                 yield f"data: {json.dumps({'chunk': content_piece, 'done': False})}\n\n"
@@ -332,6 +335,7 @@ class TranslationService:
                             continue
 
             complete_translation = "".join(full_text).strip()
+            complete_translation = re.sub(r'<think>.*?</think>', '', complete_translation, flags=re.DOTALL).strip()
             lines = [l.strip() for l in complete_translation.splitlines() if l.strip()]
             trans_title = lines[0].replace("[TIÊU ĐỀ DỊCH]:", "").replace("[TIÊU ĐỀ]:", "").strip() if lines else chapter.title
 
