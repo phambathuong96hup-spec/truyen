@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>AI Web Novel Reader - Đọc & Dịch Truyện Trung Quốc</title>
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#090d16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="NovelAI">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="/static/icons/icon.svg">
+
+  <!-- Tailwind CSS & Custom CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/static/css/style.css?v=1.0.9">
+
+  <!-- Meta Tags to prevent stale browser cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+<body class="h-full bg-slate-950 text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
+<div id="app" class="min-h-full flex flex-col" :class="[currentView === 'reader' ? readerSettings.theme : '']">
+
+  <!-- ==================== LOCK SCREEN OVERLAY (Chỉ mình bạn sử dụng) ==================== -->
+  <div v-if="isAppLocked" class="fixed inset-0 z-50 bg-slate-950 flex flex-col items-center justify-center p-6 text-center select-none backdrop-blur-md">
+    <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
+      <div class="w-16 h-16 mx-auto bg-gradient-to-tr from-sky-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-sky-500/20 text-3xl">
+        🔐
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-tight">KHO TRUYỆN CÁ NHÂN</h2>
+        <p class="text-xs text-slate-400 mt-1">Không gian đọc truyện riêng tư của riêng bạn</p>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <input 
+            v-model="inputPasscode" 
+            type="password" 
+            placeholder="Nhập mã PIN / Mật khẩu..." 
+            @keyup.enter="unlockApp"
+            class="w-full bg-slate-950 border border-slate-700 rounded-2xl px-4 py-3.5 text-center text-lg tracking-widest text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 transition"
+            autofocus
+          >
+        </div>
+
+        <div v-if="authError" class="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-xl p-2.5">
+          {{ authError }}
+        </div>
+
+        <div class="flex items-center justify-center gap-2 text-xs text-slate-400 cursor-pointer" @click="rememberDevice = !rememberDevice">
+          <input type="checkbox" v-model="rememberDevice" class="rounded border-slate-700 bg-slate-950 text-sky-500 focus:ring-0">
+          <span>Ghi nhớ trên điện thoại này</span>
+        </div>
+
+        <button 
+          @click="unlockApp" 
+          class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 transition active:scale-95"
+        >
+          Mở Khóa Thư Viện 🔓
+        </button>
+      </div>
+
+      <div class="text-[11px] text-slate-500">
+        Bảo mật cao • Lưu phiên đọc truyện an toàn
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HEADER (Desktop & Mobile) ==================== -->
+  <header v-if="currentView !== 'reader'" class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-2.5 sm:px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <!-- Logo & App Name -->
+      <div class="flex items-center gap-3 cursor-pointer select-none" @click="currentView = 'library'; activeMainTab = 'library'">
+        <img src="/static/icons/icon.svg" alt="Novel AI" class="w-9 h-9 rounded-xl shadow-md shadow-sky-500/20">
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+            <span>Novel AI</span>
+            <span class="text-[10px] uppercase font-semibold bg-sky-500/20 text-sky-400 border border-sky-500/30 px-1.5 py-0.5 rounded">PWA</span>
+          </h1>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Dịch & Đọc Tiểu Thuyết Trung Quốc</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs: Thư Viện vs Khám Phá -->
+      <div class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
+        <button @click="activeMainTab = 'library'; currentView = 'library'" :class="[activeMainTab === 'library' && currentView === 'library' ? 'bg-sky-500 text-white font-semibold shadow' : 'text-slate-400 hover:text-white']" class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Thư viện ({{ novels.length }})</span>
+        </button>
+        <button @click="activeMainTab = 'discover'; currentView = 'library'; loadDiscoverNovels()" :class="[activeMainTab === 'discover' && currentView === 'library' ? 'bg-amber-500 text-white font-semibold shadow' : 'text-slate-400 hover:text-white']" class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+          <span>Khám phá Web Trung</span>
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button @click="showSettingsModal = true" class="flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" stroke-width="2"/></svg>
+          <span class="hidden sm:inline">Cài đặt AI</span>
+        </button>
+
+        <button @click="showAddModal = true" class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-lg bg-sky-500 hover:bg-sky-400 text-white shadow-lg shadow-sky-500/25 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          <span>Thêm truyện</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== VIEW 1A: THƯ VIỆN TRUYỆN CỦA TÔI ==================== -->
+  <main v-if="currentView === 'library' && activeMainTab === 'library'" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6">
+    <!-- Search & Stats Banner -->
+    <div class="mb-6 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
+      <div class="relative flex-1 max-w-md">
+        <svg class="w-4 h-4 absolute left-3 top-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
+        <input v-model="librarySearch" type="text" placeholder="Tìm tên truyện, tác giả..." class="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-9 pr-4 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 transition">
+      </div>
+      <div class="text-xs sm:text-sm text-slate-400 flex items-center gap-3">
+        <span>Tổng cộng: <strong class="text-white">{{ filteredNovels.length }}</strong> bộ truyện trong máy</span>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div v-if="!isLoading && filteredNovels.length === 0" class="text-center py-16 px-4 bg-slate-900/50 rounded-2xl border border-dashed border-slate-800">
+      <div class="w-16 h-16 bg-sky-500/10 text-sky-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      </div>
+      <h3 class="text-lg font-semibold text-white mb-1">Chưa có truyện nào trong thư viện</h3>
+      <p class="text-sm text-slate-400 max-w-md mx-auto mb-6">Bạn có thể qua tab <strong>"Khám phá Web Trung"</strong> để chọn truyện tải về hoặc tự thêm bằng link / file .txt.</p>
+      <div class="flex items-center justify-center gap-3">
+        <button @click="activeMainTab = 'discover'; loadDiscoverNovels()" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 font-semibold text-white text-sm shadow-lg shadow-amber-500/20 transition">
+          Khám phá Web Trung Quốc
+        </button>
+        <button @click="showAddModal = true" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 font-semibold text-slate-200 text-sm border border-slate-700 transition">
+          + Thêm thủ công
+        </button>
+      </div>
+    </div>
+
+    <!-- Novel Grid Cards -->
+    <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+      <div v-for="novel in filteredNovels" :key="novel.id" class="group bg-slate-900 rounded-2xl border border-slate-800/80 hover:border-sky-500/50 flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-sky-500/10">
+        <!-- Cover Art or Fallback Banner -->
+        <div class="relative aspect-[3/4] bg-slate-800 cursor-pointer overflow-hidden" @click="openNovelDetail(novel.id)">
+          <img v-if="novel.cover_url" :src="novel.cover_url" :alt="novel.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div v-else class="w-full h-full bg-gradient-to-br from-slate-800 via-sky-950 to-indigo-950 flex flex-col justify-end p-3">
+            <span class="text-xs font-semibold text-sky-400 uppercase tracking-wider mb-1">{{ novel.genre || 'Tiểu thuyết' }}</span>
+            <span class="text-sm font-bold text-white line-clamp-3 leading-snug">{{ novel.title }}</span>
+          </div>
+
+          <!-- Progress badge on top of cover -->
+          <div class="absolute top-2 left-2 bg-slate-950/80 backdrop-blur-md px-2 py-0.5 rounded-md text-[11px] font-medium text-slate-300 border border-white/10">
+            Ch. {{ novel.last_read_index || 1 }} / {{ novel.total_chapters }}
+          </div>
+        </div>
+
+        <!-- Novel Info -->
+        <div class="p-3.5 flex flex-col flex-1 justify-between gap-2">
+          <div>
+            <h3 @click="openNovelDetail(novel.id)" class="text-sm font-semibold text-white hover:text-sky-400 line-clamp-2 cursor-pointer leading-snug mb-1">
+              {{ novel.title }}
+            </h3>
+            <p class="text-xs text-slate-400 line-clamp-1">Tác giả: {{ novel.author }}</p>
+          </div>
+
+          <!-- Progress Bar & Actions -->
+          <div class="pt-2 border-t border-slate-800/60">
+            <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1.5">
+              <span>Đã dịch: <strong class="text-sky-400">{{ novel.translated_count }}</strong></span>
+              <span>{{ Math.round((novel.translated_count / (novel.total_chapters || 1)) * 100) }}%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden mb-3">
+              <div class="bg-gradient-to-r from-sky-500 to-indigo-500 h-1.5 rounded-full" :style="{ width: `${Math.round((novel.translated_count / (novel.total_chapters || 1)) * 100)}%` }"></div>
+            </div>
+
+            <!-- Resume Button -->
+            <button @click="openChapter(novel.last_read_chapter_id || 1)" class="w-full py-1.5 px-3 bg-slate-800 hover:bg-sky-500 text-slate-200 hover:text-white rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" stroke-width="2"/></svg>
+              <span>Đọc tiếp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 1B: KHÁM PHÁ TRUYỆN WEB TRUNG QUỐC ==================== -->
+  <main v-if="currentView === 'library' && activeMainTab === 'discover'" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6">
+    <!-- Top Source Mode Selector Bar -->
+    <div class="mb-5 flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 rounded-2xl p-2.5 sm:p-3">
+      <div class="flex items-center gap-1.5 sm:gap-2 text-xs">
+        <span class="text-slate-400 font-medium px-1 hidden sm:inline">Nguồn:</span>
+        <button @click="selectedSourceMode = 'all'; loadDiscoverNovels()" :class="[selectedSourceMode === 'all' ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-800 text-slate-300 hover:text-white']" class="px-3 py-1.5 rounded-xl transition">
+          ⚡ Tất cả (3,050+ bộ)
+        </button>
+        <button @click="selectedSourceMode = 'curated'; loadDiscoverNovels()" :class="[selectedSourceMode === 'curated' ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-800 text-slate-300 hover:text-white']" class="px-3 py-1.5 rounded-xl transition">
+          💎 Siêu Phẩm Chọn Lọc (Top Hot)
+        </button>
+        <button @click="selectedSourceMode = 'live'; loadDiscoverNovels()" :class="[selectedSourceMode === 'live' ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-800 text-slate-300 hover:text-white']" class="px-3 py-1.5 rounded-xl transition">
+          🌐 Trực Tuyến Web Trung (3,000+ Truyện)
+        </button>
+      </div>
+
+      <div class="text-[11px] sm:text-xs text-slate-400 flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Đang có <strong class="text-amber-400 font-bold">{{ discoverTotal || 3050 }}</strong> bộ truyện sẵn sàng clone & dịch</span>
+      </div>
+    </div>
+
+    <!-- Category Horizontal Pills -->
+    <div class="mb-5 overflow-x-auto pb-2 scrollbar-none flex items-center gap-2">
+      <button v-for="cat in discoverCategories" :key="cat.id"
+        @click="selectedDiscoverCategory = cat.id; loadDiscoverNovels()"
+        :class="[selectedDiscoverCategory === cat.id ? 'bg-amber-500 text-white font-bold shadow-lg shadow-amber-500/20' : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800']"
+        class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm flex items-center gap-1.5 flex-shrink-0 transition">
+        <span>{{ cat.icon }}</span>
+        <span>{{ cat.name }}</span>
+        <span v-if="cat.count" class="text-[10px] px-1.5 py-0.2 rounded-full bg-black/30 font-mono">{{ cat.count }}</span>
+      </button>
+    </div>
+
+    <!-- Filter & Sort Bar -->
+    <div class="mb-6 flex flex-col gap-3.5">
+      <!-- Row 1: Search + Time Range Selector -->
+      <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+        <div class="relative flex-1 max-w-md">
+          <svg class="w-4 h-4 absolute left-3 top-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
+          <input v-model="discoverSearch" @input="loadDiscoverNovels()" type="text" placeholder="Tìm theo tên Hán Việt, tiếng Trung, tác giả..." class="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-9 pr-4 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition">
+        </div>
+
+        <!-- Time Range Selector (Tuần / Tháng / Năm / Toàn bộ) -->
+        <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs overflow-x-auto">
+          <span class="text-slate-400 px-2 hidden md:inline text-[11px] font-semibold">Khung giờ:</span>
+          <button @click="discoverTimeRange = 'week'; loadDiscoverNovels()" :class="[discoverTimeRange === 'week' ? 'bg-amber-500 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white']" class="px-2.5 py-1 rounded-lg transition whitespace-nowrap">
+            📅 Tuần này
+          </button>
+          <button @click="discoverTimeRange = 'month'; loadDiscoverNovels()" :class="[discoverTimeRange === 'month' ? 'bg-amber-500 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white']" class="px-2.5 py-1 rounded-lg transition whitespace-nowrap">
+            📆 Tháng này
+          </button>
+          <button @click="discoverTimeRange = 'year'; loadDiscoverNovels()" :class="[discoverTimeRange === 'year' ? 'bg-amber-500 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white']" class="px-2.5 py-1 rounded-lg transition whitespace-nowrap">
+            🏆 Năm nay
+          </button>
+          <button @click="discoverTimeRange = 'all'; loadDiscoverNovels()" :class="[discoverTimeRange === 'all' ? 'bg-amber-500 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white']" class="px-2.5 py-1 rounded-lg transition whitespace-nowrap">
+            🌟 Toàn bộ
+          </button>
+        </div>
+      </div>
+
+      <!-- Row 2: Sort Metric Pills -->
+      <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
+        <span class="text-slate-400 mr-1 text-[11px] uppercase tracking-wider font-semibold">Xếp theo:</span>
+        <button @click="discoverSort = 'hot'; loadDiscoverNovels()" :class="[discoverSort === 'hot' ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800']" class="px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+          <span>🔥</span>
+          <span>Thịnh Hành (Hot)</span>
+        </button>
+        <button @click="discoverSort = 'views'; loadDiscoverNovels()" :class="[discoverSort === 'views' ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800']" class="px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+          <span>👁️</span>
+          <span>Lượt Đọc</span>
+        </button>
+        <button @click="discoverSort = 'rating'; loadDiscoverNovels()" :class="[discoverSort === 'rating' ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800']" class="px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+          <span>⭐</span>
+          <span>Đánh Giá Cao</span>
+        </button>
+        <button @click="discoverSort = 'chapters'; loadDiscoverNovels()" :class="[discoverSort === 'chapters' ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800']" class="px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+          <span>📖</span>
+          <span>Số Chương</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div v-if="isDiscoverLoading" class="py-16 text-center text-slate-400">
+      <svg class="w-8 h-8 animate-spin mx-auto text-amber-400 mb-3" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+      <p class="text-sm">Đang tải danh sách truyện từ các nguồn lớn Trung Quốc...</p>
+    </div>
+
+    <!-- Discover Novels Grid -->
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div v-for="novel in discoverNovels" :key="novel.id" class="bg-slate-900 rounded-2xl border border-slate-800 hover:border-amber-500/50 flex flex-col justify-between p-4 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/10">
+        <div>
+          <!-- Top Row: Cover + Info -->
+          <div class="flex gap-4 mb-3">
+            <div class="w-24 sm:w-28 aspect-[3/4] bg-slate-800 rounded-xl overflow-hidden flex-shrink-0 relative shadow-md cursor-pointer hover:opacity-90 transition" @click="openNovelPreview(novel)">
+              <img :src="novel.cover_url" :alt="novel.title_vi" class="w-full h-full object-cover">
+              <div class="absolute top-1.5 left-1.5 bg-black/75 backdrop-blur-md px-1.5 py-0.5 rounded text-[10px] font-semibold text-amber-400">
+                ⭐ {{ novel.rating }}
+              </div>
+            </div>
+
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  {{ novel.category_name }}
+                </span>
+                <span class="text-[10px] text-slate-400 px-1.5 py-0.5 rounded bg-slate-800">
+                  {{ novel.source_domain }}
+                </span>
+              </div>
+
+              <!-- Click to preview synopsis without downloading -->
+              <h3 class="text-sm font-bold text-white leading-snug line-clamp-2 hover:text-amber-400 cursor-pointer mb-0.5" @click="openNovelPreview(novel)" title="Bấm để đọc giới thiệu & chi tiết">
+                {{ novel.title_vi }}
+              </h3>
+              <p class="text-xs text-slate-400 zh-font italic mb-1.5">{{ novel.title }}</p>
+              <p class="text-xs text-slate-400 mb-2">Tác giả: <strong class="text-slate-200">{{ novel.author_vi }}</strong></p>
+
+              <!-- Dynamic Stats: Views & Hot depending on filter -->
+              <div class="flex flex-wrap items-center gap-2 text-[11px] text-slate-400">
+                <span v-if="discoverSort === 'hot'" class="text-amber-400 font-bold bg-amber-500/10 px-2 py-0.5 rounded">
+                  🔥 Hot {{ discoverTimeRange === 'week' ? 'Tuần: #' + (novel.hot_week_str || novel.hot_week) : (discoverTimeRange === 'month' ? 'Tháng: #' + (novel.hot_month_str || novel.hot_month) : (discoverTimeRange === 'year' ? 'Năm: #' + (novel.hot_year_str || novel.hot_year) : 'Top: #' + (novel.hot_total_str || novel.hot_total))) }}
+                </span>
+                <span v-else class="text-sky-400 font-semibold bg-sky-500/10 px-2 py-0.5 rounded">
+                  👁️ {{ discoverTimeRange === 'week' ? (novel.views_week || novel.views) + ' đọc/tuần' : (discoverTimeRange === 'month' ? (novel.views_month || novel.views) + ' đọc/tháng' : (discoverTimeRange === 'year' ? (novel.views_year || novel.views) + ' đọc/năm' : (novel.views_total || novel.views) + ' lượt đọc')) }}
+                </span>
+                <span>•</span>
+                <span>📖 {{ novel.total_chapters }} chương</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            <span v-for="tag in novel.tags" :key="tag" class="text-[10px] px-2 py-0.5 rounded bg-slate-800/80 text-slate-300">
+              #{{ tag }}
+            </span>
+          </div>
+
+          <!-- Synopsis Preview (Click to open full modal) -->
+          <p class="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4 cursor-pointer hover:text-slate-100 transition" @click="openNovelPreview(novel)" title="Xem toàn bộ giới thiệu">
+            {{ novel.description_vi }}
+          </p>
+        </div>
+
+        <!-- Action Buttons: Giới thiệu vs Tải về/Vào đọc -->
+        <div class="pt-3 border-t border-slate-800 flex items-center gap-2">
+          <!-- Button: Xem giới thiệu (Không tải về) -->
+          <button @click="openNovelPreview(novel)" class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1 transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Giới thiệu</span>
+          </button>
+
+          <!-- If Already Downloaded -->
+          <template v-if="novel.is_downloaded">
+            <button @click="openNovelDetail(novel.local_novel_id)" class="flex-1 py-2 px-3 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-emerald-500/30 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Vào đọc</span>
+            </button>
+          </template>
+
+          <!-- If Not Yet Downloaded -->
+          <template v-else>
+            <button :disabled="cloningNovelId === novel.id" @click="cloneAndReadNovel(novel, false)" class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/20 transition disabled:opacity-50">
+              <svg v-if="cloningNovelId === novel.id" class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+              <svg v-else class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>{{ cloningNovelId === novel.id ? 'Đang tải...' : 'Tải về máy' }}</span>
+            </button>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load More Pagination Button -->
+    <div v-if="discoverHasMore" class="mt-8 text-center">
+      <button @click="loadMoreDiscoverNovels" :disabled="isDiscoverLoadingMore" class="py-3 px-8 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold text-sm border border-slate-700/80 shadow-lg hover:border-amber-500/50 transition flex items-center gap-2 mx-auto disabled:opacity-50">
+        <svg v-if="isDiscoverLoadingMore" class="w-4 h-4 animate-spin text-amber-400" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+        <span v-else>📖</span>
+        <span>{{ isDiscoverLoadingMore ? 'Đang tải thêm truyện...' : 'Tải thêm 24 bộ truyện tiếp theo...' }}</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 2: CHI TIẾT TRUYỆN & MỤC LỤC ==================== -->
+  <main v-if="currentView === 'detail' && selectedNovel" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6">
+    <!-- Back to Library -->
+    <div class="mb-4">
+      <button @click="currentView = 'library'" class="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-400 hover:text-white transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <span>Quay lại Thư viện</span>
+      </button>
+    </div>
+
+    <!-- Hero Card -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 mb-8 flex flex-col md:flex-row gap-6">
+      <!-- Cover -->
+      <div class="w-32 sm:w-44 flex-shrink-0 mx-auto md:mx-0 aspect-[3/4] bg-slate-800 rounded-xl overflow-hidden shadow-lg border border-slate-700/50">
+        <img v-if="selectedNovel.cover_url" :src="selectedNovel.cover_url" :alt="selectedNovel.title" class="w-full h-full object-cover">
+        <div v-else class="w-full h-full bg-gradient-to-br from-slate-800 via-sky-950 to-indigo-950 flex flex-col justify-end p-3">
+          <span class="text-xs text-sky-400 uppercase font-semibold">{{ selectedNovel.genre }}</span>
+          <span class="text-sm font-bold text-white line-clamp-3">{{ selectedNovel.title }}</span>
+        </div>
+      </div>
+
+      <!-- Novel Meta -->
+      <div class="flex-1 flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-sky-500/10 text-sky-400 border border-sky-500/20">{{ selectedNovel.genre }}</span>
+            <span class="text-xs text-slate-400">Nguồn: {{ selectedNovel.source_url ? (selectedNovel.source_url.startsWith('http') ? 'Web cào' : selectedNovel.source_url) : 'Thủ công' }}</span>
+          </div>
+
+          <h2 class="text-xl sm:text-2xl font-bold text-white mb-2 leading-tight">{{ selectedNovel.title }}</h2>
+          <p class="text-sm text-slate-400 mb-4">Tác giả: <strong class="text-slate-200">{{ selectedNovel.author }}</strong></p>
+
+          <p class="text-sm text-slate-300 line-clamp-4 leading-relaxed mb-4 whitespace-pre-line">{{ selectedNovel.description || 'Chưa có tóm tắt.' }}</p>
+
+          <!-- Scrape & Translate Progress Bar in Detail -->
+          <div v-if="scrapeStatus" class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 mb-4 space-y-2">
+            <div class="flex flex-wrap items-center justify-between text-xs gap-2">
+              <span class="text-slate-300 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full" :class="[scrapeStatus.is_scraping ? 'bg-amber-400 animate-pulse' : 'bg-emerald-400']"></span>
+                <span>Đã cào về máy: <strong class="text-emerald-400">{{ scrapeStatus.raw_count }} / {{ scrapeStatus.total_chapters }} chương</strong> ({{ scrapeStatus.raw_percentage }}%)</span>
+              </span>
+              <span class="text-slate-300">
+                Đã dịch: <strong class="text-amber-400">{{ scrapeStatus.translated_count }} / {{ scrapeStatus.total_chapters }} chương</strong> ({{ scrapeStatus.translated_percentage }}%)
+              </span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden flex">
+              <div class="bg-emerald-500 h-full transition-all duration-300" :style="{ width: `${scrapeStatus.raw_percentage}%` }" title="Tiến độ cào về máy"></div>
+            </div>
+            <div v-if="scrapeStatus.is_scraping" class="text-[11px] text-amber-400 animate-pulse flex items-center gap-1">
+              <span>⏳ Đang chạy ngầm tải số lượng lớn nội dung từ web Trung Quốc... Bạn có thể tiếp tục đọc bình thường.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Toolbar -->
+        <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-800">
+          <button @click="openChapter(selectedNovel.last_read_chapter_id || chapters[0]?.id)" class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 font-semibold text-white text-sm shadow-lg shadow-sky-500/20 flex items-center gap-2 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" stroke-width="2"/></svg>
+            <span>Đọc tiếp (Ch. {{ selectedNovel.last_read_index || 1 }})</span>
+          </button>
+
+          <button @click="openBulkDownloadModal" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 font-medium text-emerald-400 text-sm border border-emerald-500/30 flex items-center gap-2 transition" title="Tải số lượng lớn hoặc toàn bộ chương về máy">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Tải Offline / Cào Toàn Bộ</span>
+          </button>
+
+          <button @click="showBatchModal = true" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 font-medium text-slate-200 text-sm border border-slate-700 flex items-center gap-2 transition">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Dịch hàng loạt</span>
+          </button>
+
+          <!-- Export Novel TXT Dropdown -->
+          <div class="relative group">
+            <button class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 font-medium text-purple-400 text-sm border border-purple-500/30 flex items-center gap-1.5 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Xuất TXT</span>
+              <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="absolute left-0 mt-1 w-52 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-1 z-30 hidden group-hover:block">
+              <button @click="exportNovelTxt('translated')" class="w-full text-left px-4 py-2.5 text-xs text-slate-200 hover:bg-slate-800 flex items-center gap-2">
+                <span>🇻🇳 Xuất TXT tiếng Việt (Đã dịch)</span>
+              </button>
+              <button @click="exportNovelTxt('bilingual')" class="w-full text-left px-4 py-2.5 text-xs text-slate-200 hover:bg-slate-800 flex items-center gap-2">
+                <span>🌐 Xuất TXT Song Ngữ (Trung-Việt)</span>
+              </button>
+              <button @click="exportNovelTxt('raw')" class="w-full text-left px-4 py-2.5 text-xs text-slate-200 hover:bg-slate-800 flex items-center gap-2">
+                <span>🇨🇳 Xuất TXT Gốc tiếng Trung</span>
+              </button>
+            </div>
+          </div>
+
+          <button @click="currentView = 'glossary'; loadGlossary(selectedNovel.id)" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 font-medium text-slate-200 text-sm border border-slate-700 flex items-center gap-2 transition">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span>Từ điển</span>
+          </button>
+
+          <button @click="deleteNovel(selectedNovel.id, selectedNovel.title)" class="px-3 py-2.5 rounded-xl text-rose-400 hover:bg-rose-500/10 text-sm transition ml-auto" title="Xóa truyện khỏi thư viện">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table of Contents Section -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-4">
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <span>Mục lục</span>
+          <span class="text-xs font-normal text-slate-400">({{ chapters.length }} chương)</span>
+        </h3>
+
+        <!-- Filter & Search Chapter -->
+        <div class="flex items-center gap-2">
+          <select v-model="chapterFilter" class="bg-slate-800 border border-slate-700 text-xs rounded-lg px-2.5 py-1.5 text-slate-200 focus:outline-none focus:border-sky-500">
+            <option value="all">Tất cả chương</option>
+            <option value="completed">Đã dịch</option>
+            <option value="pending">Chưa dịch</option>
+          </select>
+          <input v-model="chapterSearch" type="text" placeholder="Tìm số chương, tiêu đề..." class="bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-1.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 w-44">
+        </div>
+      </div>
+
+      <!-- Chapter List -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-[600px] overflow-y-auto pr-1">
+        <div v-for="ch in filteredChapters" :key="ch.id" @click="openChapter(ch.id)" class="p-2.5 rounded-xl border border-slate-800/80 hover:border-sky-500/50 hover:bg-slate-800/60 cursor-pointer flex items-center justify-between gap-3 transition">
+          <div class="flex-1 min-w-0">
+            <span class="text-xs font-semibold text-slate-400 mr-1.5">#{{ ch.chapter_index }}</span>
+            <span class="text-xs font-medium text-slate-200 truncate inline-block max-w-[200px]">
+              {{ ch.title_translated || ch.title }}
+            </span>
+          </div>
+
+          <span v-if="ch.translation_status === 'completed'" class="flex-shrink-0 text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+            Đã dịch
+          </span>
+          <span v-else-if="ch.translation_status === 'translating'" class="flex-shrink-0 text-[10px] font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full animate-pulse flex items-center gap-1">
+            <svg class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+            Đang dịch
+          </span>
+          <span v-else class="flex-shrink-0 text-[10px] font-medium text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">
+            Chưa dịch
+          </span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 3: TRÌNH ĐỌC TRUYỆN (DISTRACTION-FREE READER) ==================== -->
+  <main v-if="currentView === 'reader' && currentChapter" class="flex-1 relative flex flex-col justify-between min-h-screen">
+    <!-- Reading Progress Bar (Fixed Top) -->
+    <div class="reading-progress-track">
+      <div class="reading-progress-bar" :style="{ width: `${readingProgress}%` }"></div>
+    </div>
+
+    <!-- Invisible Tap Zones for Mobile Navigation & Controls Toggle -->
+    <div class="tap-zone-left hidden sm:block md:hidden" title="Chương trước" @click="currentChapter.prev_id && openChapter(currentChapter.prev_id)"></div>
+    <div class="tap-zone-right hidden sm:block md:hidden" title="Chương sau" @click="currentChapter.next_id && openChapter(currentChapter.next_id)"></div>
+    <div class="tap-zone-center" title="Bật/Tắt thanh điều hướng" @click="showReaderControls = !showReaderControls"></div>
+
+    <!-- Top Sticky Floating Header -->
+    <header class="sticky top-0 z-30 reader-surface border-b px-3 sm:px-6 py-2.5 transition-all duration-300" :class="[showReaderControls ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none']">
+      <div class="w-full mx-auto flex items-center justify-between gap-3 transition-all max-w-none px-1 sm:px-4">
+        <!-- Back to Detail -->
+        <button @click="openNovelDetail(currentChapter.novel_id)" title="Quay lại mục lục truyện" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center gap-1.5 text-xs font-medium">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden md:inline">{{ currentChapter.novel_title || 'Mục lục' }}</span>
+        </button>
+
+        <!-- Chapter Title & Reading Progress Indicator -->
+        <div class="flex-1 text-center truncate px-2">
+          <h2 class="text-xs sm:text-sm font-bold truncate leading-tight">{{ currentChapter.title_translated || currentChapter.title }}</h2>
+          <div class="flex items-center justify-center gap-2 text-[10px] sm:text-[11px] reader-text-subtle mt-0.5">
+            <span>Chương {{ currentChapter.chapter_index }}<template v-if="currentChapter.total_chapters"> / {{ currentChapter.total_chapters }}</template></span>
+            <span>•</span>
+            <span class="font-mono text-amber-500 font-semibold">{{ readingProgress }}%</span>
+          </div>
+        </div>
+
+        <!-- Right Controls: Fullscreen, FullWidth 100%, Bilingual, Gloss, Settings -->
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <!-- Fullscreen Button -->
+          <button @click="toggleFullscreen" :title="isFullscreen ? 'Thoát toàn màn hình (F)' : 'Toàn màn hình (F)'" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 text-amber-500 transition">
+            <svg v-if="!isFullscreen" class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+            <svg v-else class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4l5 5m0 0H5m4 0V5m11-1l-5 5m0 0h4m-4 0V5M4 20l5-5m0 0H5m4 0v4m11 1l-5-5m0 0h4m-4 0v4"/></svg>
+          </button>
+
+          <!-- Full Width 100% Quick Button -->
+          <button @click="toggleFullWidth" :title="readerSettings.maxWidth === '100%' ? 'Thu gọn khung đọc (W)' : 'Hiển thị toàn trang 100% (W)'" :class="[readerSettings.maxWidth === '100%' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold' : 'hover:bg-black/10 dark:hover:bg-white/10 text-inherit border border-current/20 opacity-75']" class="px-2 py-1 rounded-lg text-xs font-mono flex items-center gap-1 transition">
+            <span>100%</span>
+          </button>
+
+          <!-- Bilingual Toggle -->
+          <button @click="isBilingual = !isBilingual" :class="[isBilingual ? 'bg-sky-500 text-white shadow-sm' : 'hover:bg-black/10 dark:hover:bg-white/10 text-inherit border border-current/20']" class="px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition">
+            <span>Song ngữ</span>
+          </button>
+
+          <!-- AI Entity Extraction -->
+          <button @click="triggerExtractGlossary" title="Trích xuất tên riêng & thuật ngữ bằng AI" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 text-emerald-500 transition hidden sm:inline-flex">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </button>
+
+          <!-- Appearance Settings Drawer Toggle -->
+          <button @click="showTocDrawer = false; showSettingsModal = !showSettingsModal" title="Cài đặt giao diện đọc" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Reading Content Canvas -->
+    <article
+      class="flex-1 w-full py-6 sm:py-10 transition-all article-full-width"
+      :class="[
+        readerSettings.font,
+        isChapterAnimate ? 'chapter-animate' : '',
+        'pad-' + (readerSettings.sidePadding || 'compact')
+      ]"
+      :style="{
+        width: '100% !important',
+        maxWidth: '100% !important',
+        fontSize: `${readerSettings.fontSize}px`,
+        lineHeight: readerSettings.lineHeight
+      }"
+    >
+      <!-- Chapter Heading -->
+      <div class="mb-10 sm:mb-12 text-center border-b pb-6 sm:pb-8 reader-surface border-current/10 w-full">
+        <span class="text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-amber-500 block mb-2">Chương {{ currentChapter.chapter_index }}</span>
+        <h1 class="text-2xl sm:text-4xl font-bold tracking-tight mb-3 leading-snug">
+          {{ currentChapter.title_translated || currentChapter.title }}
+        </h1>
+        <p v-if="isBilingual && currentChapter.title_translated" class="text-sm reader-text-subtle zh-font italic">
+          {{ currentChapter.title }}
+        </p>
+      </div>
+
+      <!-- Main Paragraphs (Regular or Bilingual Stacked) -->
+      <div class="space-y-6 w-full">
+        <template v-if="isBilingual">
+          <div v-for="(pair, idx) in pairedParagraphs" :key="idx" class="space-y-2 w-full">
+            <p v-if="pair.vi" class="leading-relaxed w-full">
+              {{ pair.vi }}
+            </p>
+            <p v-if="pair.zh" class="reader-zh-text text-sm leading-normal pl-3 border-l-2 zh-font font-light italic w-full">
+              {{ pair.zh }}
+            </p>
+          </div>
+        </template>
+        <template v-else>
+          <div v-if="currentChapter.translated_content || streamingText" class="w-full">
+            <p v-for="(p, idx) in (streamingText || currentChapter.translated_content).split(/\n\s*\n/)" :key="idx" class="mb-5 leading-relaxed w-full">
+              {{ p.trim() }}
+            </p>
+          </div>
+          <!-- If not yet translated -->
+          <div v-else class="text-center py-12 px-4 max-w-lg mx-auto">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 mx-auto flex items-center justify-center mb-4 text-3xl">📖</div>
+            <h3 class="text-base sm:text-lg font-bold mb-2">Chương này đang chờ Antigravity dịch</h3>
+            <p class="text-xs sm:text-sm reader-text-subtle mb-6 leading-relaxed">
+              Bạn chỉ cần nhắn vào khung chat Antigravity: <strong class="text-amber-400">"Dịch tiếp chương này"</strong> là Antigravity và Sub-Agent sẽ tự động dịch và đẩy thẳng vào máy cho bạn.
+            </p>
+
+            <div class="flex flex-wrap gap-2.5 justify-center mb-6">
+              <button @click="requestAntigravityTranslation(currentChapter)" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-white text-xs sm:text-sm font-bold shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5">
+                <span>🤖 Yêu cầu Antigravity dịch ngay</span>
+              </button>
+              <button @click="isShowingRawFallback = !isShowingRawFallback" class="px-4 py-2.5 rounded-xl bg-black/10 dark:bg-white/10 hover:bg-black/20 text-xs sm:text-sm font-medium transition">
+                {{ isShowingRawFallback ? 'Ẩn bản gốc tiếng Trung' : '🇨🇳 Đọc tạm bản gốc tiếng Trung' }}
+              </button>
+            </div>
+
+            <!-- Optional Raw text preview -->
+            <div v-if="isShowingRawFallback && currentChapter.raw_content" class="text-left p-5 rounded-2xl bg-black/20 border border-current/10 text-sm leading-relaxed zh-font">
+              <p v-for="(rp, ridx) in currentChapter.raw_content.split(/\n\s*\n/)" :key="ridx" class="mb-4">
+                {{ rp.trim() }}
+              </p>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- ==================== END-OF-CHAPTER HERO TRANSITION CARD ==================== -->
+      <div class="mt-16 sm:mt-24 pt-8 border-t reader-surface border-current/10">
+        <!-- Status Completion Bar -->
+        <div class="flex items-center justify-between text-xs reader-text-subtle mb-6">
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20"></span>
+            <span>Đã hoàn thành <strong>Chương {{ currentChapter.chapter_index }}</strong></span>
+          </div>
+          <span v-if="currentChapter.total_chapters" class="font-medium">
+            Tiến độ: {{ currentChapter.chapter_index }} / {{ currentChapter.total_chapters }} ({{ Math.round((currentChapter.chapter_index / currentChapter.total_chapters) * 100) }}%)
+          </span>
+        </div>
+
+        <!-- Big Hero Next Chapter Card -->
+        <div v-if="currentChapter.next_id" class="next-chapter-hero-card p-6 sm:p-8 mb-6 text-center cursor-pointer group" @click="openChapter(currentChapter.next_id)">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-500 border border-amber-500/30 mb-3.5">
+            <span>ĐỌC TIẾP • CHƯƠNG {{ currentChapter.next_index || (currentChapter.chapter_index + 1) }}</span>
+          </div>
+          
+          <h3 class="text-xl sm:text-2xl font-bold group-hover:text-amber-500 transition-colors mb-2.5 leading-snug">
+            {{ currentChapter.next_title || ('Chương ' + (currentChapter.next_index || (currentChapter.chapter_index + 1))) }}
+          </h3>
+          <p class="text-xs reader-text-subtle mb-6">Nhấp vào đây hoặc bấm phím mũi tên phải <kbd>→</kbd> để sang chương kế tiếp</p>
+
+          <button class="py-3 px-8 sm:px-10 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-white font-bold text-sm sm:text-base shadow-xl shadow-amber-500/30 transition-all group-hover:scale-105 inline-flex items-center gap-2">
+            <span>Đọc tiếp Chương sau</span>
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </div>
+
+        <!-- End of Novel Notice -->
+        <div v-else class="p-8 sm:p-10 text-center rounded-2xl bg-black/5 dark:bg-white/5 border border-current/10 mb-6">
+          <span class="text-4xl mb-3 inline-block">🎉</span>
+          <h3 class="text-lg sm:text-xl font-bold mb-2">Bạn đã đọc đến chương mới nhất!</h3>
+          <p class="text-xs sm:text-sm reader-text-subtle max-w-md mx-auto">
+            Bộ truyện này đã đọc hết các chương hiện có. Bạn có thể quay lại mục lục để chọn chương khác hoặc khám phá thêm các bộ truyện mới.
+          </p>
+        </div>
+
+        <!-- Secondary Bottom Navigation Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs mb-8">
+          <!-- Prev Chapter -->
+          <button :disabled="!currentChapter.prev_id" @click="currentChapter.prev_id && openChapter(currentChapter.prev_id)" class="p-3.5 rounded-2xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 disabled:opacity-30 border border-current/10 text-left transition flex flex-col justify-center">
+            <span class="text-[10px] reader-text-subtle flex items-center gap-1">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              <span>Chương trước</span>
+            </span>
+            <span class="font-bold truncate mt-1">{{ currentChapter.prev_title || ('Chương ' + currentChapter.prev_index) }}</span>
+          </button>
+
+          <!-- TOC Drawer Button -->
+          <button @click="showTocDrawer = true" class="p-3.5 rounded-2xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-current/10 text-center transition flex flex-col items-center justify-center">
+            <span class="text-[10px] reader-text-subtle">Danh sách chương</span>
+            <span class="font-bold mt-1 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+              <span>Mục lục truyện</span>
+            </span>
+          </button>
+
+          <!-- Scroll to Top -->
+          <button @click="scrollToTop" class="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-current/10 text-center transition flex flex-col items-center justify-center">
+            <span class="text-[10px] reader-text-subtle">Trở lại đầu trang</span>
+            <span class="font-bold mt-1 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+              <span>Lên đỉnh trang</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Keyboard Shortcuts Hints for PC -->
+        <div class="hidden sm:flex items-center justify-center gap-4 text-[11px] reader-text-subtle pt-4 border-t border-current/5">
+          <span><kbd>→</kbd> hoặc <kbd>D</kbd> Chương sau</span>
+          <span>•</span>
+          <span><kbd>←</kbd> hoặc <kbd>A</kbd> Chương trước</span>
+          <span>•</span>
+          <span><kbd>F</kbd> Toàn màn hình</span>
+          <span>•</span>
+          <span><kbd>W</kbd> Toàn trang 100%</span>
+          <span>•</span>
+          <span><kbd>M</kbd> Mục lục</span>
+          <span>•</span>
+          <span><kbd>T</kbd> Lên đầu</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ==================== MODERN FLOATING PILL READER DOCK ==================== -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 transition-all duration-300" :class="[showReaderControls ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95 pointer-events-none']">
+      <div class="reader-floating-dock flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-full border border-current/15 reader-surface">
+        <!-- Nút Chương Trước -->
+        <button :disabled="!currentChapter.prev_id" @click="currentChapter.prev_id && openChapter(currentChapter.prev_id)" class="px-3 py-1.5 rounded-full text-xs font-semibold disabled:opacity-30 hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          <span class="hidden sm:inline">Trước</span>
+        </button>
+
+        <div class="w-px h-4 bg-current/20"></div>
+
+        <!-- Nút Mục Lục -->
+        <button @click="showTocDrawer = true" title="Mục lục (M)" class="px-2.5 py-1.5 rounded-full text-xs font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+          <span class="hidden md:inline">Mục lục</span>
+        </button>
+
+        <!-- Nút Cài Đặt Giao Diện -->
+        <button @click="showSettingsModal = true" title="Cài đặt giao diện & phông chữ" class="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+        </button>
+
+        <!-- Nút Toàn Màn Hình -->
+        <button @click="toggleFullscreen" :title="isFullscreen ? 'Thoát toàn màn hình (F)' : 'Toàn màn hình (F)'" class="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 text-amber-500 transition">
+          <svg v-if="!isFullscreen" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+          <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4l5 5m0 0H5m4 0V5m11-1l-5 5m0 0h4m-4 0V5M4 20l5-5m0 0H5m4 0v4m11 1l-5-5m0 0h4m-4 0v4"/></svg>
+        </button>
+
+        <!-- Nút Toàn Trang 100% -->
+        <button @click="toggleFullWidth" :title="readerSettings.maxWidth === '100%' ? 'Khung vừa 900px (W)' : 'Toàn trang 100% (W)'" :class="[(readerSettings.maxWidth === '100%' || !readerSettings.maxWidth) ? 'text-amber-400 font-bold bg-amber-500/20' : 'text-inherit opacity-75']" class="px-2 py-1 rounded-full text-xs font-mono hover:bg-black/10 dark:hover:bg-white/10 transition">
+          100%
+        </button>
+
+        <!-- Nút Lên Đầu Trang -->
+        <button @click="scrollToTop" title="Lên đầu trang (T)" class="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition hidden sm:inline-flex">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+        </button>
+
+        <div class="w-px h-4 bg-current/20"></div>
+
+        <!-- Nút Chương Sau (Nổi Bật) -->
+        <button :disabled="!currentChapter.next_id" @click="currentChapter.next_id && openChapter(currentChapter.next_id)" class="px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 shadow-md shadow-amber-500/30 disabled:opacity-30 transition flex items-center gap-1">
+          <span>Sau</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 4: TỪ ĐIỂN TÊN RIÊNG (GLOSSARY) ==================== -->
+  <main v-if="currentView === 'glossary'" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6">
+    <div class="mb-4 flex items-center justify-between gap-4">
+      <button @click="openNovelDetail(selectedNovelId)" class="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-400 hover:text-white transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <span>Quay lại chi tiết truyện</span>
+      </button>
+
+      <button @click="showAddGlossaryModal = true" class="px-3.5 py-1.5 bg-sky-500 hover:bg-sky-400 text-white rounded-lg text-xs font-semibold shadow transition">
+        + Thêm từ mới
+      </button>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 mb-6">
+      <h2 class="text-xl font-bold text-white mb-2">Bảng Từ Điển & Tên Riêng (Glossary)</h2>
+      <p class="text-xs sm:text-sm text-slate-400 mb-6">
+        Các từ trong bảng này sẽ được tự động đính kèm vào AI prompt khi dịch bất kỳ chương nào chứa từ đó, giúp đồng nhất 100% tên nhân vật, địa danh, cảnh giới tu luyện.
+      </p>
+
+      <!-- Category Filter Pills & Search -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center mb-6">
+        <div class="flex flex-wrap gap-1.5">
+          <button v-for="cat in [
+            { id: 'all', label: 'Tất cả' },
+            { id: 'nhan_vat', label: 'Nhân vật' },
+            { id: 'canh_gioi', label: 'Cảnh giới' },
+            { id: 'dia_danh', label: 'Địa danh / Phái' },
+            { id: 'cong_phap', label: 'Công pháp' },
+            { id: 'vat_pham', label: 'Pháp bảo' },
+            { id: 'khac', label: 'Khác' }
+          ]" :key="cat.id" @click="glossaryCategory = cat.id; loadGlossary(selectedNovelId)" :class="[glossaryCategory === cat.id ? 'bg-sky-500 text-white' : 'bg-slate-800 text-slate-400 hover:text-white']" class="px-3 py-1 rounded-lg text-xs font-medium transition">
+            {{ cat.label }}
+          </button>
+        </div>
+
+        <input v-model="glossarySearch" @input="loadGlossary(selectedNovelId)" type="text" placeholder="Tìm từ gốc, dịch..." class="bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-1.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 w-full sm:w-64">
+      </div>
+
+      <!-- Glossary Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead class="text-slate-400 border-b border-slate-800 text-xs uppercase bg-slate-950/40">
+            <tr>
+              <th class="py-3 px-4">Từ gốc (Trung)</th>
+              <th class="py-3 px-4">Bản dịch Hán Việt</th>
+              <th class="py-3 px-4">Phân loại</th>
+              <th class="py-3 px-4">Ghi chú</th>
+              <th class="py-3 px-4 text-right">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60">
+            <tr v-for="item in glossaryItems" :key="item.id" class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 font-semibold text-white zh-font text-base">{{ item.source_term }}</td>
+              <td class="py-3 px-4 font-medium text-sky-400">{{ item.target_term }}</td>
+              <td class="py-3 px-4">
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800 text-slate-300">
+                  {{ item.category }}
+                </span>
+              </td>
+              <td class="py-3 px-4 text-slate-400 text-xs">{{ item.notes || '-' }}</td>
+              <td class="py-3 px-4 text-right space-x-2">
+                <button @click="openEditGlossary(item)" class="text-slate-400 hover:text-sky-400 transition">Sửa</button>
+                <button @click="deleteGlossaryItem(item.id)" class="text-rose-400 hover:text-rose-300 transition">Xóa</button>
+              </td>
+            </tr>
+            <tr v-if="glossaryItems.length === 0">
+              <td colspan="5" class="py-8 text-center text-slate-500">Chưa có thuật ngữ nào. Nhấn "+ Thêm từ mới" hoặc dùng tính năng "Trích xuất thực thể AI".</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== MODALS & DRAWERS ==================== -->
+
+  <!-- 0. Modal: Xem Giới Thiệu Truyện (Không cần tải về) -->
+  <div v-if="showPreviewModal && previewNovel" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md" @click.self="closeNovelPreview">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-slate-800 bg-slate-950/60">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="text-amber-400 font-bold text-sm sm:text-base flex items-center gap-1.5">
+            <span>📖</span>
+            <span>Chi Tiết & Giới Thiệu Truyện</span>
+          </span>
+          <span v-if="previewNovel.source_name" class="px-2 py-0.5 rounded text-[11px] bg-sky-500/10 text-sky-400 border border-sky-500/20 font-medium">
+            Nguồn: {{ previewNovel.source_name }}
+          </span>
+        </div>
+        <button @click="closeNovelPreview" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">✕</button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1 text-slate-200">
+        <!-- Hero Section -->
+        <div class="flex flex-col sm:flex-row gap-5">
+          <!-- Cover -->
+          <div class="w-32 sm:w-40 aspect-[3/4] bg-slate-800 rounded-xl overflow-hidden shadow-lg border border-slate-700/60 flex-shrink-0 mx-auto sm:mx-0">
+            <img v-if="previewNovel.cover_url" :src="previewNovel.cover_url" :alt="previewNovel.title_vi || previewNovel.title" class="w-full h-full object-cover">
+            <div v-else class="w-full h-full bg-gradient-to-br from-slate-800 via-amber-950/40 to-slate-900 flex flex-col justify-end p-3 text-center">
+              <span class="text-[11px] text-amber-400 font-semibold uppercase">{{ previewNovel.category_name || previewNovel.category }}</span>
+              <span class="text-xs font-bold text-white line-clamp-2 mt-1">{{ previewNovel.title_vi || previewNovel.title }}</span>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="flex-1 min-w-0 flex flex-col justify-between">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                  {{ previewNovel.category_name || previewNovel.category }}
+                </span>
+                <span v-if="previewNovel.rating" class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                  ⭐ {{ previewNovel.rating }}
+                </span>
+                <span v-if="previewNovel.total_chapters" class="px-2 py-0.5 rounded-full text-[11px] font-medium bg-slate-800 text-slate-300">
+                  📚 {{ previewNovel.total_chapters }} chương
+                </span>
+              </div>
+
+              <h2 class="text-lg sm:text-xl font-bold text-white mb-1 leading-snug">
+                {{ previewNovel.title_vi || previewNovel.title }}
+              </h2>
+              <p class="text-xs text-slate-400 zh-font mb-2">
+                Tên gốc: <span class="text-slate-300 font-semibold">{{ previewNovel.title }}</span>
+              </p>
+              <p class="text-xs text-slate-400 mb-3">
+                Tác giả: <strong class="text-slate-200">{{ previewNovel.author }}</strong>
+              </p>
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-3">
+                <span v-for="tag in previewNovel.tags" :key="tag" class="text-[10px] px-2 py-0.5 rounded bg-slate-800/90 text-slate-300 border border-slate-700/50">
+                  #{{ tag }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Web Link -->
+            <div v-if="previewNovel.source_url" class="pt-2 text-xs">
+              <a :href="previewNovel.source_url" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 hover:underline">
+                <span>Xem trực tiếp tại web gốc Trung Quốc ({{ previewNovel.source_name || 'Web Trung' }})</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Timeframe Rankings & Views Grid (Tuần / Tháng / Năm / Toàn bộ) -->
+        <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3.5 space-y-3">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-300">
+            <span class="flex items-center gap-1.5 text-amber-400">
+              <span>📊</span>
+              <span>Bảng Xếp Hạng & Lượt Đọc Theo Thời Gian:</span>
+            </span>
+            <span class="text-[11px] text-slate-500 font-normal">Cập nhật thời gian thực</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <!-- Tuần -->
+            <div class="bg-slate-900/90 border border-slate-800/80 rounded-lg p-2.5 text-center">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">📅 Tuần Này</span>
+              <div class="text-xs font-semibold text-amber-400">🔥 {{ previewNovel.hot_week_fmt || '45K' }}</div>
+              <div class="text-[11px] text-sky-400 mt-0.5">👁️ {{ previewNovel.views_week_fmt || '80K' }}</div>
+            </div>
+            <!-- Tháng -->
+            <div class="bg-slate-900/90 border border-slate-800/80 rounded-lg p-2.5 text-center">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">📆 Tháng Này</span>
+              <div class="text-xs font-semibold text-amber-400">🔥 {{ previewNovel.hot_month_fmt || '180K' }}</div>
+              <div class="text-[11px] text-sky-400 mt-0.5">👁️ {{ previewNovel.views_month_fmt || '350K' }}</div>
+            </div>
+            <!-- Năm -->
+            <div class="bg-slate-900/90 border border-slate-800/80 rounded-lg p-2.5 text-center">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">🏆 Năm Nay</span>
+              <div class="text-xs font-semibold text-amber-400">🔥 {{ previewNovel.hot_year_fmt || '1.2M' }}</div>
+              <div class="text-[11px] text-sky-400 mt-0.5">👁️ {{ previewNovel.views_year_fmt || '2.8M' }}</div>
+            </div>
+            <!-- Toàn bộ -->
+            <div class="bg-slate-900/90 border border-slate-800/80 rounded-lg p-2.5 text-center">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">🌟 Toàn Bộ</span>
+              <div class="text-xs font-semibold text-amber-400">🔥 {{ previewNovel.hot_total_fmt || '3.5M' }}</div>
+              <div class="text-[11px] text-sky-400 mt-0.5">👁️ {{ previewNovel.views_total_fmt || '7.2M' }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Synopsis Section -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <span>📝</span>
+            <span>Tóm Tắt & Giới Thiệu Cốt Truyện</span>
+          </h4>
+          <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed max-h-60 overflow-y-auto whitespace-pre-line select-text">
+            {{ previewNovel.description_vi || previewNovel.description || 'Chưa có thông tin tóm tắt.' }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer Actions -->
+      <div class="px-5 sm:px-6 py-3.5 border-t border-slate-800 bg-slate-950/80 flex flex-wrap items-center justify-between gap-3">
+        <button @click="closeNovelPreview" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 transition">
+          Đóng
+        </button>
+
+        <div class="flex items-center gap-2">
+          <!-- Already downloaded -->
+          <template v-if="previewNovel.is_downloaded">
+            <button @click="openNovelDetail(previewNovel.local_novel_id); closeNovelPreview()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 font-bold text-white text-xs shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" stroke-width="2"/></svg>
+              <span>Vào Đọc Ngay (Đã Tải Về)</span>
+            </button>
+          </template>
+
+          <!-- Not yet downloaded -->
+          <template v-else>
+            <button :disabled="cloningNovelId === previewNovel.id" @click="cloneAndReadNovel(previewNovel, false)" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5 transition disabled:opacity-50">
+              <svg v-if="cloningNovelId === previewNovel.id" class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+              <svg v-else class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>{{ cloningNovelId === previewNovel.id ? 'Đang tải...' : 'Chỉ Tải Về Máy' }}</span>
+            </button>
+
+            <button :disabled="cloningNovelId === previewNovel.id" @click="cloneAndReadNovel(previewNovel, true); closeNovelPreview()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold text-xs shadow-lg shadow-amber-500/25 flex items-center gap-1.5 transition disabled:opacity-50">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" stroke-width="2"/></svg>
+              <span>Tải & Vào Đọc Luôn</span>
+            </button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Modal: Thêm Truyện Mới (URL / Raw Text / TXT File) -->
+  <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white">Thêm Truyện Mới</h3>
+        <button @click="showAddModal = false" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <!-- Tab Selectors -->
+      <div class="flex border-b border-slate-800 bg-slate-950/40">
+        <button @click="addTab = 'url'" :class="[addTab === 'url' ? 'border-b-2 border-sky-500 text-sky-400 font-semibold' : 'text-slate-400 hover:text-slate-200']" class="flex-1 py-3 text-xs sm:text-sm text-center transition">
+          1. Cào từ URL Web Trung
+        </button>
+        <button @click="addTab = 'raw'" :class="[addTab === 'raw' ? 'border-b-2 border-sky-500 text-sky-400 font-semibold' : 'text-slate-400 hover:text-slate-200']" class="flex-1 py-3 text-xs sm:text-sm text-center transition">
+          2. Dán Raw Text / Upload .TXT
+        </button>
+      </div>
+
+      <!-- Tab Content: URL -->
+      <div v-if="addTab === 'url'" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Link mục lục truyện (69shuba, biquge, uukanshu, piaotia...):</label>
+          <input v-model="novelUrlForm.url" type="url" placeholder="https://www.69shuba.cx/book/..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-500">
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-300">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input v-model="novelUrlForm.auto_detect" type="checkbox" class="rounded bg-slate-950 border-slate-700 text-sky-500 focus:ring-0">
+            <span>Tự động nhận diện nội dung (Auto-Detect)</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Giới hạn số chương thử nghiệm (Để trống = Cào toàn bộ):</label>
+          <input v-model.number="novelUrlForm.max_chapters" type="number" placeholder="Ví dụ: 20 hoặc để trống" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-500">
+        </div>
+
+        <button :disabled="isLoading" @click="submitNovelUrl" class="w-full py-3 rounded-xl bg-sky-500 hover:bg-sky-400 font-semibold text-white text-sm shadow-lg shadow-sky-500/20 flex items-center justify-center gap-2 transition disabled:opacity-50">
+          <svg v-if="isLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+          <span>{{ isLoading ? 'Đang cào dữ liệu...' : 'Bắt đầu cào truyện' }}</span>
+        </button>
+      </div>
+
+      <!-- Tab Content: Raw / File -->
+      <div v-if="addTab === 'raw'" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tải lên file văn bản (.txt):</label>
+          <input @change="handleFileUpload" type="file" accept=".txt" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-sky-500 file:text-white hover:file:bg-sky-400 cursor-pointer">
+        </div>
+
+        <div class="relative flex items-center justify-center">
+          <div class="border-t border-slate-800 w-full"></div>
+          <span class="bg-slate-900 px-2 text-xs text-slate-500 absolute">hoặc dán trực tiếp</span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tên truyện:</label>
+          <input v-model="novelRawForm.title" type="text" placeholder="Nhập tên truyện..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tác giả (tùy chọn):</label>
+          <input v-model="novelRawForm.author" type="text" placeholder="Tên tác giả..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Dán văn bản tiếng Trung (hệ thống tự động tách chương theo 第...章):</label>
+          <textarea v-model="novelRawForm.raw_text" rows="5" placeholder="第1章 ... 第2章 ..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-sky-500 font-mono"></textarea>
+        </div>
+
+        <button :disabled="isLoading" @click="submitNovelRaw" class="w-full py-3 rounded-xl bg-sky-500 hover:bg-sky-400 font-semibold text-white text-sm shadow-lg shadow-sky-500/20 flex items-center justify-center gap-2 transition disabled:opacity-50">
+          <svg v-if="isLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+          <span>Tạo truyện & Tự động tách chương</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Modal: Cài đặt AI & Quy tắc Cào (Settings) -->
+  <div v-if="showSettingsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>Cấu hình AI & Hệ thống</span>
+        </h3>
+        <button @click="showSettingsModal = false" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6 flex-1">
+        <!-- AI Engine Settings -->
+        <div class="space-y-4">
+          <div class="p-3.5 bg-gradient-to-r from-amber-500/10 to-sky-500/10 border border-amber-500/30 rounded-xl text-xs text-slate-200 leading-relaxed space-y-1">
+            <div class="font-bold text-amber-400 flex items-center gap-1.5">
+              <span>🤖</span>
+              <span>Chế độ Dịch Mặc Định: Antigravity AI & Gemini Sub-Agent</span>
+            </div>
+            <p class="text-slate-300">
+              Hoàn toàn <strong>không cần cài đặt Ollama</strong> hay phần mềm phụ trợ nào. Khi bấm "Dịch", Antigravity sẽ trực tiếp đảm nhiệm dịch thuật chất lượng cao từ khung chat.
+            </p>
+            <p class="text-slate-400 text-[11px]">
+              *(Tùy chọn: Nếu muốn trang web tự động gọi API trực tiếp theo luồng streaming mà không cần qua chat, bạn có thể dán Google Gemini API Key miễn phí dưới đây)*
+            </p>
+          </div>
+
+          <h4 class="text-sm font-bold text-sky-400 uppercase tracking-wider">Cấu hình Cloud API (Tùy chọn)</h4>
+
+          <!-- Presets -->
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="text-slate-400 self-center">Chọn nhanh dịch vụ:</span>
+            <button @click="aiSettings.api_base_url = 'https://generativelanguage.googleapis.com/v1beta/openai/'; aiSettings.model_name = 'gemini-2.5-flash'" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded-lg border border-slate-700 font-medium transition">
+              ✨ Google Gemini (Khuyên dùng)
+            </button>
+            <button @click="aiSettings.api_base_url = 'https://api.deepseek.com/v1'; aiSettings.model_name = 'deepseek-chat'" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-sky-400 rounded-lg border border-slate-700 transition">
+              🚀 DeepSeek API
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">API Base URL:</label>
+            <input v-model="aiSettings.api_base_url" type="text" placeholder="https://generativelanguage.googleapis.com/v1beta/openai/" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white font-mono focus:outline-none focus:border-sky-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">API Key (tùy chọn - để trống nếu dùng Antigravity):</label>
+            <input v-model="aiSettings.api_key" type="password" placeholder="AIzaSy... hoặc sk-..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white font-mono focus:outline-none focus:border-sky-500">
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-xs font-semibold text-slate-300">Model Name:</label>
+              <button @click="fetchAiModels" class="text-xs text-sky-400 hover:underline flex items-center gap-1">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <span>Fetch Models từ Server</span>
+              </button>
+            </div>
+            <div class="flex gap-2">
+              <input v-model="aiSettings.model_name" type="text" placeholder="qwen2.5:7b, gemini-2.5-flash, deepseek-chat..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white font-mono focus:outline-none focus:border-sky-500">
+              <select v-if="availableModels.length > 0" v-model="aiSettings.model_name" class="bg-slate-950 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-200">
+                <option v-for="m in availableModels" :key="m" :value="m">{{ m }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Temperature: {{ aiSettings.temperature }}</label>
+            <input v-model.number="aiSettings.temperature" type="range" min="0.0" max="1.0" step="0.05" class="w-full accent-sky-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">System Prompt dịch truyện:</label>
+            <textarea v-model="aiSettings.system_prompt" rows="5" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 font-mono focus:outline-none focus:border-sky-500"></textarea>
+          </div>
+
+          <!-- Test Connection -->
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-slate-300">Kiểm tra kết nối AI</span>
+              <button :disabled="isTestingAi" @click="testAiConnection" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-sky-400 rounded-lg transition disabled:opacity-50">
+                {{ isTestingAi ? 'Đang test...' : 'Test Connection' }}
+              </button>
+            </div>
+            <div v-if="aiTestResult" class="text-xs p-2 rounded-lg" :class="[aiTestResult.status === 'success' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400']">
+              <strong>{{ aiTestResult.status === 'success' ? 'Thành công:' : 'Thất bại:' }}</strong> {{ aiTestResult.response || aiTestResult.message }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Scraper Rules Section -->
+        <div class="space-y-3 pt-6 border-t border-slate-800">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold text-sky-400 uppercase tracking-wider">Quy tắc cào theo Domain (Scraper Rules)</h4>
+            <button @click="openEditRule()" class="text-xs text-sky-400 hover:underline">+ Thêm domain mới</button>
+          </div>
+          <div class="space-y-2 max-h-48 overflow-y-auto">
+            <div v-for="r in scraperRules" :key="r.id" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between text-xs">
+              <div>
+                <span class="font-bold text-white mr-2">{{ r.name }}</span>
+                <span class="text-slate-400 font-mono">({{ r.domain }})</span>
+                <span class="ml-2 px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300">{{ r.encoding }}</span>
+              </div>
+              <div class="space-x-2">
+                <button @click="openEditRule(r)" class="text-slate-400 hover:text-sky-400">Sửa</button>
+                <button @click="deleteRule(r.id)" class="text-rose-400 hover:text-rose-300">Xóa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security & Passcode Lock Section -->
+        <div class="space-y-4 pt-6 border-t border-slate-800">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-sm font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+                <span>🔐 Bảo Mật Cá Nhân (Chỉ Mình Bạn Dùng)</span>
+              </h4>
+              <p class="text-[11px] text-slate-400 mt-0.5">Đặt mã PIN để bảo vệ kho truyện, người lạ không thể mở</p>
+            </div>
+            <button v-if="authRequiresPasscode" @click="lockAppNow" class="px-3 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-semibold rounded-lg transition">
+              Khóa Ngay 🔒
+            </button>
+          </div>
+
+          <div v-if="isEnvLocked" class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-300">
+            ℹ️ Mật khẩu đang được thiết lập cố định qua biến môi trường máy chủ (<code>APP_PASSCODE</code>).
+          </div>
+
+          <div v-else class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+            <div v-if="authRequiresPasscode" class="text-xs text-emerald-400 flex items-center gap-1.5 font-medium">
+              <span>✓ Đang bật bảo vệ bằng mã PIN</span>
+            </div>
+            <div v-else class="text-xs text-slate-400">
+              Chưa đặt mã PIN bảo vệ (Ai có link cũng có thể truy cập). Hãy đặt mã bên dưới để bảo vệ web riêng tư:
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div v-if="authRequiresPasscode">
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Mật khẩu hiện tại:</label>
+                <input v-model="oldPasscode" type="password" placeholder="Mật khẩu cũ..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+              </div>
+              <div :class="[authRequiresPasscode ? '' : 'sm:col-span-2']">
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Mật khẩu mới (Để trống nếu muốn gỡ bỏ):</label>
+                <input v-model="newPasscode" type="password" placeholder="Nhập PIN hoặc mật khẩu mới..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+              </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+              <button @click="savePasscodeSetting" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-sky-400 border border-sky-500/30 text-xs font-semibold rounded-xl transition">
+                Cập nhật mã khóa 🛡️
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-6 py-3 border-t border-slate-800 bg-slate-950/60 flex justify-end gap-2">
+        <button @click="showSettingsModal = false" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white">Đóng</button>
+        <button @click="saveSettings" class="px-5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 font-semibold text-white text-xs shadow transition">
+          Lưu cài đặt
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Drawer: Tuỳ Chỉnh Giao Diện Đọc (Reader Appearance Settings) -->
+  <div v-if="currentView === 'reader' && showSettingsModal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/60 backdrop-blur-sm" @click.self="showSettingsModal = false">
+    <div class="reader-surface border rounded-2xl w-full max-w-md p-6 space-y-6 shadow-2xl">
+      <div class="flex items-center justify-between border-b pb-3 border-current/10">
+        <h3 class="text-sm font-bold">Cài đặt giao diện đọc</h3>
+        <button @click="showSettingsModal = false" class="text-current/60 hover:text-current">✕</button>
+      </div>
+
+      <!-- Color Themes -->
+      <div>
+        <label class="block text-xs font-semibold mb-2">Chế độ màu nền:</label>
+        <div class="grid grid-cols-4 gap-2">
+          <button @click="updateReaderSetting('theme', 'theme-dark')" :class="[readerSettings.theme === 'theme-dark' ? 'ring-2 ring-sky-500' : '']" class="p-3 rounded-xl bg-slate-950 text-slate-200 border border-slate-800 text-xs font-medium text-center">
+            🌙 Tối
+          </button>
+          <button @click="updateReaderSetting('theme', 'theme-sepia')" :class="[readerSettings.theme === 'theme-sepia' ? 'ring-2 ring-amber-600' : '']" class="p-3 rounded-xl bg-[#f7efe1] text-[#3b2c1c] border border-[#dfcdb4] text-xs font-medium text-center">
+            📜 Vàng
+          </button>
+          <button @click="updateReaderSetting('theme', 'theme-moss')" :class="[readerSettings.theme === 'theme-moss' ? 'ring-2 ring-emerald-600' : '']" class="p-3 rounded-xl bg-[#eaf1e7] text-[#1f3323] border border-[#c2d6be] text-xs font-medium text-center">
+            🍃 Rêu
+          </button>
+          <button @click="updateReaderSetting('theme', 'theme-light')" :class="[readerSettings.theme === 'theme-light' ? 'ring-2 ring-sky-500' : '']" class="p-3 rounded-xl bg-white text-slate-900 border border-slate-200 text-xs font-medium text-center">
+            ☀️ Sáng
+          </button>
+        </div>
+      </div>
+
+      <!-- Font Family -->
+      <div>
+        <label class="block text-xs font-semibold mb-2">Font chữ:</label>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <button @click="updateReaderSetting('font', 'font-literata')" :class="[readerSettings.font === 'font-literata' ? 'border-sky-500 text-sky-500' : 'border-current/20 text-current/80']" class="p-2.5 rounded-xl border font-literata font-medium text-left">
+            Literata (Serif)
+          </button>
+          <button @click="updateReaderSetting('font', 'font-merriweather')" :class="[readerSettings.font === 'font-merriweather' ? 'border-sky-500 text-sky-500' : 'border-current/20 text-current/80']" class="p-2.5 rounded-xl border font-merriweather font-medium text-left">
+            Merriweather
+          </button>
+          <button @click="updateReaderSetting('font', 'font-vietnam')" :class="[readerSettings.font === 'font-vietnam' ? 'border-sky-500 text-sky-500' : 'border-current/20 text-current/80']" class="p-2.5 rounded-xl border font-vietnam font-medium text-left">
+            Be Vietnam Pro
+          </button>
+          <button @click="updateReaderSetting('font', 'font-roboto')" :class="[readerSettings.font === 'font-roboto' ? 'border-sky-500 text-sky-500' : 'border-current/20 text-current/80']" class="p-2.5 rounded-xl border font-roboto font-medium text-left">
+            Roboto (Sans)
+          </button>
+        </div>
+      </div>
+
+      <!-- Font Size & Line Height -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold">Cỡ chữ: {{ readerSettings.fontSize }}px</span>
+          <div class="flex items-center gap-2">
+            <button @click="updateReaderSetting('fontSize', Math.max(14, readerSettings.fontSize - 1))" class="w-8 h-8 rounded-lg border border-current/20 flex items-center justify-center text-sm font-bold">-</button>
+            <button @click="updateReaderSetting('fontSize', Math.min(32, readerSettings.fontSize + 1))" class="w-8 h-8 rounded-lg border border-current/20 flex items-center justify-center text-sm font-bold">+</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold">Giãn dòng: {{ readerSettings.lineHeight }}</span>
+          <div class="flex items-center gap-2">
+            <button @click="updateReaderSetting('lineHeight', Math.max(1.4, Math.round((readerSettings.lineHeight - 0.1)*10)/10))" class="w-8 h-8 rounded-lg border border-current/20 flex items-center justify-center text-sm font-bold">-</button>
+            <button @click="updateReaderSetting('lineHeight', Math.min(2.4, Math.round((readerSettings.lineHeight + 0.1)*10)/10))" class="w-8 h-8 rounded-lg border border-current/20 flex items-center justify-center text-sm font-bold">+</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold">Độ rộng khung đọc nội dung:</span>
+            <span class="text-xs text-amber-500 font-bold font-mono">{{ (readerSettings.maxWidth === '100%' || !readerSettings.maxWidth) ? 'Toàn trang 100%' : `${readerSettings.maxWidth}px` }}</span>
+          </div>
+          <div class="grid grid-cols-4 gap-2 text-xs">
+            <button @click="updateReaderSetting('maxWidth', 750)" :class="[readerSettings.maxWidth == 750 ? 'border-sky-500 text-sky-400 font-bold bg-sky-500/10' : 'border-current/20 text-current/80']" class="p-2 rounded-xl border text-center transition">
+              750px
+            </button>
+            <button @click="updateReaderSetting('maxWidth', 900)" :class="[readerSettings.maxWidth == 900 ? 'border-sky-500 text-sky-400 font-bold bg-sky-500/10' : 'border-current/20 text-current/80']" class="p-2 rounded-xl border text-center transition">
+              900px
+            </button>
+            <button @click="updateReaderSetting('maxWidth', 1200)" :class="[readerSettings.maxWidth == 1200 ? 'border-sky-500 text-sky-400 font-bold bg-sky-500/10' : 'border-current/20 text-current/80']" class="p-2 rounded-xl border text-center transition">
+              1200px
+            </button>
+            <button @click="updateReaderSetting('maxWidth', '100%')" :class="[(readerSettings.maxWidth === '100%' || !readerSettings.maxWidth) ? 'border-amber-500 text-amber-400 font-bold bg-amber-500/15' : 'border-current/20 text-current/80']" class="p-2 rounded-xl border text-center transition">
+              🌟 100%
+            </button>
+          </div>
+        </div>
+
+        <!-- Side Margins / Padding -->
+        <div v-if="readerSettings.maxWidth === '100%' || !readerSettings.maxWidth">
+          <label class="block text-xs font-semibold mb-2">Khoảng cách lề 2 bên:</label>
+          <div class="grid grid-cols-3 gap-2 text-xs">
+            <button @click="updateReaderSetting('sidePadding', 'tight')" :class="[readerSettings.sidePadding === 'tight' ? 'border-amber-500 text-amber-400 font-bold bg-amber-500/15' : 'border-current/20 text-current/80']" class="p-2 rounded-xl border text-center transition">
+              Sát viền (12px)
+            </button>
+            <button @click="updateReaderSetting('sidePadding', 'compact')" :class="[(readerSettings.sidePadding === 'compact' || !readerSettings.sidePadding) ? 'border-amber-500 text-amber-400 font-bold bg-amber-500/15' : 'border-current/20 text-current/80']" class="p-2 rounded-xl border text-center transition">
+              Tiêu chuẩn (24px)
+            </button>
+            <button @click="updateReaderSetting('sidePadding', 'normal')" :class="[readerSettings.sidePadding === 'normal' ? 'border-amber-500 text-amber-400 font-bold bg-amber-500/15' : 'border-current/20 text-current/80']" class="p-2 rounded-xl border text-center transition">
+              Rộng rãi (48px)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Drawer: Mục Lục Nhanh Trong Reader (TOC Drawer) -->
+  <div v-if="showTocDrawer" class="fixed inset-0 z-50 flex bg-black/60 backdrop-blur-sm" @click.self="showTocDrawer = false">
+    <div class="w-80 max-w-[85vw] h-full bg-slate-900 border-r border-slate-800 p-4 flex flex-col shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+        <h3 class="text-sm font-bold text-white">Mục Lục Chương</h3>
+        <button @click="showTocDrawer = false" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <input v-model="chapterSearch" type="text" placeholder="Tìm chương..." class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3 py-2 text-white placeholder-slate-500 mb-3 focus:outline-none focus:border-sky-500">
+
+      <div class="flex-1 overflow-y-auto space-y-1 pr-1">
+        <div v-for="c in filteredChapters" :key="c.id" @click="openChapter(c.id)" :class="[c.id === currentChapter?.id ? 'bg-sky-500/20 text-sky-400 font-bold border-l-2 border-sky-500 pl-2' : 'hover:bg-slate-800 text-slate-300']" class="p-2 rounded-lg text-xs cursor-pointer truncate transition">
+          #{{ c.chapter_index }} {{ c.title_translated || c.title }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Modal: Gợi ý Trích Xuất Thuật Ngữ / Tên Riêng AI -->
+  <div v-if="showGlossaryExtractModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>Trích xuất Tên riêng & Thuật ngữ bằng AI</span>
+        </h3>
+        <button @click="showGlossaryExtractModal = false" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto flex-1 space-y-4">
+        <div v-if="isExtractingGlossary" class="py-12 text-center text-slate-400 space-y-3">
+          <svg class="w-8 h-8 animate-spin mx-auto text-emerald-400" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+          <p class="text-sm font-medium">AI đang đọc chương và trích xuất nhân vật, cảnh giới, địa danh...</p>
+        </div>
+
+        <div v-else-if="glossarySuggestions.length === 0" class="py-8 text-center text-slate-500 text-sm">
+          Không phát hiện thêm thực thể mới trong chương này.
+        </div>
+
+        <div v-else class="space-y-2">
+          <p class="text-xs text-slate-400 mb-2">Chọn các từ bạn muốn lưu vào Từ điển của bộ truyện:</p>
+          <div v-for="(item, idx) in glossarySuggestions" :key="idx" class="p-3 bg-slate-950 border border-slate-800 rounded-xl flex items-center gap-3">
+            <input type="checkbox" :value="idx" v-model="selectedSuggestions" class="rounded bg-slate-900 border-slate-700 text-sky-500 focus:ring-0">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white text-sm zh-font">{{ item.source_term }}</span>
+                <span class="text-slate-400">→</span>
+                <span class="font-semibold text-emerald-400 text-sm">{{ item.target_term }}</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300">{{ item.category }}</span>
+              </div>
+              <p v-if="item.context" class="text-xs text-slate-500 truncate mt-0.5">{{ item.context }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-6 py-3 border-t border-slate-800 bg-slate-950/60 flex justify-end gap-2">
+        <button @click="showGlossaryExtractModal = false" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white">Bỏ qua</button>
+        <button v-if="glossarySuggestions.length > 0" @click="applySelectedGlossarySuggestions" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 font-semibold text-white text-xs shadow transition">
+          Thêm {{ selectedSuggestions.length }} từ vào Từ điển
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Modal: Dịch Hàng Loạt (Batch Translate) -->
+  <div v-if="showBatchModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white">Dịch Hàng Loạt Trong Hàng Đợi Ngầm</h3>
+        <button @click="showBatchModal = false" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-300 bg-slate-950/60 p-3 rounded-xl border border-slate-800 leading-relaxed">
+        Các chương sẽ được xếp vào hàng đợi để <strong>Antigravity AI dịch trực tiếp</strong> và đẩy thẳng vào máy cho bạn. Hoàn toàn không cần cài đặt Ollama!
+      </p>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Bắt đầu từ chương số:</label>
+        <input v-model.number="batchForm.start_index" type="number" min="1" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Số lượng chương muốn dịch tiếp:</label>
+        <div class="flex items-center gap-2 mb-2">
+          <input :disabled="batchForm.all_remaining" v-model.number="batchForm.count" type="number" min="1" max="1000" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500 disabled:opacity-40">
+        </div>
+        <div class="flex flex-wrap gap-1.5 text-xs">
+          <button type="button" @click="batchForm.count = 10; batchForm.all_remaining = false" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">10 chương</button>
+          <button type="button" @click="batchForm.count = 20; batchForm.all_remaining = false" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">20 chương</button>
+          <button type="button" @click="batchForm.count = 50; batchForm.all_remaining = false" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">50 chương</button>
+          <button type="button" @click="batchForm.count = 100; batchForm.all_remaining = false" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">100 chương</button>
+          <button type="button" @click="batchForm.all_remaining = !batchForm.all_remaining" :class="[batchForm.all_remaining ? 'bg-amber-500 text-white font-bold border-amber-400' : 'bg-slate-800 text-amber-400 border-amber-500/30']" class="px-2.5 py-1 rounded-lg border">
+            🌟 Dịch tất cả còn lại
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end gap-2">
+        <button @click="showBatchModal = false" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white">Hủy</button>
+        <button @click="submitBatchTranslate" class="px-5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 font-semibold text-white text-xs shadow transition">
+          Xác nhận đưa vào hàng đợi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Tải Số Lượng Lớn / Cào Toàn Bộ Về Máy (Bulk Scraper) -->
+  <div v-if="showBulkDownloadModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📥</span>
+          <h3 class="text-base font-bold text-white">Tải Nội Dung Số Lượng Lớn (Cào Offline)</h3>
+        </div>
+        <button @click="showBulkDownloadModal = false" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-300 bg-slate-950/70 p-3 rounded-xl border border-slate-800 leading-relaxed">
+        Hệ thống sẽ chạy 4 luồng tải song song để cào toàn bộ nội dung gốc tiếng Trung từ website nguồn về lưu vĩnh viễn trên máy. Sau khi tải về, bạn có thể đọc offline 100% hoặc yêu cầu Antigravity dịch bất cứ lúc nào!
+      </p>
+
+      <!-- Scrape Progress Status -->
+      <div v-if="scrapeStatus" class="bg-slate-950/90 p-4 rounded-xl border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-300">Tiến độ lưu về máy:</span>
+          <span class="font-bold font-mono text-emerald-400">{{ scrapeStatus.raw_count }} / {{ scrapeStatus.total_chapters }} chương ({{ scrapeStatus.raw_percentage }}%)</span>
+        </div>
+        <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+          <div class="bg-emerald-500 h-full transition-all duration-300" :style="{ width: `${scrapeStatus.raw_percentage}%` }"></div>
+        </div>
+        <div class="flex items-center justify-between text-[11px] text-slate-400">
+          <span>Chưa có nội dung: <strong class="text-rose-400">{{ scrapeStatus.total_chapters - scrapeStatus.raw_count }} chương</strong></span>
+          <span v-if="scrapeStatus.is_scraping" class="text-amber-400 font-semibold animate-pulse">⏳ Đang cào ngầm...</span>
+          <span v-else class="text-emerald-400">✓ Sẵn sàng</span>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Bắt đầu từ chương:</label>
+          <input v-model.number="bulkDownloadForm.start_index" type="number" min="1" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Số lượng chương muốn cào về:</label>
+          <input :disabled="bulkDownloadForm.all_remaining" v-model.number="bulkDownloadForm.count" type="number" min="1" max="5000" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500 disabled:opacity-40">
+        </div>
+
+        <div class="flex flex-wrap gap-2 text-xs">
+          <button type="button" @click="bulkDownloadForm.count = 50; bulkDownloadForm.all_remaining = false" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">50 chương</button>
+          <button type="button" @click="bulkDownloadForm.count = 100; bulkDownloadForm.all_remaining = false" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">100 chương</button>
+          <button type="button" @click="bulkDownloadForm.count = 200; bulkDownloadForm.all_remaining = false" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">200 chương</button>
+          <button type="button" @click="bulkDownloadForm.all_remaining = !bulkDownloadForm.all_remaining" :class="[bulkDownloadForm.all_remaining ? 'bg-emerald-600 text-white font-bold border-emerald-500' : 'bg-slate-800 text-emerald-400 border-emerald-500/30']" class="px-3 py-1.5 rounded-lg border">
+            🌟 Cào toàn bộ các chương còn lại
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+        <button @click="exportNovelTxt('raw')" title="Tải file .txt tiếng Trung về máy" class="text-xs text-purple-400 hover:underline flex items-center gap-1">
+          <span>💾 Xuất toàn bộ TXT gốc</span>
+        </button>
+        <div class="flex gap-2">
+          <button @click="showBulkDownloadModal = false" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white">Đóng</button>
+          <button :disabled="bulkDownloadLoading" @click="submitBulkDownload" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 font-semibold text-white text-xs shadow-lg shadow-emerald-600/20 flex items-center gap-1.5 transition disabled:opacity-50">
+            <span v-if="bulkDownloadLoading" class="animate-spin">⏳</span>
+            <span>{{ bulkDownloadForm.all_remaining ? 'Bắt đầu cào toàn bộ' : 'Bắt đầu cào ' + bulkDownloadForm.count + ' chương' }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Modal: Thêm/Sửa Từ Điển (Add/Edit Glossary Item) -->
+  <div v-if="showAddGlossaryModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white">{{ glossaryForm.id ? 'Sửa Từ Điển' : 'Thêm Từ Điển Mới' }}</h3>
+        <button @click="showAddGlossaryModal = false" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Từ gốc (tiếng Trung):</label>
+        <input v-model="glossaryForm.source_term" type="text" placeholder="Ví dụ: 叶凡" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white zh-font focus:outline-none focus:border-sky-500">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Bản dịch Hán Việt / Chuẩn:</label>
+        <input v-model="glossaryForm.target_term" type="text" placeholder="Ví dụ: Diệp Phàm" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Phân loại:</label>
+        <select v-model="glossaryForm.category" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+          <option value="nhan_vat">Nhân vật</option>
+          <option value="canh_gioi">Cảnh giới tu luyện</option>
+          <option value="dia_danh">Địa danh / Môn phái</option>
+          <option value="cong_phap">Công pháp / Chiêu thức</option>
+          <option value="vat_pham">Pháp bảo / Vật phẩm</option>
+          <option value="khac">Khác</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Ghi chú (tùy chọn):</label>
+        <input v-model="glossaryForm.notes" type="text" placeholder="Ghi chú nhân vật..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+      </div>
+
+      <div class="pt-2 flex justify-end gap-2">
+        <button @click="showAddGlossaryModal = false" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white">Hủy</button>
+        <button @click="saveGlossaryItem" class="px-5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 font-semibold text-white text-xs shadow transition">
+          Lưu từ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Modal: Thêm/Sửa Quy Tắc Cào (Scraper Rule) -->
+  <div v-if="showEditRuleModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white">{{ currentRule.id ? 'Sửa Quy Tắc Domain' : 'Thêm Quy Tắc Domain Mới' }}</h3>
+        <button @click="showEditRuleModal = false" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Tên trang web:</label>
+        <input v-model="currentRule.name" type="text" placeholder="Ví dụ: 69 Thư Ba" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Domain (không có www/http):</label>
+        <input v-model="currentRule.domain" type="text" placeholder="ví dụ: 69shuba.cx" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white font-mono focus:outline-none focus:border-sky-500">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">CSS Selector Danh Sách Chương:</label>
+        <input v-model="currentRule.chapter_list_selector" type="text" placeholder="#catalog ul, .catalog" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white font-mono focus:outline-none focus:border-sky-500">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">CSS Selector Nội Dung Chương:</label>
+        <input v-model="currentRule.chapter_content_selector" type="text" placeholder="#content, .txtnav" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white font-mono focus:outline-none focus:border-sky-500">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Bảng mã Encoding:</label>
+        <select v-model="currentRule.encoding" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-sky-500">
+          <option value="auto">Tự động (auto)</option>
+          <option value="gb18030">GB18030 (Khuyên dùng cho web Trung)</option>
+          <option value="gbk">GBK</option>
+          <option value="utf-8">UTF-8</option>
+        </select>
+      </div>
+
+      <div class="pt-2 flex justify-end gap-2">
+        <button @click="showEditRuleModal = false" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white">Hủy</button>
+        <button @click="saveRule" class="px-5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 font-semibold text-white text-xs shadow transition">
+          Lưu quy tắc
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Pop-up -->
+  <div v-if="toast.show" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl shadow-2xl transition-all duration-300 border" :class="[
+    toast.type === 'success' ? 'bg-emerald-950/90 text-emerald-200 border-emerald-500/30' :
+    toast.type === 'error' ? 'bg-rose-950/90 text-rose-200 border-rose-500/30' :
+    toast.type === 'warning' ? 'bg-amber-950/90 text-amber-200 border-amber-500/30' :
+    'bg-slate-900/90 text-slate-200 border-slate-700'
+  ]">
+    <span class="text-sm font-medium">{{ toast.message }}</span>
+  </div>
+
+</div>
+
+<!-- Main App Script -->
+<script src="/static/js/app.js?v=1.0.9"></script>
+</body>
+</html>

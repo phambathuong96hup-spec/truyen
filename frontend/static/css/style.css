@@ -1,0 +1,283 @@
+/* AI Web Novel Reader & Translator Stylesheet */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+body {
+  font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: text;
+}
+
+/* Reader Color Schemes */
+.theme-dark {
+  background-color: #090d16 !important;
+  color: #e2e8f0 !important;
+}
+.theme-dark .reader-surface {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+.theme-dark .reader-text-subtle {
+  color: #64748b !important;
+}
+.theme-dark .reader-zh-text {
+  color: #718096 !important;
+  border-left-color: #3b82f6 !important;
+}
+
+.theme-sepia {
+  background-color: #f7efe1 !important;
+  color: #3b2c1c !important;
+}
+.theme-sepia .reader-surface {
+  background-color: #eee1ce !important;
+  border-color: #dfcdb4 !important;
+}
+.theme-sepia .reader-text-subtle {
+  color: #8c7760 !important;
+}
+.theme-sepia .reader-zh-text {
+  color: #7d654c !important;
+  border-left-color: #b4834f !important;
+}
+
+.theme-moss {
+  background-color: #eaf1e7 !important;
+  color: #1f3323 !important;
+}
+.theme-moss .reader-surface {
+  background-color: #dae6d6 !important;
+  border-color: #c2d6be !important;
+}
+.theme-moss .reader-text-subtle {
+  color: #55755b !important;
+}
+.theme-moss .reader-zh-text {
+  color: #44614a !important;
+  border-left-color: #10b981 !important;
+}
+
+.theme-light {
+  background-color: #fafaf9 !important;
+  color: #1c1917 !important;
+}
+.theme-light .reader-surface {
+  background-color: #f5f5f4 !important;
+  border-color: #e7e5e4 !important;
+}
+.theme-light .reader-text-subtle {
+  color: #78716c !important;
+}
+.theme-light .reader-zh-text {
+  color: #57534e !important;
+  border-left-color: #0284c7 !important;
+}
+
+/* Font Families for Reading */
+.font-literata {
+  font-family: 'Literata', Georgia, serif;
+}
+.font-merriweather {
+  font-family: 'Merriweather', serif;
+}
+.font-vietnam {
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+.font-palatino {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+/* Chinese Text Styling */
+.zh-font {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'SimSun', 'STSong', serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* Tap Target Areas for Mobile Screen Navigation */
+.tap-zone-left {
+  position: fixed;
+  top: 60px;
+  bottom: 60px;
+  left: 0;
+  width: 25%;
+  z-index: 20;
+}
+.tap-zone-right {
+  position: fixed;
+  top: 60px;
+  bottom: 60px;
+  right: 0;
+  width: 25%;
+  z-index: 20;
+}
+.tap-zone-center {
+  position: fixed;
+  top: 60px;
+  bottom: 60px;
+  left: 25%;
+  width: 50%;
+  z-index: 10;
+}
+
+/* Smooth fade for overlays */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Reader Smooth Chapter Transition */
+@keyframes chapterFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chapter-animate {
+  animation: chapterFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Floating Bottom Reader Dock */
+.reader-floating-dock {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* Reading Progress Bar */
+.reading-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 60;
+  background: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+.reading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #ec4899, #6366f1);
+  transition: width 0.15s ease-out;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+}
+
+/* End-of-Chapter Transition Hero Card */
+.next-chapter-hero-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.07) 0%, rgba(99, 102, 241, 0.07) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+.next-chapter-hero-card:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px -5px rgba(245, 158, 11, 0.15);
+}
+
+/* Kbd Badges for PC navigation hints */
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* Fullscreen Immersive Styles */
+:fullscreen body,
+:-webkit-full-screen body {
+  background-color: inherit;
+}
+:fullscreen .fullscreen-hide,
+:-webkit-full-screen .fullscreen-hide {
+  display: none !important;
+}
+
+/* True Full Width 100% Reading Layout */
+.article-full-width,
+article.article-full-width {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.pad-tight {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
+.pad-compact {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+.pad-normal {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+@media (min-width: 768px) {
+  .pad-tight {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  .pad-compact {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  .pad-normal {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+  }
+}

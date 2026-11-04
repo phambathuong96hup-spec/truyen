@@ -1,0 +1,844 @@
+# -*- coding: utf-8 -*-
+import json
+from pathlib import Path
+
+chapters_data = [
+    {
+        "chapter_id": 1432,
+        "chapter_index": 1,
+        "title_translated": "Chương 1: Con Vợ Lẽ, Điểm Danh Võ Học",
+        "translated_content": """Đại Hạ hoàng triều, cảnh nội Lý Đường.
+
+Nằm trên yếu đạo giao thương huyết mạch của Sóc Châu, thành Phi Nhạn suốt hai mươi năm qua nhờ có Thẩm gia che chở mà chưa từng nghe thấy một tiếng đao binh loạn lạc. Vùng đất thanh bình này hôm nay vẫn náo nhiệt như thường lệ, tiếng tơ trúc rộn rã bên tai không dứt.
+
+Thế nhưng Thẩm gia – bá chủ một phương sừng sững nơi đây, hôm nay lại phen bẽ mặt đến tận cùng.
+
+Dưới phố lớn ngõ nhỏ, người người chen chúc đổ dồn ánh mắt về phía một vị phu nhân Thẩm gia đang dẫn theo một đám tráng hán hùng hổ xông thẳng vào Vạn Hoa Lâu – thanh lâu đệ nhất thành trì, túm chặt lấy tai tiểu nhi tử nhà mình lôi xềnh xệch ra ngoài.
+
+Cảnh tượng ấy chẳng khác nào diễu phố thị chúng, khiến nửa tòa thành đều được một phen cười vỡ bụng.
+
+Nghe đồn vị tiểu công tử kia thế mà lại muốn bỏ trốn cùng một kỹ nữ, thậm chí còn cả gan đốt sạch gần trăm tờ văn tự bán thân của Vạn Hoa Lâu nhằm tung hỏa mù, che mắt thế gian.
+
+Thật đúng là chuyện nực cười nhất thiên hạ!
+
+Không ít kẻ rỗi việc còn kéo cả gia đình con cái ra chực sẵn nơi đầu phố, chỉ chực chờ xem trò hề của Thẩm nhị công tử.
+
+Mãi đến khi Nhị di nương Thẩm gia là Khúc Hiểu Hiểu lôi được nghịch tử về tận trong Lăng Yên Cốc, cơn giận trong lồng ngực bà vẫn chưa hề nguôi ngoai, thở hổn hển đầy phẫn uất.
+
+Bà chỉ tay vào mặt con trai, giận dữ quát hỏi:
+"Ngươi nhất định phải chọc tức chết vi nương mới chịu vừa lòng hả?"
+
+"Đi dạo kỹ viện, bỏ trốn cùng kỹ nữ, rốt cuộc trong đầu ngươi đang nghĩ cái gì?"
+
+"Ngươi muốn toàn bộ Sóc Châu này nhìn phụ thân ngươi bằng con mắt nào?"
+
+"Ngươi còn muốn phụ thân ngươi nhìn nhận ngươi ra sao nữa?"
+
+Khúc Hiểu Hiểu tức đến mức sắp nổ tung lồng ngực. Thằng nhãi này vừa mới ngã xuống vách núi, thương thế trên người còn chưa lành lặn hẳn mà đã chứng nào tật nấy mò tới thanh lâu. Chưa kể đến chuyện tày trời là dám cùng một ả đào hát tư định chung thân!
+
+Tính ngược lên ba đời của toàn bộ Lăng Yên Cốc, cũng chưa từng xuất hiện một tên hỗn thế ma vương nào ngông cuồng bạt mạng đến nhường này.
+
+Thế nhưng, kẻ đầu têu của vụ náo loạn bỏ trốn chấn động kia – Thẩm nhị công tử Thẩm Lập, dường như hoàn toàn chẳng mảy may bận tâm đến hậu quả nghiêm trọng. Hắn chỉ hờ hững đưa tay xoa xoa vành tai đang đỏ ửng vì bị véo.
+
+Vẻ mặt hắn thản nhiên như không, bất cần đời đáp:
+"Con cần gì quan tâm lão già kia nhìn con thế nào! Con rơi xuống vực sâu lâu như vậy, lão có thèm đoái hoài liếc nhìn con lấy một lần đâu!"
+
+Khúc Hiểu Hiểu vốn đang bừng bừng nộ khí bỗng khựng lại. Sắc mặt bà tối sầm, bờ môi run rẩy hé mở nhưng cuối cùng chỉ biết bất lực thở dài một tiếng nặng nề.
+
+Bà quay sang nha hoàn đang đứng hầu bên cạnh, khẽ phất tay:
+"Ngươi lui ra ngoài trước đi."
+
+Nha hoàn khẽ vâng một tiếng, nhẹ nhàng lui bước khép cửa lại.
+
+Đến lúc này Khúc Hiểu Hiểu mới hoàn toàn đóng chặt then cài, ánh mắt chuyển sang xót xa khôn xiết nhìn con trai mình.
+
+Kể từ ngày đứa con này tỉnh lại, dường như đã lờ mờ phát giác ra những đợt sóng ngầm hiểm ác chực chờ trong gia tộc, ngày càng bài xích việc ở lại trong nhà. Thậm chí đến cả Lăng Yên Cốc, hắn cũng chẳng muốn đặt chân quá nửa bước.
+
+Trong lòng bà cũng mơ hồ đoán được, nhi tử của mình đang cố tình mượn vỏ bọc ăn chơi trác táng, đóng giả hoàn khố để tìm đường tự bảo vệ bản thân.
+
+Thế nhưng bà vẫn gượng gạo biện bạch cho Thẩm đại hiệp:
+"Đừng trách cha con... Ông ấy là đại hiệp danh trấn giang hồ, những chuyện lông gà vỏ tỏi trong nhà ngoài ngõ, ông ấy làm sao quán xuyến hết được."
+
+Nhưng Thẩm Lập hoàn toàn không chấp nhận lời ngụy biện ấy, hắn cười lạnh:
+"Đại hiệp ư? Một kẻ đến hậu viện nhà mình còn chẳng quản nổi, ngay cả con trai ruột cũng không bảo bọc được, mà cũng xứng gọi là đại hiệp sao?"
+
+Khúc Hiểu Hiểu chỉ biết cười khổ lắc đầu. Sâu thẳm trong thâm tâm bà, có người vợ nào lại không sinh lòng oán thán với một phu quân như vậy?
+
+Bà nửa như ám thị, nửa như khuyên nhủ con trai:
+"Con đừng lui tới những chốn hỗn tạp đó nữa. Hôm nay ta đã đích thân mời mấy vị sư phụ về phủ. Bắt đầu từ hôm nay, con hãy an phận ở lại trong cốc tập võ. Ta chẳng mong con đạt được thành tựu hiển hách gì, chỉ cần gặp chuyện có thể tự bảo toàn tính mạng, vi nương đã mãn nguyện lắm rồi."
+
+Hai chữ "tự bảo" được bà nhấn giọng vô cùng nặng nề.
+
+Thẩm Lập khẽ giật mình, lập tức hiểu rõ ẩn ý sâu xa trong lời nói của mẫu thân.
+
+Bà đã biết rồi. Bà biết tai nạn ngã vực kia căn bản chẳng phải là chuyện ngoài ý muốn!
+
+"Đáng tiếc... nếu như người nhận ra sớm hơn một chút, thì Thẩm Lập thực sự đã không phải uổng mạng rồi."
+
+Ánh mắt Thẩm Lập nhìn mẫu thân thoáng chút phức tạp, sau đó hắn ôm quyền hành lễ rồi quay người rời đi.
+
+Hắn tên là Thẩm Lập, nhưng lại không phải Thẩm nhị công tử ban đầu, mà là một linh hồn đến từ thế giới khác.
+
+Thẩm Lập phát hiện thế giới này khác xa hoàn toàn so với những gì hắn từng biết trong lịch sử. Vốn dĩ là các triều đại nối tiếp nhau theo dòng thời gian, nay lại biến thành một thế giới đại tổng hợp võ hiệp hỗn tạp, cùng thần phục dưới chế độ phân phong của Đại Hạ hoàng triều.
+
+Tại vùng Trung Nguyên mênh mông, tồn tại song song các quốc gia như Lý Đường, Nam - Bắc Tống, Nam - Bắc Minh, Đại Lý... Ngoài biên cương là các thế lực ngoại tộc hung hãn: Kim, Nguyên, Mông Cổ, Liêu, Cao Ly... không một thế lực nào là dễ trêu chọc!
+
+Càng chấn động hơn là, bất kể nhân vật trong tiểu thuyết kiếm hiệp hay phim ảnh truyền hình kiếp trước, giờ đây đều cùng sống chung dưới một bầu trời thời đại.
+
+Vương Trùng Dương, Hồng Thất Công, Kiều Phong, Quách Tĩnh, Diệp Cô Thành, Tây Môn Xuy Tuyết, Đông Tà Tây Độc, Nam Đế Bắc Cái, Trương Tam Phong, Diệt Tuyệt sư thái...
+
+Quả thực là thời đại nhân tài lớp lớp xuất hiện như nấm sau mưa. Thảo nào nguyên chủ với tư chất bình thường lại bị người đời coi thường, rẻ rúng đến mức ấy.
+
+Mà vụ tai nạn rơi xuống vách núi kia cũng chẳng hề đơn giản như người ngoài lầm tưởng – rằng hắn chỉ gặp chuyện không may rồi may mắn nhặt lại mạng sống.
+
+Chân tướng tàn khốc chính là: Đại ca của hắn – Thẩm Ngọc, đã dày công bố trí một sát cục hoàn mỹ. Thẩm Lập chân chính đã bỏ mạng ngay từ ngày hôm đó. Trong khoảnh khắc tuyệt vọng cận kề cái chết, tiếng gào thét kêu cứu thảm thiết của hắn vẫn là tên của người đại ca và phụ thân kia.
+
+Thật châm biếm làm sao!
+
+Khóe miệng Thẩm Lập khẽ nhếch lên một nụ cười khinh miệt lạnh lùng.
+
+Tại hậu viện, ba vị sư phụ đã đợi từ rất lâu. Thấy Thẩm Lập đủng đỉnh bước tới, sắc mặt cả ba đều lộ rõ vẻ bất mãn, bực bội.
+
+Gã đàn ông dẫn đầu cất giọng đầy mỉa mai, châm chọc:
+"Hôm trước, Khúc phu nhân đích thân tới bái phỏng cửa nhà, lễ tiết chu đáo, dâng lên hậu lễ mời bọn ta tới đây làm giáo tập sư phụ cho nhị công tử. Lời lẽ khẩn thiết, tấm lòng mẹ hiền thương con tha thiết khiến người ta không khỏi xúc động."
+
+"Nào ngờ đâu, trong mắt của nhị công tử, ba gã thô kệch chúng ta còn chẳng bằng nổi một ả kỹ nữ trong Vạn Hoa Lâu kia!"
+
+"Chậc chậc chậc!"
+
+"Đúng thật là thiếu niên phong lưu!"
+
+Thẩm Lập nhận ra kẻ này, y họ Chu, là giáo đầu của một võ quán có tiếng trong thành.
+
+Còn bên cạnh y là một lão già tóc hoa râm, vốn là tiêu sư kỳ cựu của tiêu cục trong thành, sắc mặt càng thêm âm trầm nham hiểm. Lão lạnh giọng buông một câu:
+"Chẳng qua chỉ là đứa con do tỳ thiếp sinh ra, đúng là bùn nhão không trát nổi tường!"
+
+Con vợ lẽ! Một câu nói độc địa vừa sỉ nhục người mẹ, vừa lăng mạ đứa con, hiểm độc khôn cùng.
+
+Thẩm Lập cố nén cơn giận. Nếu không phải nể mặt Khúc Hiểu Hiểu – người duy nhất thực lòng đối tốt với hắn ở thế giới xa lạ này, hắn đã sớm một cước đá văng ba lão già khốn kiếp này ra khỏi cốc!
+
+Nghĩ tới cảnh mẫu thân vì mình mà nhẫn nhục chịu đựng, hắn tự nhủ không thể phụ tấm lòng của bà, dù bản thân hắn thừa biết mình khó lòng học được trò trống gì từ đám người này.
+
+Thấy hắn im lặng không đáp, Chu giáo đầu lại càng thêm vẻ khinh thường:
+"Luyện võ kỵ nhất điều gì? Chính là hai chữ lười nhác!"
+
+Lão tiêu sư bên cạnh lắc đầu bồi thêm:
+"Vừa rồi trước khi ngươi tới, ba người bọn ta đã quyết định không dạy nữa."
+
+"Đúng thế, không dạy nữa!" Gã còn lại lập tức phụ họa theo.
+
+"Chuyện này..." Thẩm Lập hơi sững người, thoáng chút bất ngờ.
+
+Trầm mặc trong giây lát, trong đầu hắn bỗng lóe lên một tia suy đoán.
+
+Có lẽ... kẻ kia cũng đã đánh hơi được việc mẫu thân an bài người dạy võ cho hắn rồi.
+
+Vẻ mặt Thẩm Lập lập tức trở nên nghiêm nghị, ánh mắt nhìn về phía ba kẻ đối diện không còn sót lại chút cung kính nào, thay vào đó là sự lạnh lẽo như dã thú chuẩn bị vồ mồi.
+
+"Các ngươi..."
+
+Thẩm Lập nghiến chặt răng, từng chữ từng câu gằn giọng hỏi:
+"Đã nhận của hắn bao nhiêu tiền?"
+
+Không khí trong sân viện tức thì rơi vào tĩnh lặng đến nghẹt thở.
+
+"Phụt!"
+
+Một tràng cười lớn đột ngột phá tan bầu không khí ngưng trệ. Chu giáo đầu đứng bật dậy:
+"Khá khen cho chút thông minh vặt của ngươi!"
+
+Y nghênh ngang tiến lại gần, vỗ vỗ lên mặt Thẩm Lập, gương mặt tràn ngập vẻ khinh bỉ tột cùng:
+"Đáng tiếc, vẫn chỉ là một phế vật!"
+
+"Vốn dĩ bọn ta cũng chỉ tính cầm bạc rồi phủi mông rời đi, thế nhưng Thẩm đại công tử lại vừa giới thiệu cho bọn ta một mối làm ăn khác thơm tho hơn nhiều."
+
+Thẩm công tử trong miệng y, dĩ nhiên không ai khác ngoài đại ca của Thẩm Lập – Thẩm Ngọc.
+
+Lúc này, hai kẻ còn lại cũng đứng dậy, lập tức tiến ra chặn đứng lối ra vào của viện môn. Vì là nơi luyện võ, để phòng ngừa gia đinh kẻ dưới học lỏm, nên trong tiểu viện lúc này chỉ có ba vị sư phụ và một mình Thẩm Lập.
+
+"Nào, chỉ cần ngươi mở miệng nói một câu: 'Ta là phế vật', bọn ta sẽ nương tay đánh nhẹ một chút!"
+
+Chu giáo đầu lúc này đã hoàn toàn lột bỏ lớp mặt nạ ngụy trang, trơ trẽn như mèo vờn chuột, cất giọng trêu ngươi.
+
+Thẩm Lập nhướng mày, lạnh lùng nhổ ra một câu:
+"Được thôi, ngươi chính là phế vật!"
+
+Lời vừa dứt, trong tâm trí hắn bỗng vang lên một thanh âm điện tử trong trẻo:
+
+【Ting! Phát hiện túc chủ phú quý bất năng dâm, uy vũ bất năng khuất, một thân ngạo cốt, phù hợp yêu cầu kích hoạt hệ thống】
+
+【Ting! Hệ thống Võ Học Điểm Danh kích hoạt thành công!】
+
+【Hệ thống Võ Học Điểm Danh: Túc chủ có thể điểm danh tại bất kỳ địa điểm nào, mỗi ngày có một lần cơ hội điểm danh, mỗi lần điểm danh đều nhận được phần thưởng điểm danh】
+
+【Nhắc nhở: Lần đầu điểm danh nhận được phần thưởng tốt nhất, điểm danh lặp lại phần thưởng giảm dần】"""
+    },
+    {
+        "chapter_id": 1433,
+        "chapter_index": 2,
+        "title_translated": "Chương 2: Cửu Dương Thần Công, Công Pháp Hoàn Mỹ",
+        "translated_content": """Thấy Thẩm Lập chẳng những không hề sợ hãi trước lời đe dọa mà còn dám phản pháo sắc bén, ba kẻ đối diện đưa mắt nhìn nhau đầy kinh ngạc.
+
+Thái độ cứng cỏi này khác xa hoàn toàn so với những lời đồn đại về vị Thẩm nhị công tử nhu nhược trước đây.
+
+Thế nhưng tình thế trước mắt không cho phép bọn chúng nghĩ ngợi quá nhiều, chỉ có thể tiếp tục hoàn thành nhiệm vụ mà Thẩm đại công tử đã căn dặn.
+
+Lão tiêu sư sừng sộ bước tới trước mặt Thẩm Lập, ánh mắt tràn ngập vẻ miệt thị:
+"Ngươi tưởng cái miệng cứng cỏi của ngươi có thể thay đổi được thế sự sao?"
+
+"Thứ con vợ lẽ ti tiện như ngươi, đặt vào một gia đình bình thường cũng chỉ là cái mạng bưng bô đổ nước tiểu cho thiên hạ sai bảo mà thôi."
+
+"Người ta gọi ngươi một tiếng Thẩm nhị công tử, ngươi thật sự nghĩ mình là công tử cao quý chắc?"
+
+Bọn chúng dẫu sao cũng không dám thực sự ra tay đả thương tàn phế người Thẩm gia, nhưng lời lẽ buông ra thì cay độc, nhơ bẩn vô cùng.
+
+"Dựa vào cái danh đệ đệ của Thẩm Ngọc công tử mà ra ngoài lừa gạt khắp nơi."
+
+Chu giáo đầu nhổ toẹt một bãi nước bọt xuống đất:
+"Ngươi xứng sao? Xứng cái rắm ấy!"
+
+"Một phế vật như ngươi, điểm duy nhất có thể dựa dẫm cũng chỉ là nhờ mẫu thân ngươi có chút nhan sắc mà thôi."
+
+"Hừ!"
+
+Buông xong những lời lăng mạ nhục nhã, cả ba kẻ liền nghênh ngang phủi tay rời khỏi tiểu viện. Dù sao chúng cũng chỉ là khách bên ngoài được mời tới, há có thể thực sự ra tay đánh đập con trai của Thẩm gia ngay giữa Lăng Yên Cốc?
+
+Thế nhưng, Thẩm Lập đứng trơ trọi giữa sân viện, trong đôi mắt lúc này lại đang bốc lên những ngọn lửa giận ngút trời.
+
+Hắn lạnh lùng nhìn chằm chằm theo bóng lưng của ba kẻ kia khuất dần sau cánh cổng, suốt từ đầu đến cuối không thốt thêm một lời nào, chỉ có sát ý trong lòng đang cuồn cuộn dâng trào mãnh liệt.
+
+"Trong vòng ba ngày, ta nhất định sẽ dỡ tung võ quán cùng tiêu cục của các ngươi!"
+
+Ngay lập tức, trong tâm niệm hắn khẽ quát:
+"Hệ thống, điểm danh địa điểm hiện tại!"
+
+【Ting! Địa điểm điểm danh hiện tại: Lăng Yên Cốc】
+
+【Lần đầu điểm danh tại Lăng Yên Cốc, nhận được cơ hội bạo kích phần thưởng, có sử dụng không?】
+
+Thẩm Lập liếc nhìn sân viện phía sau, trầm giọng dứt khoát:
+"Sử dụng!"
+
+【Ting! Chúc mừng túc chủ điểm danh thành công, nhận được nội công: Cửu Dương Thần Công (Cấp Hoàn Mỹ)】
+
+【Phần thưởng đã đưa vào kho hệ thống, túc chủ có thể học bất cứ lúc nào】
+
+Thẩm Lập lập tức tập trung tinh thần, triệu hồi giao diện hệ thống ra xem xét.
+
+Trong không gian kho chứa của hệ thống, một cuốn sách bìa vàng cổ kính toát lên khí tức tang thương huyền ảo đang lơ lửng tĩnh lặng.
+
+《Cửu Dương Thần Công》!
+
+Bên cạnh cuốn sách còn đính kèm phần giới thiệu chi tiết của hệ thống:
+
+【Cửu Dương Thần Công (Cấp Hoàn Mỹ): Hội tụ chí lý võ học dung hội quán thông mà thành, chí cương chí dương. Sau khi luyện thành, nội lực tự sinh với tốc độ cực nhanh, dường như vô cùng vô tận. Có thể tăng phúc cực lớn cho bất kỳ võ học nào, dù là quyền cước thông thường cũng phát huy uy lực kinh người.】
+
+【Đặc tính 1: Nội Lực Chân Cương, sau khi luyện thành nội lực bao bọc quanh thân, tự động phòng ngự và phản chấn công kích từ ngoại lực, tựa như Kim Cương Bất Hoại Thể】
+
+【Đặc tính 2: Thánh Điển Trị Thương, sau khi luyện thành bách bệnh bất sinh, vạn độc bất xâm, lại có thể nối liền xương cốt, kinh mạch tự lành】
+
+【Đặc tính 3: Chí Cương Chí Dương, nội lực Cửu Dương khắc chế toàn bộ nội lực thuộc tính âm hàn, nhưng nếu không thể khống chế, người tu luyện ắt sẽ da thịt nứt toác, thiêu đốt thành than】
+
+【Công pháp kèm theo 1: Thu Cốt Công】
+
+【Công pháp kèm theo 2: Du Tường Công】
+
+【Công pháp kèm theo 3: Quy Tức Công】
+
+【Nhắc nhở: Độ thuần thục nội công, võ học gồm — Sơ cấp, Trung cấp, Cao cấp, Tông sư cấp, Hoàn mỹ cấp】
+
+Càng đọc từng dòng giới thiệu, trái tim Thẩm Lập càng đập rộn ràng vì kích động:
+"Mẹ kiếp! Đây chính là cấp hoàn mỹ sao?"
+
+Ba đại đặc tính nghịch thiên, kèm theo ba môn công pháp phụ trợ tuyệt diệu!
+
+Phải biết rằng, Cửu Dương Thần Công có thể coi là một môn võ công mang tính lỗi game cực độ. Nó có thể kích phát toàn bộ tiềm năng của cơ thể con người, khiến nội lực cuồn cuộn không dứt tựa suối nguồn mà lại hoàn toàn không làm hao tổn bất kỳ chức năng cơ thể nào.
+
+Nói một cách dễ hiểu, trên lý thuyết thanh mana là vô hạn, chẳng khác gì tướng Garen kiếp trước, xả chiêu liên tục mà không cần lo cạn mana!
+
+Trước đây lão già ở Thiên Cơ Các từng cười nhạo hắn không có một tia nội lực, lần này nếu gặp lại, nhất định phải khiến lão ta rớt cằm kinh hãi!
+
+Thẩm Lập thầm nghĩ, sở dĩ Cửu Dương Thần Công được hệ thống đánh giá là cấp Hoàn Mỹ, là bởi vì mức trần cao nhất của hệ thống này chỉ tới cấp Hoàn Mỹ mà thôi!
+
+Lúc này, Thẩm Lập chưa vội tu luyện ngay mà cẩn thận nghiên cứu tiếp các tính năng của hệ thống. Bên cạnh giao diện kho đồ, còn có bảng thông tin cá nhân:
+
+【Họ tên: Thẩm Lập】
+【Tuổi: 17 tuổi】
+【Nội công: Không】
+【Cảnh giới: Bất nhập lưu】
+【Võ học: Thẩm Gia Bí Tịch (Sơ cấp)】
+【Khinh công: Không】
+【Binh khí: Không】
+【Kỹ năng: Không】
+
+"Đúng thật là một trang giấy trắng tinh!"
+
+Thẩm Lập khẽ thở dài một tiếng, sau đó cất bước quay trở về tiểu viện của mẫu thân.
+
+Bất cứ ai tu luyện võ công đều cần tìm một nơi tuyệt đối an toàn để bế quan. Mà đối với Thẩm Lập lúc này, khắp cả Lăng Yên Cốc rộng lớn, nơi an toàn duy nhất chỉ có thể là tẩm viện của mẫu thân hắn.
+
+Khúc Hiểu Hiểu thấy con trai mới đi được một lát đã quay trở lại, nét mặt không khỏi lộ vẻ bất mãn:
+"Ta chẳng phải bảo con đi theo các vị sư phụ luyện công sao, cớ sao lại về nhanh thế này?"
+
+Thẩm Lập không muốn kể lại nỗi nhục nhã kia cho mẫu thân, món nợ này hắn muốn tự tay mình đòi lại từ ba kẻ kia và kẻ chủ mưu Thẩm Ngọc đứng phía sau.
+
+Hắn cố đè nén ngọn lửa giận trong lòng, bình thản đáp:
+"Bọn họ sẽ không dạy con nữa."
+
+Khúc Hiểu Hiểu giật mình:
+"Tại sao lại như vậy?"
+
+Thẩm Lập lắc đầu, lạnh nhạt buông ra hai chữ:
+"Là Thẩm Ngọc."
+
+Nghe thấy cái tên này, sắc mặt Khúc Hiểu Hiểu lập tức trở nên vô cùng khó coi. Bà không muốn tin, nhưng sâu thẳm trong trực giác mách bảo bà rằng đó hoàn toàn là sự thật.
+
+Hiểu rõ chân tướng, Khúc Hiểu Hiểu vừa giận vừa uất ức tủi hờn, hốc mắt không kìm được mà trào dâng ngấn lệ. Bao năm qua cẩn trọng dè dặt, nơm nớp lo sợ, chẳng qua cũng chỉ mong đứa con trai độc nhất của mình có thể bình an khôn lớn mà thôi.
+
+"Ta chỉ muốn con trai ta được sống sót mà thôi mà..."
+
+Trầm ngâm một hồi, Khúc Hiểu Hiểu bỗng nhớ tới mấy cuốn bí tịch mình từng bỏ tiền mua về.
+
+Thiên hạ làm cha làm mẹ, ai mà chẳng có tâm nguyện mong con hóa rồng hóa phượng. Nhiều năm qua, Khúc Hiểu Hiểu vẫn luôn gom góp tìm mua các loại bí tịch võ học, hi vọng có một ngày con trai hồi tâm chuyển ý, chịu chuyên tâm khổ luyện.
+
+Thế nhưng trước kia, nguyên chủ hễ nhìn thấy chữ nghĩa bí tịch là lại đau đầu chóng mặt, chưa từng chịu học hành nghiêm túc, khiến bà cũng đành bất lực bó tay.
+
+Nhưng tới nước này, dường như cũng chẳng còn sự lựa chọn nào khác.
+
+Khúc Hiểu Hiểu vội vã quay vào phòng lấy ra mấy cuốn bí tịch mới mua, nhét toàn bộ vào tay Thẩm Lập, ánh mắt tha thiết tràn đầy kỳ vọng nhìn con trai:
+"Đây là bí tịch vi nương nhờ người cất công mang từ Trường An về, con xem qua thử có được không?"
+
+Thẩm Lập đón lấy, khẽ nở nụ cười trấn an:
+"Mẫu thân yên tâm, lần này con nhất định sẽ dốc lòng nghiên cứu tường tận."
+
+Nói đoạn, hắn mượn cớ:
+"Vậy con xin phép bế quan tìm hiểu ngay trong sương phòng của mẫu thân, chuyện cơm nước xin người chuẩn bị giúp con."
+
+Khúc Hiểu Hiểu tự nhiên gật đầu đồng ý ngay. Thẩm Lập từng lớn lên trong tiểu viện này, mới dọn ra ngoài ở riêng chưa đầy hai năm, căn phòng cũ của hắn vẫn luôn được bà sai người quét tước giữ gìn cẩn thận.
+
+Thế nhưng, vừa bước vào phòng đóng cửa lại, Thẩm Lập tiện tay lật qua loa vài trang rồi ném toẹt mấy cuốn bí tịch kia lên bàn.
+
+Thứ gọi là bí tịch võ công trên giang hồ tuyệt đối không thể tùy tiện tự mò mẫm tu luyện nếu không có sư môn chân truyền dẫn dắt. Bí tịch của các môn các phái để phòng ngừa người ngoài nhìn trộm trộm học đều cài cắm đủ loại ám ngữ, thuật ngữ ẩn dụ. Nếu chỉ cầm một cuốn bí tịch rồi cắm đầu luyện liều, không hiểu rõ mấu chốt kinh mạch thì chỉ rước họa vào thân.
+
+Nhẹ thì khí huyết nghịch hành, kinh mạch đứt đoạn tổn thương. Nặng thì tẩu hỏa nhập ma, kinh mạch vỡ nát mà chết!
+
+Thẩm Lập đời nào dại dột tự chôn vùi mạng sống của mình. Huống hồ, thứ hắn sắp sửa tu luyện căn bản không phải là mấy cuốn bí tịch hạ đẳng tầm thường này.
+
+Hắn khoanh chân ngồi ngay ngắn trên giường, lập tức lấy cuốn sách từ không gian hệ thống ra, khẽ lẩm bẩm trong đầu:
+"Hệ thống, học tập 《Cửu Dương Thần Công》!"
+
+Chỉ thấy cuốn sách bìa vàng trên tay bỗng hóa thành một luồng lưu quang rực rỡ, lao vút vào cơ thể Thẩm Lập.
+
+Trong chớp mắt, trong thức hải của Thẩm Lập liền hiện lên vô vàn thông tin ảo diệu trước nay hắn chưa từng hay biết. Toàn bộ khẩu quyết, yếu quyết vận khí, quan khiếu và phương pháp tu luyện của Cửu Dương Thần Công đều in sâu vào tâm trí, thông suốt tỏ tường.
+
+Thế nhưng, hắn vẫn chưa vội vàng thúc giục chân khí ngay.
+
+Bởi vì hắn ghi nhớ rất rõ một chuyện. Theo ký ức kiếp trước của hắn, muốn thực sự luyện thành Cửu Dương Thần Công đỉnh phong, điều mấu chốt nhất là phải đả thông hàng chục chỗ huyền quan then chốt và khai mở hàng trăm huyệt đạo toàn thân.
+
+Nếu không, dẫu có luyện thành thì cũng chỉ là tích tụ nội lực Cửu Dương vào người mà không biết cách thi triển vận dụng, càng không thể hoàn toàn làm chủ. Khi đó nội lực sẽ không thể tự động tuần hoàn sinh sôi bất tận, hễ trải qua một trận kịch chiến khốc liệt rất dễ dẫn đến tình trạng chân khí tiết ra quá độ mà kiệt lực bỏ mạng.
+
+Điển hình chính là Giác Viễn đại sư của phái Thiếu Lâm năm xưa!
+
+Hơn nữa, tâm tính của người tu luyện còn phải phù hợp với sự chí cương chí liệt thì mới có thể thuần phục được luồng chí dương chi khí này, bằng không sẽ bị chính ngọn lửa Cửu Dương thiêu đốt da thịt thành tro tàn!
+
+"Sơ sẩy một chút thôi là mất mạng như chơi!"
+
+Những hiểm họa đe dọa sinh tử bày ra ngay trước mắt, Thẩm Lập đột ngột mở bừng mắt.
+
+Gương mặt hắn thoạt nhìn thì tĩnh lặng như nước, nhưng sâu thẳm trong đáy mắt đen kịt kia lại đang ẩn chứa một ngọn núi lửa cuồng bạo bị đè nén chỉ chực chờ phun trào!
+
+"Thẩm Ngọc, ngươi cứ chờ chết đi!"
+
+Hắn gầm lên một tiếng đầy sát ý trong đáy lòng, sau đó không chút do dự, bắt đầu chính thức vận chuyển công pháp tu luyện!"""
+    },
+    {
+        "chapter_id": 1434,
+        "chapter_index": 3,
+        "title_translated": "Chương 3: Kỳ Hạn Nửa Tháng, Tỉ Võ Thọ Yến",
+        "translated_content": """Tại một tiểu viện thanh nhã tinh xảo nằm sâu trong Lăng Yên Cốc.
+
+Gương mặt Thẩm Ngọc lúc này âm trầm như sắp nhỏ ra nước.
+
+"Sao nó có thể sống sót được chứ?"
+
+Câu hỏi chết tiệt này cứ lởn vởn mãi trong tâm trí hắn không sao xua đi nổi.
+
+Để trừ khử cái thứ nghiệt chủng chướng tai gai mắt kia, đích thân hắn đã tỉ mỉ giăng ra một cái bẫy hoàn mỹ. Thậm chí để đảm bảo vạn vô nhất thất, hắn còn phái thân tín nấp sẵn ở một góc trong thung lũng, tận mắt nhìn thấy cái thứ tiện chủng đó tắt thở xuôi tay.
+
+Thẩm Ngọc nghĩ nát óc cũng không thể nào hiểu nổi nguyên do.
+
+Chuyện này dần trở thành tâm ma quấy nhiễu hắn, đến mức khi luyện công mấy lần suýt nữa nghịch chuyển khí huyết tẩu hỏa nhập ma. Bởi vậy suốt nửa tháng qua, hắn chưa từng dám một mình đơn độc luyện công thêm lần nào nữa.
+
+Vì con đường võ đạo của chính mình, hắn buộc phải tiếp tục giăng ra một sát cục mới.
+
+"Nếu một lần giết không chết, vậy thì bổn công tử sẽ giết ngươi thêm một lần nữa!"
+
+Gương mặt Thẩm Ngọc đanh lại đầy tàn nhẫn, trong mắt lóe lên tia sát ý lạnh lẽo rợn người.
+
+"Chỉ bấy nhiêu thôi thì vẫn chưa đủ!"
+
+Một cái bẫy chết người mới đã được chuẩn bị sẵn sàng, mà việc sai bảo ba gã giáo đầu tiêu sư tới làm nhục Thẩm Lập vừa rồi chỉ là khúc dạo đầu mà thôi.
+
+Nghĩ đoạn, hắn liền đứng dậy, dẫn theo đám hộ vệ sải bước tiến về phía viện của Thẩm Lập.
+
+Người chưa tới nơi, tiếng cười ngạo nghễ đã vang vọng khắp sân:
+"Thẩm di nương! Nghe nói nhị đệ đang ở đây, ta đặc biệt ghé qua thăm hỏi một chút."
+
+"Thẩm Lập! Thằng nhóc nhà ngươi mau lăn ra đây cho đại ca nhìn xem nào!"
+
+Mà lúc này, Thẩm Lập đang ngồi trong phòng tu luyện đúng vào thời khắc then chốt nhất, toàn bộ tâm thần đều đã chìm đắm trong dòng chảy huyền diệu của công pháp.
+
+Một khi bắt đầu vận chuyển Cửu Dương Thần Công, toàn thân hắn như được tắm mát dưới dòng cam lộ thần kỳ. Chân khí nơi đan điền cuồn cuộn bốc lên như khói hương nghi ngút, ung dung tự tại lưu chuyển khắp kinh lạc, đó chính là cảnh giới "nhân uẩn tử khí" trong truyền thuyết.
+
+Lại thêm việc Thẩm Lập vừa trải qua nỗi nhục nhã khôn cùng, trong lòng đang kìm nén một ngọn lửa tà hỏa hừng hực, vô tình lại hoàn toàn hòa hợp với tâm tính chí cương chí liệt cần có của Cửu Dương Thần Công.
+
+Tiến cảnh tu luyện của hắn có thể nói là một ngày ngàn dặm!
+
+Thế nhưng càng thuận lợi bao nhiêu thì lại càng hung hiểm bấy nhiêu. Vì nội lực Cửu Dương xung kích quá đỗi mãnh liệt, hắn bắt buộc phải giữ vững mười hai phần tỉnh táo để khống chế hướng đi của chân khí trong các đường kinh mạch, tránh cho luồng chí dương chi khí hung hãn này thiêu rụi kinh mạch thân thể hắn thành than cháy.
+
+Vào thời khắc ngàn cân treo sợi tóc này, dẫu chỉ là một chút quấy nhiễu nhỏ nhất từ bên ngoài cũng đủ khiến hắn tẩu hỏa nhập ma, tan xương nát thịt.
+
+Đúng lúc Thẩm Ngọc định sấn sổ đẩy cửa xông thẳng vào phòng, thì Khúc Hiểu Hiểu đã nhanh chân bước ra chặn lại.
+
+"Đại công tử!" Trong lòng Khúc Hiểu Hiểu lửa giận ngút ngàn, nhưng lúc này bà buộc phải cắn răng nén chặt xuống, trái lại còn gượng cười cảm tạ: "Ngươi làm ca ca mà có lòng lo nghĩ cho nó như vậy, thật là quý hóa quá."
+
+Dẫu có căm ghét kẻ trước mặt đến tận xương tủy, bà vẫn phải bận tâm tới thân phận thiếp thất thấp kém của mình, cung kính gọi đối phương một tiếng Đại công tử.
+
+Thẩm Ngọc vội vàng bước lên chắp tay hành lễ:
+"Di nương!"
+
+Nói rồi, hắn liền mở miệng muốn bước vào phòng gặp mặt Thẩm Lập.
+
+Thế nhưng Khúc Hiểu Hiểu kiên quyết cự tuyệt:
+"Thật không tiện cho lắm. Thằng bé Lập nhi kể từ lần ngã vực trước, xương cốt toàn thân gãy nát, đến tận hôm nay vẫn còn đang nằm tĩnh dưỡng tịnh thân."
+
+Thấy thái độ từ chối của bà vô cùng dứt khoát và cứng rắn, Thẩm Ngọc cũng không cố ép xông vào nữa.
+
+Hắn chỉ làm ra vẻ tiếc nuối thở dài:
+"Nếu như vậy thì quả thực có chút phiền phức rồi."
+
+"Di nương phải biết rằng, nửa tháng nữa chính là đại thọ của phụ thân."
+
+"Đến lúc đó, phụ thân sẽ đích thân từ Sóc Châu trở về."
+
+"Khi ấy, Lăng Yên Cốc chúng ta chắc chắn phải đón tiếp vô số danh túc hào kiệt cùng các bậc tiền bối khắp cõi Sóc Châu, kèm theo đó là lớp con cháu hậu bối kiệt xuất của bọn họ."
+
+"Nếu lúc đó thương thế của Thẩm Lập vẫn chưa lành thì biết tính sao đây? Phụ thân lần này định để Thẩm Lập đứng ra dẫn đầu đội ngũ đệ tử trẻ tuổi cơ đấy!"
+
+Theo phong tục giang hồ đất Sóc Châu, mỗi khi các bậc danh túc tổ chức thọ yến, thường sẽ dẫn theo vài đứa con cháu ưu tú cùng tham dự. Trong lúc thế hệ tiền bối nâng chén đàm đạo thế sự, thì lớp hậu bối sẽ bước lên lôi đài tỉ thí luận võ. Việc này vừa để giao lưu học hỏi, vừa nâng đỡ thanh danh cho nhau, tạo bước đệm thuận lợi cho việc hành tẩu giang hồ sau này.
+
+Mà trong các trận tỉ thí ấy, đương nhiên mỗi thế lực đều phải cử ra một kẻ dẫn đầu đại diện.
+
+Khúc Hiểu Hiểu sững sờ:
+"Xưa nay chẳng phải đều do con đứng ra dẫn dắt hay sao?"
+
+Thẩm Ngọc cười xòa thoái thác:
+"Chính vì trước nay đều là ta, nên lần này ta mới đặc biệt tiến cử nhị đệ với phụ thân. Dù sao chúng ta cũng là huynh đệ ruột thịt, đều là con trai của phụ thân cả. Cũng đã đến lúc để Thẩm Lập ra mặt ở những dịp trọng đại thế này để tạo dựng chút thanh danh cho bản thân rồi. Phụ thân cũng đã gật đầu ưng thuận."
+
+Nói xong vài câu an ủi giả tạo cho có lệ, Thẩm Ngọc liền phất tay áo quay người rời đi.
+
+Nhưng tin tức sét đánh ngang tai này lại khiến Khúc Hiểu Hiểu hồn xiêu phách lạc. Bà đứng ngồi không yên, lo lắng bồn chồn rảo bước qua lại trước cửa phòng Thẩm Lập, chẳng biết phải làm sao cho phải.
+
+Nhi tử của mình bà là người hiểu rõ nhất. Nếu thật sự phải bước lên lôi đài tỉ thí trước mặt bàn dân thiên hạ, chẳng khác nào tự bêu đầu cho người ta chê cười. Ngày thường bẽ mặt chút ít thì cũng đành một nhẽ, nhưng đây lại là đại thọ của gia chủ!
+
+Đến lúc đó, hào kiệt hắc bạch lưỡng đạo, anh hùng lục lâm khắp chốn Sóc Châu đều tề tựu đông đủ. Khi ấy cái mặt bị bôi tro trát trấu không chỉ riêng mình Thẩm Lập, mà chính là thể diện ngút trời của lão gia!
+
+Nghĩ tới cơn thịnh nộ lôi đình của gia chủ một khi bùng phát, Khúc Hiểu Hiểu sợ hãi đến mức nước mắt chực trào rơi lã chã.
+
+Mãi cho đến khi màn đêm buông xuống, Thẩm Lập mới chậm rãi thu công hoàn tất, trong đan điền đã ngưng tụ thành công một luồng Cửu Dương chân khí tinh thuần mãnh liệt.
+
+Nhờ vào đặc tính trị thương thần kỳ của Cửu Dương chân khí, toàn bộ thương tích do lần rơi xuống vực trước đây của hắn đã hoàn toàn lành lặn không tì vết. Thậm chí cả những mầm mống bệnh cũ âm ỉ trong cơ thể của nguyên chủ từ thuở nhỏ cũng theo đó mà tiêu tan sạch bách.
+
+Lúc này, hắn chỉ cảm thấy cả người nhẹ bẫng như chim ưng sải cánh, khí lực dồi dào cuồn cuộn không sao dùng hết.
+
+Càng khiến hắn mừng rỡ hơn là, hệ thống điểm danh còn cung cấp một bảng trạng thái cá nhân, giúp hắn nắm bắt tường tận từng bước tiến cảnh võ đạo của mình.
+
+"Hệ thống, mở bảng thông tin!"
+
+【Họ tên: Thẩm Lập】
+【Tuổi: 17 tuổi】
+【Nội công: Cửu Dương Thần Công (Hoàn Mỹ)】
+【Cảnh giới: Hậu thiên tam trọng】
+【Võ học: Không】
+【Khinh công: Không】
+【Binh khí: Không】
+【Kỹ năng: Du Tường Công, Quy Tức Công, Thu Cốt Công】
+
+"Cửu Dương Thần Công quả không hổ danh là công pháp cấp Hoàn Mỹ!"
+
+Thẩm Lập trong lòng không khỏi cảm thán, ngọn lửa tự tin báo thù lại càng thêm phần chắc chắn.
+
+Hắn cười lớn một tiếng đẩy cửa bước ra ngoài, bao u uất tích tụ bấy lâu trong lồng ngực đều bị quét sạch sành sanh.
+
+Nào ngờ vừa mở cửa phòng, hắn đã thấy mẫu thân Khúc Hiểu Hiểu đang đứng đợi từ rất lâu. Nhìn thấy nét mặt tiều tụy đầy vẻ lo âu sầu não của bà, niềm hân hoan vừa mới đột phá của Thẩm Lập cũng dần dần lắng xuống.
+
+"Có chuyện gì vậy?" Thẩm Lập nhẹ giọng ân cần hỏi: "Mẫu thân sao lại sầu não ủ rũ thế này?"
+
+Khúc Hiểu Hiểu vừa thấy con trai bình an bước ra, liền vội vã nhào tới nắm chặt lấy hai bàn tay hắn. Bà hé môi muốn nói nhưng lại chỉ nghẹn ngào buông một tiếng thở dài, hai hàng nước mắt lăn dài trên gò má.
+
+Biến cố bất ngờ này khiến Thẩm Lập thoáng chút bối rối lúng túng, đành phải dịu giọng an ủi dỗ dành, từ từ dẫn dắt mẫu thân nói ra chân tướng sự tình.
+
+Đến khi nghe rõ ngọn nguồn – rằng Thẩm Ngọc muốn hắn đứng ra dẫn đầu đội ngũ đệ tử tỉ võ trong đại thọ của phụ thân, Thẩm Lập chẳng những không hề lo sợ mà trái lại còn bật cười thành tiếng:
+"Chẳng phải chuyện này quá tốt hay sao!"
+
+Một kẻ vừa luyện thành thần công quán thế như hắn, há lại sợ mấy trò tỉ võ tép riu của đám hậu bối giang hồ?
+
+Chỉ là chuyện này tạm thời chưa thể tiết lộ cho mẫu thân biết, hắn đành phải dùng lời ngon tiếng ngọt dỗ dành xoa dịu tâm trạng bất an của bà.
+
+Đêm khuya thanh vắng.
+
+Thẩm Lập lặng lẽ lách qua tầm mắt của đám gia đinh tuần tra, đi tới một góc hẻm vắng vẻ. Thân hình hắn khẽ chuyển động, tựa như một con thằn lằn áp sát vào bờ tường dựng đứng, phi thân lướt đi thoăn thoắt.
+
+Nhờ ánh trăng mờ ảo dẫn lối, hắn lặng lẽ không một tiếng động men theo mái ngói hướng về phía Thiên Cơ Các. Suốt dọc đường, nhờ di chuyển trên tường cao và nóc nhà, hắn chạm trán mấy tốp đệ tử tuần phòng mà chẳng một ai mảy may phát giác.
+
+Thiên Cơ Các chính là nơi tàng thư trọng yếu bậc nhất của Lăng Yên Cốc, nơi lưu giữ toàn bộ công pháp bí tịch mà Lăng Yên Cốc dày công thu thập từ ngày lập phái tới nay. Dù cho hiện tại Lăng Yên Cốc có phần suy vi sa sút, nhưng chỉ cần Thiên Cơ Các vẫn còn sừng sững, Lăng Yên Cốc sẽ vĩnh viễn còn hy vọng quật khởi huy hoàng.
+
+Mà sở dĩ Thẩm Lập nhắm trúng nơi này, chính là bắt nguồn từ dòng miêu tả về Cửu Dương Thần Công của hệ thống:
+
+【Cửu Dương Thần Công (Cấp Hoàn Mỹ): Hội tụ chí lý võ học dung hội quán thông mà thành, chí cương chí dương. Sau khi luyện thành, nội lực tự sinh với tốc độ cực nhanh, dường như vô cùng vô tận. Có thể tăng phúc cực lớn cho bất kỳ võ học nào, dù là quyền cước thông thường cũng mang uy lực kinh người.】
+
+Bốn chữ "chí lý võ học" kia đại biểu cho một chân lý: Chỉ cần luyện thành Cửu Dương Thần Công, phần lớn công pháp trên thế gian đối với hắn sẽ không còn tồn tại bất kỳ rào cản nào nữa!
+
+Chẳng khác nào Trương Vô Kỵ và Trương Tam Phong năm xưa. Đại đa số võ học trong thiên hạ, bọn họ chỉ cần liếc mắt một cái là nhìn thấu toàn bộ ảo diệu tinh túy bên trong.
+
+Thẩm Lập đương nhiên cũng muốn đích thân kiểm chứng điều đó.
+
+Vừa mới tiếp cận tới rìa ngoài của Thiên Cơ Các, trong đầu hắn bỗng vang lên một thanh âm nhắc nhở bất ngờ:
+
+【Nhắc nhở: Phát hiện địa điểm có thể điểm danh -- Lăng Yên Cốc Thiên Cơ Các, có điểm danh không?】"""
+    },
+    {
+        "chapter_id": 1435,
+        "chapter_index": 4,
+        "title_translated": "Chương 4: Điểm Danh Thiên Cơ, Lão Tăng Vô Danh",
+        "translated_content": """\"Chỗ này cũng có thể điểm danh sao?\"
+
+Trong lòng Thẩm Lập thoáng dâng lên một trận vui mừng khôn xiết.
+
+Trước đây hắn cứ ngỡ việc điểm danh chỉ áp dụng cho những địa danh rộng lớn như cả môn phái Lăng Yên Cốc, không ngờ rằng ngay cả những địa điểm phân nhánh nhỏ bên trong cũng có thể kích hoạt điểm danh.
+
+Nếu đúng như vậy thì những nơi có thể điểm danh trong Lăng Yên Cốc bỗng chốc tăng lên rất nhiều. Nào là Giảng Võ Đường, Diễn Võ Đường, Tiểu Phật Đường, Đao Kiếm Đường...
+
+Hắn vội vàng liếc mắt kiểm tra số lần điểm danh còn lại trong hệ thống:
+
+【Số lần điểm danh khả dụng: 0/1】
+
+Đáng tiếc thật, hôm nay đã hết lượt rồi.
+
+Là vùng cấm địa truyền thừa trọng yếu của Lăng Yên Cốc, nơi đây được bố trí phòng thủ vô cùng nghiêm mật. Chỉ trong tầm mắt quan sát, đâu đâu cũng thấy bóng dáng các đệ tử tinh nhuệ đang làm nhiệm vụ tuần tra canh gác. Cửa chính duy nhất thì có mấy tên hộ vệ vác đao đứng sừng sững như tượng, nhìn thế nào cũng không thấy có kẽ hở cho hắn lén lút đột nhập vào.
+
+Sau khi cẩn thận quan sát hồi lâu, Thẩm Lập đành tạm thời từ bỏ ý định lẻn vào trong.
+
+Đúng lúc hắn vừa chuẩn bị quay người rời đi thì...
+
+"Cạch!"
+
+Một tiếng động khẽ khàng vang lên trong đêm tĩnh mịch.
+
+Nhờ tu luyện Cửu Dương Thần Công nên ngũ giác của Thẩm Lập trở nên vô cùng nhạy bén, lập tức phát giác ra điều bất thường. Hắn liền tung mình nhảy vọt lên, thi triển Du Tường Công đính chặt người vào bờ tường dựng đứng, thoăn thoắt lướt lên trên cao.
+
+"Bốp!"
+
+Bỗng nhiên, một cán chổi từ hư không quét tới, chặn đứng đường lướt trên tường của Thẩm Lập.
+
+Mà kẻ cầm cây chổi quét rác kia lại là một lão tăng mặc chiếc áo vải thô màu sẫm.
+
+Thẩm Lập lập tức nhận ra lão. Đây chính là lão hòa thượng chuyên làm việc tạp dịch quét dọn trong Tiểu Phật Đường của cốc.
+
+Lão hòa thượng mang một khuôn mặt vô cảm như khúc gỗ mục, không chút gợn sóng, ngước mắt nhìn Thẩm Lập đang bám dính trên tường.
+
+Lão cũng nhận ra thân phận của Thẩm Lập, liền chắp một tay trước ngực hành lễ, khẽ niệm một câu Phật hiệu:
+"A di đà Phật! Hóa ra là Thẩm nhị công tử, thật là khách quý hiếm gặp."
+
+Liếc nhìn bờ tường trơn nhẵn rồi lại nhìn Thẩm Lập đang ung dung đứng bám trên đó, lão hòa thượng không kìm được cất lời khen ngợi:
+"Công phu thật tuấn tú!"
+
+Nhận thấy đối phương không có ác ý, Thẩm Lập liền thu hồi Du Tường Công, nhẹ nhàng từ trên tường cao lộn một vòng đáp xuống đất.
+
+"Bịch!"
+
+Hai chân chạm đất vững vàng, hắn đưa tay phủi phủi bụi đất bám trên vạt áo, trong lòng không khỏi hiếu kỳ hỏi:
+"Hòa thượng nhà ngươi rốt cuộc là nhân vật phương nào?"
+
+Lão hòa thượng chỉ hờ hững buông một câu nhẹ bẫng:
+"Chỉ là một lão tỳ kheo bình thường mà thôi."
+
+Lừa quỷ chắc!
+
+Thẩm Lập cười thầm trong bụng. Một lão hòa thượng bình thường mà có thể thần không biết quỷ không hay áp sát tới cự ly trong vòng hai thước quanh người hắn sao? Một hòa thượng tầm thường mà có thể dễ dàng dùng một cán chổi quét rác chặn đứng Du Tường Công của hắn ư?
+
+Tuy nhiên, thấy lão tăng không có ý định nói thật, Thẩm Lập cũng chẳng buồn truy hỏi tới cùng, xoay người định cất bước rời đi.
+
+Thế nhưng, lão tăng dường như lại nảy sinh hứng thú đặc biệt với hắn. Thân hình lão khẽ lóe lên một cái, đã như bóng ma chắn ngang lối về của Thẩm Lập.
+
+"Ngươi muốn làm gì?" Sắc mặt Thẩm Lập tức thì trầm xuống.
+
+Lão tăng vẫn một tay chắp trước ngực, ôn tồn nói:
+"Nhị công tử xin dừng bước. Lão nạp vừa rồi thấy công phu đi trên vách tường của nhị công tử thực sự vô cùng hiếm thấy, muốn thỉnh giáo đôi điều."
+
+Lão khẽ thở dài:
+"Lão nạp canh giữ Thiên Cơ Các này đã mấy chục năm qua, toàn bộ bí tịch bên trong đều đã lật xem qua hết thảy, có thể nói là thuộc nằm lòng từng câu từng chữ. Vậy mà lão nạp chưa từng thấy qua môn thân pháp nào có thể đứng thẳng bước đi trên tường vững chãi như thế. Không biết nhị công tử có thể giải tỏa mối nghi hoặc này cho lão nạp được chăng?"
+
+Nghe những lời này, Thẩm Lập không khỏi chấn động trong lòng. Lão hòa thượng này lại có quyền đọc hết toàn bộ bí tịch trong Thiên Cơ Các sao?
+
+Theo như hắn biết, khắp cả Lăng Yên Cốc này, người có tư cách tùy ý lật xem bí tịch Thiên Cơ Các ngoài vị phụ thân trên danh nghĩa của hắn ra, thì số lượng cũng chỉ đếm trên đầu ngón tay. Ngay cả vị hảo đại ca Thẩm Ngọc của hắn, dẫu đã được mặc định là người thừa kế chức cốc chủ đời tiếp theo, cũng tuyệt đối chưa từng có được đặc quyền to lớn bực này!
+
+Trong lòng Thẩm Lập hồi chuông cảnh báo lập tức vang lên inh ỏi. Hắn không dám dây dưa thêm một khắc nào nữa, xoay người co giò bỏ chạy.
+
+Thế nhưng cây chổi trong tay lão tăng lúc này lại cứng rắn như một thanh thiết côn, mạnh mẽ quét ngang chặn đứng đường lui của hắn.
+
+"Oành!"
+
+Đầu chổi nện thẳng xuống nền đất, để lại một hố sâu hoắm. Có thể tưởng tượng nếu đòn này nện trúng thân thể con người, e rằng gân cốt đứt đoạn là chuyện khó tránh khỏi.
+
+"Nhị công tử, ngài chạy cái gì chứ?"
+
+Giọng điệu lão tăng vẫn bình thản như nước, căn bản chẳng hề đặt Thẩm Lập vào mắt.
+
+Thấy đối phương bám dai như đỉa đói, trong lòng Thẩm Lập cũng dâng lên một cỗ hung tợn, không thèm kiêng dè điều gì nữa. Lực từ dưới đất phát động, mượn nhờ uy lực tăng phúc kinh người của Cửu Dương Thần Công đối với quyền cước, hắn vung một quyền như sấm sét đấm thẳng về phía lão tăng lai lịch bất minh này!
+
+Thấy quyền phong của Thẩm Lập rít gào như mãnh hổ xuất sơn, lão hòa thượng chẳng những không giận mà còn mừng rỡ, ưỡn người đón tới:
+"Vừa vặn để lão nạp khảo nghiệm võ nghệ của nhị công tử một phen!"
+
+Chỉ thấy lão tăng duỗi một bàn tay ra, các ngón tay khẽ co lại, lại có thể phát chiêu sau mà tới trước, chuẩn xác điểm thẳng vào kinh mạch trên cánh tay của Thẩm Lập.
+
+Nắm đấm của Thẩm Lập chỉ hơi chao đảo một chút nhưng không hề hấn gì, thế quyền hung mãnh vẫn như cũ đấm thẳng vào lồng ngực lão hòa thượng!
+
+"Bùm!"
+
+Sắc mặt lão tăng đại biến trong nháy mắt, bị một quyền này đánh văng lùi về phía sau mấy bước loạng choạng, không còn giữ nổi vẻ thong dong tự tại như lúc ban đầu.
+
+Lão cúi đầu nhìn hai ngón tay đang run rẩy kịch liệt của mình, trong mắt lóe lên một tia kinh hãi tột độ.
+
+Ngay khoảnh khắc ngón tay lão điểm trúng cánh tay Thẩm Lập, lão rõ ràng cảm nhận được chân khí của mình vừa chực chờ phong bế kinh mạch đối phương, thì đột nhiên có một luồng sức mạnh cuồng bạo nghịch chuyển, hung hãn tựa như một con ác giao điên cuồng cắn ngược lại từ đầu ngón tay lão!
+
+Luồng sức mạnh ấy không những đánh tan nát chân khí của lão, mà còn chấn thương cả gân cốt ngón tay!
+
+"Không thể chạm vào!"
+
+Hai ngón tay đã tạm thời mất đi cảm giác tê dại, điều này khiến lão tăng lập tức thu hồi toàn bộ tâm lý khinh thị. Lão ngưng thần dò xét lại từ đầu, lúc này mới bàng hoàng phát hiện ra: Khí tức trên người thằng nhóc này căn bản không còn là cảnh giới bất nhập lưu trước đây nữa!
+
+Hậu thiên nhất trọng!
+
+Lão quả thực không dám tin vào hai mắt của chính mình!
+
+"A di đà Phật!"
+
+Trong lòng lão nổi lên sóng to gió lớn. Mới chỉ vài ngày trước, thằng nhóc này rõ ràng vẫn chỉ là một kẻ yếu ớt trói gà không chặt, vậy mà nay đã vững vàng bước vào hàng ngũ Hậu thiên cảnh giới. Hậu thiên, đó chính là danh xưng cao thủ hảo hán có máu mặt trên chốn giang hồ!
+
+Nghĩ vậy, lão liền nâng cây chổi trong tay lên, chủ động phát động thế công.
+
+Thẩm Lập không dám khinh suất, toàn thần quán chú ứng phó. Thế nhưng lão hòa thượng mượn cây chổi thi triển ra lại không phải côn pháp, mà là một môn trượng pháp vô cùng thâm sâu hiểm hóc. Từng đường trượng kình đánh ra rắn rỏi như thép nguội, quất vào người Thẩm Lập khiến hắn đau đớn khó chịu vô cùng.
+
+"Không xong rồi, thân pháp khinh công của mình quá kém, căn bản không né tránh nổi!"
+
+Cảnh giới võ học và chiêu thức của lão tăng rõ ràng cao thâm tinh diệu hơn Thẩm Lập gấp bội. Cán chổi quét rác trong tay lão luôn từ những góc độ quái dị khôn lường điểm trúng vào người hắn, khiến Thẩm Lập càng đánh càng thấy bức bối nghẹn họng.
+
+Sau một hồi giao đấu giằng co, lão tăng chủ động thu hồi cây chổi, dừng tay lui lại.
+
+Lão cũng đã nhìn ra điểm dị thường trên người Thẩm Lập:
+"Hóa ra nhị công tử chỉ là kẻ có cảnh giới suông mà thôi!"
+
+Cảm thấy mất hết hứng thú, lão tăng chỉ phất tay áo:
+"Nếu đã như vậy, nhị công tử vẫn nên sớm về phòng nghỉ ngơi đi thôi."
+
+"Chuyện này..."
+
+Thẩm Lập cũng tự ý thức được bản thân hoàn toàn không phải là đối thủ của lão quái vật này. Hắn cười khổ một tiếng, ôm quyền hành lễ rồi quay người rời đi.
+
+Trở về phòng ngủ, Thẩm Lập trằn trọc trở mình mãi không sao chợp mắt nổi.
+
+Trận giao thủ vừa rồi như một hồi chuông cảnh tỉnh dội thẳng vào đầu hắn. Dẫu cho hắn nắm giữ môn nội công nghịch thiên như Cửu Dương Thần Công, nhưng nếu không có chiêu thức võ học xứng tầm phối hợp, thì hắn cũng khó lòng chuyển hóa nguồn nội lực dồi dào kia thành sức chiến đấu thực tế.
+
+Chẳng khác nào Giác Viễn đại sư của Thiếu Lâm Tự, ôm trong mình Cửu Dương Thần Công vô song mà nhìn tới nhìn lui cũng chẳng khác gì một cục sạc dự phòng cỡ lớn!
+
+"Vẫn cứ phải điểm danh mới được!"
+
+Ôm mối suy tư ấy, Thẩm Lập mới dần chìm sâu vào giấc ngủ.
+
+Sáng sớm hôm sau vừa thức giấc, việc đầu tiên Thẩm Lập làm chính là kiểm tra số lần điểm danh đã được làm mới:
+
+【Số lần điểm danh khả dụng: 1/1】
+
+Có được lượt điểm danh quý giá trong tay, hắn liền ung dung thong thả sải bước tiến về phía Thiên Cơ Các một lần nữa.
+
+Lần này mọi chuyện lại diễn ra vô cùng suôn sẻ. Hắn chỉ giả vờ như một người vô tình đi ngang qua, vừa nghe thấy âm thanh nhắc nhở quen thuộc vang lên trong đầu liền lập tức đưa ra lựa chọn:
+
+【Nhắc nhở: Phát hiện địa điểm có thể điểm danh -- Lăng Yên Cốc Thiên Cơ Các, có điểm danh không?】
+
+"Điểm danh!"
+
+【Ting! Chúc mừng túc chủ điểm danh thành công, nhận được công pháp: Thẩm Gia Bí Tịch (Cấp Đại Sư)】
+
+【Phần thưởng đã đưa vào kho hệ thống, túc chủ có thể học bất cứ lúc nào】"""
+    },
+    {
+        "chapter_id": 1436,
+        "chapter_index": 5,
+        "title_translated": "Chương 5: Bí Tịch Nguyên Bản, Lén Học Võ Nghệ",
+        "translated_content": """\"Thẩm Gia Bí Tịch cấp Đại sư sao?\"
+
+Thẩm Lập thoáng ngạc nhiên, chẳng phải trước đây bảng trạng thái của hắn chỉ hiển thị cấp Sơ cấp thôi sao?
+
+Hắn liền mở phần giới thiệu của hệ thống ra xem xét:
+
+【Thẩm Gia Bí Tịch: Công pháp gia truyền của Thẩm gia Lăng Yên Cốc Sóc Châu, phân làm bốn bộ Quyền, Cước, Kiếm, Ám. Lấy Kiếm làm chủ tu, phối hợp ám khí tác chiến, quyền cước làm phụ trợ.】
+
+【Công pháp kèm theo 1: Thẩm Gia Kiếm Pháp, kiếm pháp gia truyền của Thẩm gia, uy lực khá tốt.】
+
+【Công pháp kèm theo 2: Thẩm Gia Ám Khí, phối hợp cùng kiếm pháp thi triển, có thể tẩm độc lên lưỡi kiếm.】
+
+【Công pháp kèm theo 3: Thẩm Gia Quyền Pháp, tu tập có thể cường thân kiện thể, không thích hợp đối địch.】
+
+【Công pháp kèm theo 4: Thẩm Gia Cước Pháp, tu tập xong thân hình mạnh mẽ linh hoạt, có hiệu quả nâng cao thân pháp nhất định.】
+
+Bốn phần giới thiệu này hoàn toàn trùng khớp với những gì nguyên chủ từng biết, nhưng cớ sao hệ thống lại đánh giá nó đạt tới cấp bậc Đại sư?
+
+Vừa vặn đi tới một rừng trúc vắng vẻ, thấy xung quanh bốn bề không một bóng người, hắn liền dứt khoát lặng lẽ lấy cuốn bí tịch từ không gian hệ thống ra, giấu trong tay áo rồi bóp nát.
+
+Một đạo lưu quang nhu hòa men theo lòng bàn tay chui tọt vào cơ thể hắn.
+
+Ngay lập tức, toàn bộ thông tin ảo diệu của bộ bí tịch tràn ngập trong tâm trí. Hắn cẩn thận đối chiếu từng chiêu thức, khẩu quyết mới này với những ký ức chắp vá trước đây, chẳng mấy chốc đã vỡ lẽ ra nguyên do.
+
+Trước kia sở dĩ hắn nghĩ môn võ công này chỉ ở cấp Sơ cấp, là bởi vì cuốn bí tịch mà nguyên chủ được tiếp cận vốn dĩ đã bị tàn khuyết nghiêm trọng.
+
+Còn cuốn bí tịch mà hệ thống điểm danh ban thưởng cho hắn, chính là bản hoàn chỉnh chân chính nhất do chính tay thủy tổ Thẩm gia sáng tạo ra thuở ban đầu!
+
+"Hóa ra là như vậy!"
+
+Thẩm Lập khẽ thở dài một tiếng cảm thán, chút hy vọng mong manh cuối cùng trong lòng dành cho người cha trên danh nghĩa kia cũng hoàn toàn tan thành mây khói. Hắn thầm nghĩ, chắc hẳn vị hảo đại ca Thẩm Ngọc của mình cũng chỉ được học bản cấp Đại sư này mà thôi.
+
+Thế nhưng Thẩm Lập đâu ngờ rằng, Lăng Yên Cốc sừng sững tại đất Sóc Châu suốt cả trăm năm qua, danh chấn giang hồ, nên bộ Thẩm Gia Bí Tịch kia từ lâu đã bị vô số kẻ hữu tâm rình rập dòm ngó. Trải qua trăm năm gió dập sóng dồi, mấy lần bị trộm cắp, trải qua nhiều biến cố binh đao, một phần lớn tinh hoa của bí tịch đã sớm thất lạc trong dòng chảy lịch sử. Bản bí tịch mà người đời sau chắp vá, sửa đổi cố gắng bù đắp lại hoàn thiện nhất, cũng chỉ miễn cưỡng đạt tới cấp Cao cấp mà thôi, khoảng cách so với cấp Đại sư nguyên bản quả thực một trời một vực!
+
+Mà tất cả những bí mật thâm cung bí sử này, một kẻ bị gạt ra rìa gia tộc như Thẩm Lập dĩ nhiên không tài nào hay biết.
+
+Đang lúc hắn ôm tâm trạng hờ hững cất bước quay về tiểu viện của mình, thì một giọng nói the thé mang theo vẻ trịch thượng bỗng cất lên gọi giật lại:
+"Nhị công tử, xin dừng bước!"
+
+Thẩm Lập quay đầu nhìn lại, hóa ra là một gương mặt quen thuộc.
+
+Tên này chính là tâm phúc đắc lực dưới trướng Thẩm Ngọc, đệ tử của Lăng Yên Cốc – Vi Dụ.
+
+"Hừ, thì ra là ngươi!" Thẩm Lập cười lạnh trong lòng, trong đáy mắt lóe lên một tia sát cơ lạnh buốt.
+
+Nguyên nhân chẳng có gì khác, tên này chính là một trong những kẻ có liên quan trực tiếp đến vụ việc nguyên chủ bị rơi xuống vực thẳm ngày hôm đó. Trong chuỗi "trùng hợp" quái đản đưa nguyên chủ vào chỗ chết, hình bóng của gã này dường như xuất hiện xuyên suốt từ đầu chí cuối.
+
+Chỉ thấy Vi Dụ ung dung sải bước tiến lại gần, trên mặt treo nụ cười ba phần mỉa mai, hai phần cợt nhả.
+
+Dẫu trong lòng hận không thể một chưởng bẻ gãy cổ tên này ngay tại chỗ, nhưng giữa ban ngày ban mặt, Thẩm Lập cũng không tiện manh động ra tay. Hắn lạnh lùng hỏi:
+"Ngươi có việc gì?"
+
+"Ha!" Vi Dụ không hề để bụng thái độ lạnh nhạt của hắn, cười khẩy: "Nhị công tử đừng có khách sáo xa cách như thế chứ!"
+
+"Ta nghe nói trong đại thọ của lão gia sắp tới, ngài định dẫn đầu đội ngũ đệ tử đi giao lưu tỉ thí với các môn phái khác."
+
+"Chuyện này ấy à... ta thực sự không đồng tình cho lắm."
+
+"Hừ!" Thẩm Lập cười khinh miệt: "Ngươi đồng tình hay không thì liên quan quái gì tới ta?"
+
+"Đúng là chẳng liên quan thật!" Vi Dụ nghe vậy gật gù ra vẻ tán đồng, nhưng ngay sau đó giọng điệu lập tức chuyển hướng: "Thế nhưng nếu để mất mặt Lăng Yên Cốc, thì lại liên quan mật thiết tới ta rồi."
+
+"Cho nên, để ngày hôm đó ngài đỡ bẽ mặt bớt đi một chút, ta muốn nhọc công chỉ điểm cho nhị công tử vài chiêu."
+
+"Ha ha!" Thẩm Lập dùng ánh mắt châm biếm nhìn chằm chằm vào kẻ trước mặt.
+
+Hóa ra lại là một tên mượn cớ "chỉ điểm giáo huấn" để tìm cách ức hiếp hắn!
+
+Nguyên chủ trước đây mang danh nhị công tử Thẩm gia mà lại chán ghét việc luyện võ, âu cũng chẳng phải không có lý do. Căn nguyên chính là đám chó săn vây quanh người đại ca ruột thịt kia, cứ hễ mở miệng là mượn cớ chỉ dạy võ công để hành hạ, đánh đập hắn tơi bời. Mỗi lần hắn bước chân tới sân tập võ là lại chuốc lấy đủ điều làm nhục, trừng phạt vô cớ. Lâu dần, Thẩm Lập ban đầu tự nhiên sinh ra tâm lý bài xích, căm ghét việc tu luyện công pháp.
+
+Vi Dụ thần thái ngông cuồng, tiện tay tháo thanh thiết kiếm cùng vỏ kiếm bên hông xuống, vung vẩy:
+"Yên tâm đi nhị công tử, ta sẽ không rút kiếm khỏi vỏ đâu!"
+
+Nói đoạn, gã liền kiêu ngạo chống thanh kiếm xuống đất, giơ một bàn tay lên ngoắc ngoắc về phía Thẩm Lập đầy khiêu khích.
+
+Thấy điệu bộ hợm hĩnh đáng ghét của gã, Thẩm Lập càng thêm phần chán ghét tột cùng.
+
+Ánh mắt hắn liếc sang bên cạnh thấy có một bụi cây dại, liền tiện tay bẻ lấy một cành cây dài chừng hai thước.
+
+Tay cầm cành cây, Thẩm Lập thản nhiên nói:
+"Nếu đã như vậy, vậy thì ta xin thỉnh giáo hai chiêu!"
+
+Nói dứt lời, hắn liền lấy cành cây làm kiếm, thi triển Thẩm Gia Kiếm Pháp đâm thẳng về phía đối phương!
+
+Vi Dụ thấy hắn lại dám dùng một cành cây cỏn con làm kiếm để thi triển kiếm pháp, trong lòng thoáng chút ngạc nhiên, nhưng phần nhiều là sự chế giễu khinh bỉ tột độ:
+"Không phải ngã xuống vách núi đến mức úng não rồi đấy chứ?"
+
+Gã cười khẩy một tiếng, vung mạnh thanh thiết kiếm còn nguyên vỏ nện thẳng về phía đỉnh đầu Thẩm Lập. Cú nện này gã dồn trọn mười phần khí lực, tin chắc có thể đánh cho Thẩm Lập chấn động não ngất lịm ngay tại chỗ.
+
+Một cành cây mục mỏng manh đụng độ với một thanh kiếm sắt nặng trịch, kết cục bên nào nát vụn thì không cần nói cũng rõ.
+
+Vi Dụ dường như đã mường tượng ra viễn cảnh Thẩm Lập bị kiếm sắt giáng trúng đầu, máu me be bét lăn đùng ra đất hôn mê bất tỉnh. Nghĩ tới đó, gã không kìm được phấn khích thè lưỡi liếm môi một cái.
+
+Nói thì chậm, nhưng diễn ra lại nhanh như chớp giật!
+
+Cành cây hai thước dẫu ngắn hơn thanh kiếm ba thước, nhưng lại luồn lách với một tốc độ quỷ mị khôn lường, lách qua thân kiếm sắt, đi trước một bước chuẩn xác đâm trúng vào huyệt Đản Trung ngay trước ngực Vi Dụ!
+
+"Phập!"
+
+Vi Dụ giật bắn mình, chỉ cảm thấy một cơn đau thấu tận tâm can đột ngột truyền đến. Toàn bộ nội lực quanh thân gã tức khắc bị đánh tan tác thành từng mảnh vụn, vùng ngực đau đớn kịch liệt như bị búa tạ giáng trúng. Bàn tay gã run rẩy không sao nắm giữ nổi thanh kiếm sắt nữa, cả người ngã nhào xuống đất, co quắp run rẩy như một con tôm luộc, miệng không ngừng rú lên thảm thiết:
+"Á á á!"
+
+Đúng lúc đó, một chiếc đế giày đột ngột giẫm mạnh lên mặt gã, cắt đứt tiếng gào khóc thảm thiết.
+
+"Đừng có sủa!" Thẩm Lập lạnh giọng quát.
+
+Mũi ủng hơi tăng thêm lực, Vi Dụ nằm dưới chân sợ tới mức vội vàng cắn răng nén cơn đau buốt, liên tục run rẩy mở miệng cầu xin tha mạng:
+"Nhị công tử tha mạng!"
+
+"Là tiểu nhân có mắt không tròng mạo phạm ngài!"
+
+Thế nhưng ngay khi gã đang định mở miệng lải nhải biện bạch cho bản thân, Thẩm Lập đã mất kiên nhẫn chẳng buồn nghe thêm một lời nào. Hắn dẫm mạnh chân xuống thêm một tấc:
+"Câm miệng!"
+
+"Ưm..."
+
+Vi Dụ đau đớn nhắm nghiền hai mắt lại, trong khoang miệng trào ra vị tanh tưởi của máu tươi, dường như có mấy chiếc răng đã bị dẫm gãy lung lay.
+
+Thẩm Lập hoàn toàn ngó lơ vẻ mặt thống khổ của gã, lạnh lùng buông một câu răn đe:
+"Sau này hễ thấy mặt ta, nhớ liệu mà đi đường vòng!"
+
+Nói xong, hắn liếc nhìn gã đầy khinh miệt rồi dứt khoát quay người rời đi.
+
+Đợi bóng lưng Thẩm Lập đã đi khuất hẳn, Vi Dụ đang hồn bay phách lạc mới dám run rẩy bò dậy.
+
+"Phi!" Một búng máu tươi kèm theo mấy mẩu răng gãy bị gã nhổ toẹt xuống đất.
+
+Gã vừa nhục nhã vừa căm hận, nhưng tới tận giây phút này gã vẫn không tài nào hiểu nổi tại sao mình lại có thể bại thảm hại đến mức ấy. Trong đầu gã không ngừng hồi tưởng lại chiêu kiếm kinh thiên động địa vừa rồi, mơ hồ cảm thấy tựa như đã từng nhìn thấy ở đâu đó.
+
+"Xì..."
+
+Cơn đau xé rách trên mặt lại ập đến, gã hốt hoảng ôm chặt lấy mặt rồi lủi thủi tháo chạy khỏi hiện trường, chỉ sợ bị đệ tử khác trong cốc nhìn thấy bộ dạng thảm hại này.
+
+Lúc này, Thẩm Ngọc đang ngồi trong viện ung dung lật xem công pháp, nghe thuộc hạ hớt hải chạy vào bẩm báo sự việc thì không khỏi vô cùng kinh ngạc. Sau khi bắt Vi Dụ miêu tả lại tường tận từng chi tiết trong quá trình giao thủ, ánh mắt Thẩm Ngọc càng thêm phần chấn động.
+
+Hắn liền đứng dậy cầm lấy thanh thiết kiếm, đích thân thi triển lại một thức kiếm chiêu ngay trước mặt thuộc hạ:
+"Có phải là chiêu này không?"
+
+Vi Dụ nhìn thấy thì liên tục gật đầu như giã tỏi:
+"Đúng đúng, chính là chiêu này!"
+
+Sắc mặt Thẩm Ngọc tức thì biến hóa vô cùng đặc sắc.
+
+Chiêu này có tên là "Kiếm Đoạn Hồi Khúc", chính là một trong những sát chiêu tinh diệu ảo diệu bậc nhất trong Thẩm Gia Kiếm Pháp, cực kỳ hiếm người lĩnh ngộ được. Ngay cả hắn cũng chỉ mới được phụ thân đích thân truyền thụ cho cách đây một năm, tuyệt đối không bao giờ truyền dạy cho đệ tử mang họ khác ngoài Thẩm gia.
+
+Vậy mà thằng phế vật nhị đệ của hắn, thế mà lại có thể dùng một cành cây khô để thi triển ra thần vận của chiêu kiếm này!
+
+"Thú vị rồi đây!"
+
+Khóe miệng Thẩm Ngọc khẽ nhếch lên một nụ cười đầy quỷ quyệt, bàn tay nhẹ nhàng xoa xoa cằm.
+
+Trong đầu hắn lập tức nảy ra một suy đoán chắc nịch: Tên Thẩm Lập kia nhất định là ma xui quỷ khiến, dám to gan lớn mật lén lút học trộm võ nghệ tổ truyền chưa được gia tộc cho phép!
+
+Nghĩ tới đây, hắn lại càng thêm phần đắc ý tột độ:
+"Đây là do chính ngươi tự dâng mạng tới tận cửa đấy nhé!\"
+"""
+    }
+]
+
+output_path = Path(r"e:\Truyện\data\translated_novel_5_batch1.json")
+output_path.parent.mkdir(parents=True, exist_ok=True)
+
+with open(output_path, "w", encoding="utf-8") as f:
+    json.dump({"chapters": chapters_data}, f, ensure_ascii=False, indent=2)
+
+print("Successfully generated JSON with", len(chapters_data), "chapters")

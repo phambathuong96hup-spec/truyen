@@ -1,0 +1,1258 @@
+# -*- coding: utf-8 -*-
+import json
+
+chapters = []
+
+# =========================================================================
+# CHƯƠNG 4: Tiêu Chuẩn Kép
+# =========================================================================
+ch4_text = """“Rầm!” “Loảng xoảng xoảng!”...
+
+Tiếng động bên trong phòng họp quả thực không hề nhỏ, giằng co một hồi lâu khiến đám đông bên ngoài tự động vận dụng hết trí tưởng tượng phong phú để não bổ ra một màn kịch chiến long trời lở đất bên trong.
+
+Tầm hơn mười phút sau, hai người rốt cuộc cũng từ phòng họp bước ra. Sắc mặt lão Trương vẫn hừng hực lửa giận chưa tan, còn Mạnh Lãng thì ủ rũ ỉu xìu chẳng khác nào quả cà tím trúng sương muối.
+
+“Còn đứng đực mặt ra đấy làm gì, không mau cút ra ngoài tìm khách hàng đi? Tháng này mà doanh số vẫn không đạt chỉ tiêu thì cuốn gói xéo xắt khỏi đây cho tôi!” Lão Trương trừng mắt nạt nộ Mạnh Lãng một trận tơi bời.
+
+“Dạ.” Mạnh Lãng bày ra bộ dạng khép nép ngoan ngoãn cúi đầu bước ra khỏi văn phòng.
+
+Qua ô cửa kính trong suốt, Vương Chí Bình chứng kiến trọn vẹn cảnh tượng này, khóe miệng gã khẽ nhếch lên một nụ cười lạnh đầy đắc ý...
+
+...
+
+“Haizz~” 
+
+Bước chân ra khỏi tòa nhà công ty, Mạnh Lãng mang theo tâm trạng ngột ngạt buồn bực ngước nhìn bầu trời bỗng chốc sầm sì mây đen giăng kín.
+
+Doanh số đội sổ, đắc tội với cấp trên trực tiếp, lại còn liên lụy đến cả bác Trương.
+
+Muốn tìm được một chỗ đứng vững chắc ở chốn đại đô thị phồn hoa này, sao mà gian nan trầy trật đến thế không biết...
+
+“Hê! Diễn xuất cũng khá phết đấy chứ!” 
+
+Đúng lúc này, một bàn tay nặng trịch vỗ đánh bộp lên vai hắn, Mã Kiều chẳng biết từ lúc nào đã tò tò bám theo sau lưng.
+
+Mạnh Lãng liếc nhìn gã một cái: “Anh lại biết rồi đấy à?”
+
+“Lão Trương là người thế nào, chẳng lẽ anh mày lại không rõ? Muốn làm một tay kinh doanh cừ khôi thì trước hết phải rèn được đôi hỏa nhãn kim tinh biết nhìn thấu lòng người chứ lị.” Mã Kiều toe toét cười.
+
+Nghe vậy, Mạnh Lãng lại nhớ đến những lời đánh giá ban nãy của bác Trương dành cho mình, cả người bất giác chùng xuống chán nản.
+
+“Anh có phải cũng thấy em căn bản không thích hợp làm nghề kinh doanh này không?”
+
+Mã Kiều vừa nghe xong liền trợn tròn hai mắt, tặng cho hắn một biểu cảm kiểu ‘chú em đang đùa anh đấy à’: “Đấy mà là vấn đề thích hợp hay không thích hợp chắc?”
+
+“Ặc...”
+
+Lại ăn thêm một đòn chí mạng xát muối vào tim.
+
+“Bùm! Ùng ùng!” 
+
+Đúng lúc này, một chiếc Audi A4 đỏ chót bất thình lình phanh kít lại ngay bên cạnh hai người.
+
+Tiếng nẹt pô gầm rú inh ỏi từ khối động cơ như đang cố tình khoe khoang sự tồn tại đầy hào nhoáng của nó với cả thiên hạ.
+
+“Ê! Người anh em Mã Kiều đi đâu đấy? Có cần tôi cho quá giang một đoạn không?”
+
+Mạnh Lãng đưa mắt nhìn vào ghế lái. Người vừa cất tiếng là một thanh niên ăn mặc ngổ ngáo bụi bặm, một bên tai bấm khuyên lấp lánh.
+
+Ừm, nhìn mặt mũi trông cũng hơi quen quen, hình như cũng là đồng nghiệp cùng công ty.
+
+“A Thành đấy à? Khá đấy nhỉ! Đổi đời từ súng kíp lên pháo thần công rồi cơ đấy?” Nhìn rõ người tới, Mã Kiều cười hớn hở bước tới vỗ bôm bốp lên thân xe màu đỏ đầy vẻ khoe mẽ.
+
+“Hê hê! Chẳng qua là dạo này đầu tư kiếm chác được chút đỉnh tiền còm ấy mà. Thế nào, trông cũng tàm tạm chứ?”
+
+“Gì mà tàm tạm, cái này gọi là người đẹp vì lụa lúa tốt vì phân, chú mày một bước nhảy vọt bước chân vào tầng lớp thượng lưu rồi còn gì nữa! Con xe này bèo nhất cũng phải ngót nghét mấy chục vạn ấy chứ.”
+
+“Bốn mươi vạn tệ, lấy số chẵn cho nó may mắn phát tài!” A Thành nở nụ cười đầy vẻ đắc chí.
+
+“Hô! Phát tài to rồi à?”
+
+“Hì! Chơi cổ phiếu kiếm được chút tiền tiêu vặt thôi.”
+
+“Mã cổ phiếu nào mà ảo diệu dữ vậy?”
+
+“Đừng bảo là người anh em này không dắt chú mày cùng bay nhé. Cổ phiếu Năng Lượng Hoa Hạ, dạo gần đây tăng điên đảo luôn, thế nào, có muốn vào chung vui một chuyến không?”
+
+“Thôi thôi tha cho anh mày, tổ một các chú doanh số ngút trời, mỗi tháng tiền hoa hồng cầm về cả vạn tệ, còn anh đây là dân viêm màng túi chính hiệu, lấy đâu ra vốn liếng mà mon men vào sới bạc chứng khoán!”
+
+“Tùy chú mày thôi nhé, sau này có tiếc hùi hụi thì đừng có trách anh em không trượng nghĩa. Sao, lên xe lượn một vòng hóng gió không?”
+
+“Thôi bỏ đi, anh mày còn phải chạy qua phòng gym cày cuốc đây, để dịp khác nhé.”
+
+“Được thôi, hôm nào qua phòng gym tìm chú mày sau. Thế hẹn gặp lại nhé, em gái ngọt ngào hôm qua vừa mới cua được đang đợi tôi tới đón đây, hê hê!”
+
+Trước khi nhấn ga rời đi, gã còn liếc mắt nhìn sang Mạnh Lãng đang đứng chôn chân bên cạnh Mã Kiều, trong ánh mắt thoáng qua một tia khinh thường không thèm che giấu.
+
+“Bùm! Ùng ùng!” 
+
+Chiếc Audi màu đỏ rít ga gầm vang rồi lao vút đi, khiến người đi đường xung quanh ai nấy đều phải ngoái đầu nhìn theo.
+
+Mã Kiều quay đầu lại, liền phát hiện Mạnh Lãng vẫn đang đứng chết trân tại chỗ, ngơ ngác đờ đẫn như khúc gỗ.
+
+“Này! Chú mày làm sao thế?”
+
+“Hả? Ồ! Em không sao.” Mạnh Lãng hoàn hồn, vẻ mặt lộ rõ nét kỳ quặc cất giọng hỏi: “Người vừa rồi là người của tổ một à anh?”
+
+“Ừ, Trần Thành, gia đình họ hàng toàn làm công chức nhà nước nên quan hệ rộng rãi lắm, vào công ty cùng đợt với anh, lăn lộn kiếm ăn cũng khá khẩm. Thường ngày hay lượn qua phòng gym nơi anh tập để săn mấy em gái chân dài. Cơ mà chú mày thấy rồi đấy, tính tình nông cạn, thích làm màu khoe mẽ.”
+
+Mã Kiều đúng chuẩn là một tay bách sự thông, hầu như mọi ngóc ngách nhân sự trong công ty gã đều nắm rõ trong lòng bàn tay.
+
+Kỳ lạ nhất là bất kể thuộc tầng lớp nào, gã dường như đều có thể bắt sóng hòa nhập rất nhanh, gặp ai cũng có thể bá vai bá cổ xưng huynh gọi đệ ngọt xớt.
+
+“Trần Thành...” Mạnh Lãng lộ ra vẻ mặt đăm chiêu suy nghĩ.
+
+Đầu tiên là chạm mặt Tony lão sư rót vào tai một tràng thuyết giáo tẩy não, sau đó đến công ty thì xui xẻo trăm bề đụng độ lãnh đạo, tiếp ngay sau đó lại gặp màn khoe xe sang bóng loáng của Trần Thành...
+
+Và trùng hợp đến rợn người là cả hai kẻ này đều nhắc tới mã cổ phiếu “Năng Lượng Hoa Hạ”...
+
+Đầu óc Mạnh Lãng bất giác tiến vào một trạng thái suy luận mang tên “Châu chấu đá voi, Khổng Minh sau trận đánh”.
+
+Giả sử nếu mình chưa từng đọc qua cuốn “tự truyện” kia... thì quỹ đạo đường đời của mình liệu có thực sự diễn ra y hệt như những gì cuốn sách đã viết hay không...
+
+Hãy thử ngẫm mà xem, đúng vào cái lúc bản thân đang rơi xuống đáy sâu thất bại, chán nản bế tắc cùng cực, bỗng nhiên một cơ hội phát tài đổi đời mười mươi đã được người khác kiểm chứng bày ngay trước mắt, thử hỏi có ai mà không động lòng nổi lòng tham?
+
+Cớ sao cùng là kiếp người như nhau, người ta thì lái xe sang bạc triệu, ôm ấp gái đẹp, còn bản thân mình đến tiền thuê trọ tháng sau còn phải chạy vạy lo từng bữa?
+
+Mình đã bảo rồi mà! Bản thân căn bản không phải là kẻ nông nổi bốc đồng, làm sao có thể manh động đến mức vay nợ ngập đầu để lao vào sới bạc chứng khoán cơ chứ!
+
+Nhưng mà một khi cái đòn combo liên hoàn ba phát chí mạng này giáng xuống, thì dù có là tượng đá muốn giữ vững lý trí sợ rằng cũng khó như lên trời!
+
+Mạnh Lãng như thể vừa được một gáo nước lạnh tạt thẳng vào đầu khai sáng tâm trí, trong nháy mắt đã xâu chuỗi thông suốt toàn bộ nguyên nhân hậu quả của cả chuỗi sự việc.
+
+Đây... chính là “tương lai của ta” ư?
+
+Mã Kiều nhìn thấy bộ dạng hồn bay phách lạc của Mạnh Lãng, cứ ngỡ thằng nhóc này bị màn khoe của của Trần Thành làm cho đả kích tâm lý, khẽ cau mày lại.
+
+“Anh bảo này, chú mày không phải là đang manh nha tính toán cái trò tà đạo gì đấy chứ?”
+
+“Hở? Em thì tính toán được trò tà đạo gì cơ chứ?” Mạnh Lãng ngơ ngác ngẩng lên nhìn gã.
+
+“Không có là tốt nhất, anh cứ tưởng chú mày cũng sốt ruột muốn đâm đầu vào chơi cổ phiếu. Tặng chú mày một lời khuyên chân thành: thị trường chứng khoán lắm rủi ro, bước chân vào sòng phải hết sức thận trọng!”
+
+“Làm sao có chuyện đó được, chơi cổ phiếu á? Đời này em...”
+
+Lời vừa thốt ra được một nửa, Mạnh Lãng bỗng nhiên sững người chết lặng.
+
+Khoan đã! 
+
+Trước đây mình chỉ chăm chăm nghĩ cách làm sao để không giẫm phải vết xe đổ, nhưng lại hoàn toàn không ý thức được rằng, những “hố sâu cạm bẫy” mà mình gặp phải trong tương lai được ghi chép trong cuốn “tự truyện”, đối với bản thân ở thời điểm hiện tại, cớ sao lại không phải là một cơ hội ngàn năm có một?
+
+Bàn về tầm quan trọng của tư duy ngược!
+
+Thử hỏi trên đời này, có ai biết trước được rằng trong tương lai không xa sắp sửa xảy ra một cuộc sụp đổ thị trường chứng khoán kinh hoàng?
+
+Chỉ có duy nhất một mình ta biết mà thôi!
+
+Đây chẳng phải chính là tin tức nội gián độc nhất vô nhị trên thế gian này sao? Đây chính là sự chênh lệch thông tin mang tính hủy diệt đấy!
+
+Thế nhưng vấn đề nan giải lại ập tới: một kẻ đến tiền thuê nhà tháng sau còn đang ôm đầu sốt vó như mình, thì lấy đâu ra vốn liếng để bước chân vào sòng bạc này?
+
+Mạnh Lãng im lặng hồi lâu, rồi bỗng nhiên mang theo vẻ mặt đầy ngượng ngùng e thẹn ngẩng đầu lên.
+
+“Anh Kiều này... có thể cho em vay ít tiền được không?”
+
+Mã Kiều: “...”
+
+...
+
+Tiền nong, dĩ nhiên là không vay được đồng nào.
+
+Chẳng những không vay được xu nào, Mã Kiều còn đen mặt như đít nồi, quay ngoắt người bỏ đi một mạch, con thuyền tình bạn mong manh nói lật là lật ngay tại trận.
+
+Mạnh Lãng chỉ đành ngậm ngùi cảm thán đúng là chuyện mượn tiền trước nay luôn là hòn đá thử vàng chuẩn xác nhất cho tình bạn.
+
+Hắn vội vã quét mở một chiếc xe đạp công cộng ven đường rồi cong mông đạp thục mạng về khu nhà trọ.
+
+Leo lên tầng, đóng sầm cửa, cài then chốt, rồi lại khuân một đống đồ đạc tạp nham chặn cứng sau cánh cửa.
+
+Kéo rèm cửa sổ kín mít, bật chế độ nhìn đêm trên camera điện thoại để cẩn thận rà soát từng ngóc ngách trong phòng xem có thiết bị quay lén nào hay không.
+
+Sau khi đã xác nhận cấp độ an ninh phòng hộ đã được đẩy lên mức cao nhất, Mạnh Lãng lúc này mới hơi an lòng bước vào phòng ngủ, với tay bật sáng chiếc đèn bàn.
+
+Hắn bới trong thùng rác ra cuốn sách mỏng mang tên “Cuộc Đời Bi Thảm Của Mạnh Lãng” mà ngày hôm qua còn khiến hắn nghiến răng nghiến lợi, cẩn thận từng li từng tí đặt nó ngay ngắn lên mặt bàn, cẩn thận dùng tay phủi sạch những vết nhơ bụi bặm dính trên bìa.
+
+Mạnh Lãng cảm thấy vô cùng may mắn vì ngày hôm qua trong lúc bốc hỏa đã không nhất thời bốc đồng mà châm lửa thiêu rụi cuốn sách này thành tro.
+
+Hắn hít sâu một hơi, làm ra vẻ trang nghiêm tựa như đang hành hương về thánh địa, nhẹ nhàng lật mở trang sách, động tác nâng niu dịu dàng chẳng khác nào một tín đồ sùng đạo nhất đang thành kính chiêm bái “Kinh Thánh”.
+
+Thế nhưng ngay khoảnh khắc tiếp theo.
+
+“Ủa?” Mạnh Lãng thốt lên một tiếng kinh ngạc.
+
+Nét chữ này... sao trông có vẻ mờ đi thế này?
+
+Mạnh Lãng vội vàng điều chỉnh lại góc độ và cường độ ánh sáng của chiếc đèn bàn, chăm chú ghé sát mắt soi kỹ hồi lâu, khẳng định chắc nịch đây tuyệt đối không phải do mình hoa mắt ảo giác.
+
+Nếu như nét chữ của tối ngày hôm qua là phông chữ đen đậm rõ ràng, thì hiện tại độ hiển thị của nó dường như đã bị kéo tụt xuống mức trong suốt 50%.
+
+Cái quái gì thế này, sách mà cũng biết bay màu phai mực à? Mạnh Lãng ngơ ngác đực mặt ra.
+
+Chỉ trong chớp mắt ngẩn người suy nghĩ, nét chữ in trên mặt giấy dường như lại nhạt thêm một chút nữa.
+
+Mạnh Lãng đưa tay dụi dụi mắt, xác nhận thị lực của mình hoàn toàn bình thường.
+
+Hắn nhìn chằm chằm vào những nét chữ đang ngày càng mờ dần trên trang giấy, ánh mắt dần chuyển sang vẻ trầm ngâm suy tư.
+
+Nét chữ đang dần biến mất... Chẳng lẽ điều này nói lên rằng, tương lai của chính mình đã bắt đầu xuất hiện sự thay đổi?
+
+Hóa ra cuốn tự truyện này không phải là loại hàng dùng một lần rồi vứt xó à?!
+
+【Tự truyện: “...”】
+
+Trong lòng Mạnh Lãng dâng lên một nỗi mừng rỡ khôn xiết.
+
+Lý thuyết dây? Đa vũ trụ song song? Hiệu ứng cánh bướm? Hay là nghịch lý không thời gian?
+
+Mạnh Lãng vắt kiệt chút kiến thức vật lý nghèo nàn trong não bộ nhằm tìm kiếm một lời giải thích khoa học hợp lý cho sự tồn tại kỳ diệu của cuốn tự truyện này.
+
+Thế nhưng sự thật hiển nhiên rành rành: mớ kiến thức khoa học thảm hại của một tên học sinh dốt tốt nghiệp đại học hạng hai căn bản không đủ sức để gánh vác nổi một kỳ tích vĩ đại cỡ này.
+
+Hắn bắt đầu chuyển hướng suy nghĩ sang những vấn đề thực tế hơn.
+
+Nếu như hành vi của mình có thể thay đổi được tương lai, và cuốn sách này lại căn cứ theo hành vi mới của mình để phác họa ra một tương lai hoàn toàn mới, rồi sau đó mình lại nhờ đọc được nội dung mới trong sách mà tiếp tục điều chỉnh hành vi để sinh ra một tương lai khác nữa...
+
+Cứ thế tuần hoàn lặp đi lặp lại không ngừng, vậy thì chẳng phải đồng nghĩa với việc, mình sẽ nắm trong tay vô số cơ hội để “sửa đổi tương lai” hay sao?
+
+Hỡi tương lai, mày đã thấy rối não chưa?
+
+Chứ tao là tao thấy tiền đình lắm rồi đấy.
+
+“Cộc cộc!”
+
+Bất thình lình, một tràng tiếng gõ cửa dồn dập vang lên như sét đánh ngang tai, thô bạo kéo giật Mạnh Lãng đang chìm đắm trong vòng lặp đơ não trở về với thực tại.
+
+Mạnh Lãng giật thót mình vội vã gập phắt cuốn sách lại, trong lòng dâng lên cảm giác hoảng loạn y hệt như kẻ làm chuyện mờ ám bất ngờ bị công an ập vào kiểm tra phòng trọ.
+
+Cầm cuốn sách ướm thử nửa ngày trời, giấu dưới gối chăng? Hay nhét vào tủ quần áo?
+
+Thế nhưng ngẫm đi ngẫm lại giấu ở đâu cũng thấy không yên tâm, dứt khoát nhét tọt vào trong lồng ngực áo khoác, kéo phéc-mơ-tuya lại kín mít.
+
+...
+
+“Cộc cộc!”
+
+Bên ngoài cửa, một người phụ nữ mặt mộc không chút phấn son, mái tóc buộc đuôi ngựa gọn gàng, khoác trên mình bộ đồ thể thao rộng rãi và xỏ một đôi dép tông lào đang tỏ vẻ mất kiên nhẫn gõ mạnh lên cánh cửa.
+
+Tuy rằng cách ăn mặc có phần xuề xòa tùy tiện, thế nhưng khuôn mặt thanh tú sắc sảo, vóc dáng nở nang với ba vòng bốc lửa cực chuẩn, cùng với đôi chân dài miên man hút mắt, tất cả đều chứng minh đây là một đại mỹ nhân hàng thật giá thật.
+
+Điểm mấu chốt nhất là trên tấm bảng móc khóa treo lủng lẳng ở thắt lưng nàng có tới hàng mấy chục xâu chìa khóa kim loại, mỗi bước đi lại va vào nhau kêu “leng keng rổn rảng”, đi dạo trên phố thì tỷ lệ người ngoái đầu lại nhìn tuyệt đối đạt mức một trăm phần trăm...
+
+“Cạch~” 
+
+Cuối cùng thì cánh cửa phòng trọ cũng hé mở ra một khe nhỏ, để lộ ra một đôi mắt đầy vẻ cảnh giác bên trong.
+
+“Sao mà mở cửa lâu thế hả?” Người phụ nữ cất giọng đầy vẻ khó chịu.
+
+“Hóa ra là cô chủ nhà đấy à, thật ngại quá, ban nãy tôi vừa mới tắm rửa xong.” Mạnh Lãng chột dạ cười gượng giải thích.
+
+Đây chính là bà chủ của khu nhà trọ này, số lần hai người giáp mặt nhau chỉ đếm trên đầu ngón tay, và dĩ nhiên lần nào gặp mặt cũng đều rơi đúng vào ngày thu tiền trọ.
+
+Mãi đến tận lúc ký vào hợp đồng thuê phòng, Mạnh Lãng mới biết được đại mỹ nhân chủ nhà này có tên là Diêm Vi Vi.
+
+Ban ngày ban mặt mà lại đi tắm rửa?
+
+Diêm Vi Vi mang theo ánh mắt nghi hoặc ghé sát khe cửa nhòm vào bên trong phòng, phát hiện cả căn phòng tối om om như hũ nút dường như không hề bật đèn, thậm chí đến cả rèm cửa sổ cũng được kéo kín mít.
+
+Tắm rửa một cái mà cũng cần phải tắt phụt đèn rồi kéo rèm kín cổng cao tường thế này à?
+
+Ngươi định lừa gạt quỷ chắc?
+
+Diêm Vi Vi lập tức giơ tay toan đẩy cửa bước thẳng vào kiểm tra, kết quả lại phát hiện phía sau cánh cửa như có vật nặng chặn lại, đẩy mãi mà không nhúc nhích nổi một phân!
+
+Diêm Vi Vi sững người một thoáng, ngay sau đó ngọn lửa giận dữ liền bùng lên ngùn ngụt.
+
+“Á à! Cái tính khí nóng như kem của bà mày lại bốc lên rồi đấy nhé! Diêm Vi Vi này đi thu tiền nhà bao nhiêu năm nay, đây là lần đầu tiên đụng phải đứa dám dùng bạo lực để chống đối nộp tiền nhà đấy, mở toang cửa ra ngay cho bà!”
+
+“Ấy ấy ấy! Chị đừng manh động, ngàn vạn lần đừng hiểu lầm! Em nào dám dùng bạo lực chống đối tiền nhà đâu, chẳng qua là mỗi lần tắm rửa em đều thấy thiếu cảm giác an toàn nên mới chèn cửa lại cho yên tâm thôi mà. Hơn nữa bây giờ trên người em không có mảnh vải che thân, chị xông vào lúc này thật sự không tiện đâu ạ!”
+
+Mạnh Lãng nhìn thấy bà cô này hổ báo cáo chồn đến mức xắn tay áo chuẩn bị tung cước đạp tung cửa, da đầu lập tức tê rần, vội vàng cuống cuồng giải thích.
+
+“Bốc phét! Tắm rửa thôi mà cũng thiếu cảm giác an toàn, mày tưởng mày là tài tử Ngô Ngạn Tổ chắc?”
+
+“Mẹ em từng dặn dò kỹ lưỡng rồi, phận trai một thân một mình nơi đất khách quê người, lúc nào cũng phải biết tự bảo vệ lấy bản thân...”
+
+Hai người bốn mắt nhìn nhau trừng trừng qua khe cửa, bầu không khí bỗng chốc rơi vào một sự im lặng ngượng ngùng đến đỉnh điểm.
+
+Diêm Vi Vi đảo mắt đánh giá từ trên xuống dưới Mạnh Lãng đang giấu tiệt cả nửa thân mình sau cánh cửa, đầu tiên là lộ vẻ trầm ngâm suy nghĩ, ngay sau đó liền chuyển sang một ánh mắt tràn đầy sự khinh bỉ và ghê tởm tột độ.
+
+“Người trẻ tuổi, làm gì thì làm cũng phải biết kiềm chế bản thân một chút!”
+
+Kiềm chế cái gì cơ chứ? Mạnh Lãng cạn lời nhìn đối phương, trong chuyện này tuyệt đối là có sự hiểu lầm to đùng nào đó rồi.
+
+“Thôi được rồi, cái sở thích biến thái riêng tư của cậu tôi chẳng có tí hứng thú nào để quan tâm, nhưng tiền thuê nhà tháng trước cậu định bao giờ mới chịu nộp đây?”
+
+“Ờ... chuyện này thì...” Mạnh Lãng ngượng ngùng cười trừ xoa xoa tay: “Chị có thể thư thả cho em thêm vài ngày nữa được không, đợi công ty phát lương xong em sẽ gom nộp luôn một thể cả hai tháng ạ.”
+
+“Được thôi, kinh doanh nhỏ lẻ lấy công làm lời, tính thêm lãi suất mười phần trăm.” Diêm Vi Vi sa sầm nét mặt, cất giọng lạnh tanh như đang xử lý công vụ.
+
+Trong mắt nàng lúc này, Mạnh Lãng hiển nhiên đã bị liệt thẳng vào “danh sách đen nhân phẩm thối tha”.
+
+“... Được thôi!” Mạnh Lãng nghiến răng nghiến lợi gật đầu.
+
+Mẹ kiếp, còn tống tiền đen tối hơn cả bọn ngân hàng cho vay nặng lãi nữa!
+
+Diêm Vi Vi chẳng thèm thèm liếc nhìn Mạnh Lãng thêm một cái nào nữa, quay ngoắt người bước sang gõ cửa phòng trọ bên cạnh.
+
+Mạnh Lãng thở phào nhẹ nhõm một hơi vội vã đóng chặt cửa lại. Cánh cửa gỗ ọp ẹp cách âm cực kỳ kém, ngoài hành lang lờ mờ truyền vào tiếng nói chuyện ngọt ngào non nớt của một bé gái và giọng của Diêm Vi Vi.
+
+“Cháu chào chị chủ nhà ạ.”
+
+“Ai da, bé Tiểu Vũ ngoan quá cơ, càng lớn lại càng xinh xắn đáng yêu, lớn lên chắc chắn sẽ thành một đại mỹ nhân cho mà xem. Nào ngoan lại đây cho chị thơm một cái nào, moa~”
+
+“Cháu cảm ơn chị chủ nhà, nhưng mà hiện tại chị gái cháu không có ở nhà ạ.”
+
+“Lại không có nhà nữa à? Không phải là chị muốn lắm lời đâu, nhưng công việc dù có bận rộn đến mấy thì cũng đâu thể cứ bỏ mặc một đứa trẻ con nheo nhóc ở nhà một mình suốt ngày như thế được chứ? Thật là hết nói nổi.”
+
+“Không sao đâu ạ, cháu ở nhà một mình vẫn có thể tự làm bài tập về nhà với xem tivi được mà, không cần chị gái phải ở bên cạnh kè kè đâu ạ.”
+
+“Ai da, cục cưng bé bỏng của chị ơi, sao mà hiểu chuyện đến mức khiến người ta xót xa thế này chứ. Lát nữa chị gái về thì bảo với chị em nhé, tiền thuê nhà tháng này chị giảm giá cho hai mươi phần trăm, bảo bả bớt chút thời gian ở nhà chăm sóc cho em nhiều hơn.”
+
+“Cháu cảm ơn chị chủ nhà nhiều lắm ạ!”
+
+“Ừm! Chị đi đây nhé, nhớ khóa chặt cửa cẩn thận vào, bất kể là ai gõ cửa cũng tuyệt đối không được mở nghe chưa, đặc biệt là cái lão chú biến thái ở phòng bên cạnh ấy.”
+
+“Dạ cháu nhớ rồi ạ, ngoài chị gái với chị chủ nhà ra thì bất kể ai gõ cửa cháu cũng không mở đâu ạ.”
+
+“Ừ! Ngoan lắm!”
+
+Ngay sau đó là tiếng đóng cửa cùm cụp và tiếng dép tông lào loẹt quẹt bước xa dần xuống cầu thang.
+
+Mạnh Lãng ở bên trong phòng trọ nghe mà tức đến nghiến răng kèn kẹt, mặt mày méo xệch.
+
+Cái con mẹ nó chứ, đúng là đồ tiêu chuẩn kép không hơn không kém!"""
+
+chapters.append({
+    "chapter_id": 711,
+    "chapter_index": 4,
+    "title_translated": "Chương 4: Tiêu Chuẩn Kép",
+    "translated_content": ch4_text.strip()
+})
+
+# =========================================================================
+# CHƯƠNG 5: Sự Phấn Đấu Của Ta
+# =========================================================================
+ch5_text = """“Căn phòng bên cạnh hóa ra đã có người mới dọn tới ở rồi sao?”
+
+Mạnh Lãng vừa rảo bước đi vào bên trong phòng vừa lẩm bẩm một câu.
+
+Căn phòng trọ hắn đang thuê nằm sâu trong một khu tập thể cũ nát của làng trong phố, những người thuê trọ ở đây đa phần đều là dân lao động ngoại tỉnh đến thành phố mưu sinh, đủ mọi tầng lớp thành phần bát nháo, tính lưu động nhân sự cũng cực kỳ cao.
+
+Môi trường sống nơi đây nếu nói thẳng ra thì chẳng lấy gì làm dễ chịu, điểm cộng duy nhất đáng giá chính là giá thuê rẻ mạt.
+
+“Ục ục~” 
+
+Đúng lúc này, tiếng réo inh ỏi phát ra từ dạ dày khiến Mạnh Lãng sực nhớ ra từ sáng tới giờ dường như mình vẫn chưa bỏ được hạt cơm tử tế nào vào bụng.
+
+Theo phản xạ bản năng, hắn đưa tay với lấy gói mì tôm ăn liền nhãn hiệu “Thang Sư Phó” đặt trên góc bàn.
+
+Cắm siêu tốc đun nước sôi, vừa định giơ tay xé toạc bao bì gói mì thì cánh tay hắn bỗng nhiên khựng cứng lại giữa không trung.
+
+【Hôm ấy tôi uống rất nhiều rượu, sau khi nôn ra máu phải nhập viện cấp cứu, bác sĩ chẩn đoán đã mắc ung thư dạ dày giai đoạn cuối...】
+
+Ung thư dạ dày giai đoạn cuối...
+
+Giai đoạn cuối...
+
+Mấy chữ này bỗng nhiên hiện lên mồn một trong tâm trí tựa như tiếng chuông ngân vang vọng hồi chuông cảnh tỉnh, khiến toàn thân Mạnh Lãng run lên bần bật.
+
+Phải rồi, nguyên nhân dẫn đến một đời đầy bi kịch thảm hại của mình, đâu phải chỉ đơn thuần là do đầu tư chứng khoán thất bại mà ra?
+
+Có người dùng sức khỏe để đổi lấy tiền tài, có người lại vung tiền tài ra để chuộc lại sức khỏe. Còn cái cuộc đời khốn nạn kia của mình thì bi đát đến thấu trời xanh, bởi vì cả hai thứ đó mình đều chẳng có lấy một phân...
+
+Cũng giống như biết bao bạn sinh viên đại học khác, ngay từ những năm tháng còn ngồi trên ghế giảng đường đại học, thói quen ăn uống của hắn đã bắt đầu trở nên vô tội vạ. Bữa sáng thì thường xuyên nhịn đói bỏ qua, bữa trưa thì đóng họ cho mấy quán mì cay ma lạt thảng lề đường, bữa tối lại lê la quán cóc vỉa hè.
+
+Rời xa khỏi sự kèm cặp của gia đình, Mạnh Lãng khi ấy chẳng khác nào con ngựa hoang đứt cương, thỏa sức tận hưởng thứ tự do buông thả đầy phóng túng.
+
+Đến khi tốt nghiệp đi làm, cơm hộp đặt ngoài và mì tôm ăn liền lại càng trở thành món ăn cơm bữa hàng ngày.
+
+Thế nhưng tất cả những sự buông thả ấy, dường như tuyệt đối không phải là không có cái giá phải trả...
+
+Mạnh Lãng thở dài thườn thượt, chậm rãi đặt gói mì tôm xuống bàn, ánh mắt dần dần trở nên kiên định khác thường.
+
+Hắn hạ quyết tâm, kể từ ngày hôm nay, phải trở thành một con người dưỡng sinh chân chính! Nhóm lửa, nấu cơm, tích lũy củi gạo dầu muối; kể từ ngày hôm nay, phải biết quan tâm đến lương thực và rau xanh.
+
+Tốt nhất là sau này có tiền sẽ thuê lấy một căn hộ khang trang, một phòng bếp một nhà vệ sinh, hướng mặt ra biển ngắm mùa xuân hoa nở.
+
+“Ừm... để mình tra cứu xem có thực đơn dưỡng sinh nào chuẩn chỉ không đã. Đúng rồi! Ông bố thích bấm like dạo trong nhóm chat gia đình chẳng phải ngày nào cũng rải link mấy bài viết dạng này sao?
+
+Ngày xưa mình vẫn còn quá trẻ con bồng bột, cứ nhìn thấy tiêu đề sặc mùi dưỡng sinh là chẳng bao giờ thèm click vào đọc. Bây giờ ngẫm lại mới thấy quả nhiên trong nhà có người già như có một kho báu, kinh nghiệm quý báu của các bậc tiền bối đi trước vẫn là nên học hỏi tham khảo một chút.”
+
+Mạnh Lãng lập tức rút điện thoại ra, chuẩn bị thiết lập cho bản thân một thực đơn dưỡng sinh trường kỳ kháng chiến.
+
+Vĩnh biệt nhé gà rán, bia lạnh và đồ nướng thơm lừng! Tạm biệt nhé bim bim khoai tây, nước ngọt có ga và mì ăn liền!
+
+Không phải là anh không còn yêu thương các em nữa đâu, mà chủ yếu là vì anh sợ chết.
+
+“‘Nhập môn dưỡng sinh — Dạy bạn bí quyết dưỡng sinh kiểu Phật hệ!’, bài viết này thoạt nhìn có vẻ khá là uy tín đấy.
+
+Ủa? Cái quái gì thế này?! Bia thả kỷ tử, nước ngọt Coca... cho thêm đẳng sâm?
+
+Cái thứ quỷ này mà cũng tính là dưỡng sinh được à?!
+
+Khoan đã khoan đã, chắc chắn là do cách mở bài của mình chưa đúng rồi!
+
+‘Dưỡng sinh nâng cao — Bí quyết cốt lõi của giới thượng lưu’, xem bài này thử coi.
+
+Tay trái ngậm đông trùng hạ thảo, tay phải nhâm nhi tổ yến a giao... Chỉ cần không thiếu tiền, sống thọ tới chín trăm chín mươi chín tuổi?!
+
+Bỏ qua, xem bài tiếp theo! ‘Dưỡng sinh cổ truyền — Kỳ Kinh Bát Mạch Dưỡng Sinh Pháp’.
+
+Nhâm mạch chủ về huyết, Đốc mạch chủ về khí, huyết thuộc âm, khí thuộc dương, đả thông hai mạch Nhâm Đốc, điều hòa cân bằng âm dương, âm dương một khi mất cân bằng thì bách bệnh phát sinh...”
+
+Mạnh Lãng đứng chôn chân im lặng tại chỗ mất nửa ngày trời, lẳng lặng nhấn nút tắt màn hình điện thoại.
+
+Bố à, bố chơi đùa với tính mạng con trai thế này là hơi nghịch ngợm quá đà rồi đấy nhé.
+
+Nhìn lướt xuống mấy bài bên dưới kiểu như “Kỳ Môn Độn Giáp Dưỡng Sinh Pháp”, “Âm Dương Ngũ Hành Điều Hòa Dưỡng Sinh Quyết”, Mạnh Lãng cảm thấy nếu mình mà còn tò mò bấm vào xem tiếp thì đúng là đang xúc phạm nặng nề đến chỉ số IQ của tác giả.
+
+Tôi không xứng!
+
+Đạo dưỡng sinh quả thực quá mức bác đại tinh thâm... Thôi thì mình cứ từ tốn bắt đầu từ những bước nhập môn cơ bản nhất vậy.
+
+Dù sao thì ngoại trừ phương pháp dưỡng sinh cấp độ vỡ lòng ra, mấy cái món cao lương mỹ vị kia một là mình mua không nổi, hai là mấy cái bí kíp tu tiên kia mình căn bản đọc không hiểu...
+
+Đảo mắt nhìn quanh căn phòng trọ trống huếch trống hoác, nồi niêu xoong chảo một chiếc cũng không có, củi gạo dầu muối cái gì cũng thiếu thốn, Mạnh Lãng chỉ biết ngửa mặt lên trời thở dài sườn sượt.
+
+Thôi bỏ đi, với cái điều kiện cơ sở vật chất tồi tàn này thì chuyện tự tay xuống bếp nấu nướng trong một sớm một chiều rõ ràng là điều không thực tế, chi bằng cứ bước chân ra ngoài tìm một quán cơm chay thanh đạm ăn cho lành mạnh cái bụng.
+
+Thế nhưng... trước hết phải giấu kín bảo bối đi đã!
+
+Mạnh Lãng thò tay vào trong lồng ngực lôi cuốn sách ra, thế nhưng ngay khoảnh khắc tiếp theo, cả người hắn lập tức chết sững tại chỗ.
+
+Chỉ trong khoảng thời gian ngắn ngủi vừa rồi, toàn bộ cuốn sách vậy mà đã hoàn toàn biến hóa thành một diện mạo mới tinh.
+
+Phần bìa sách vốn mang tông màu đen trắng mộc mạc ban đầu, giờ đây đã được thay thế bằng một màu đen tuyền huyền bí. Dòng chữ 《Cuộc Đời Bi Thảm Của Mạnh Lãng》 in trên mặt bìa cũng đã biến mất không còn dấu vết, thay vào đó là bốn chữ lớn sừng sững: 《Sự Phấn Đấu Của Ta》!
+
+Chuyện này...
+
+Dẫu cho trong lòng đã chuẩn bị sẵn tâm lý từ trước, thế nhưng khi tận mắt chứng kiến màn biến hóa thần kỳ này hiển hiện ngay trước mắt, Mạnh Lãng vẫn cảm thấy thế giới quan của mình đang bị một đòn giáng búa bổ đánh cho vỡ vụn tan tành.
+
+Nếu như không phải cuốn sách này từ nãy đến giờ luôn được hắn ôm chặt trong lồng ngực không rời nửa bước, Mạnh Lãng thậm chí còn hoài nghi liệu có phải mình vừa bị kẻ nào đó nhanh tay tráo đổi sách hay không.
+
+Đây chính là hiệu ứng cánh bướm hiển linh rồi sao?
+
+Thế nhưng... cái bìa sách đen tuyền u ám này, kết hợp với hàng chữ chân phương ngay ngắn màu trắng toát ở chính giữa, chẳng hiểu sao lại khiến Mạnh Lãng liên tưởng ngay đến những tấm bia mộ lạnh lẽo đang lặng lẽ cắm sừng sững giữa nghĩa trang hoang vắng...
+
+Mạnh Lãng lắc mạnh đầu mấy cái, xua tan cái suy nghĩ quái gở rợn người ấy ra khỏi tâm trí.
+
+Bản thân mình ở hiện tại đã biết trước tương lai ban đầu, chắc chắn đã né tránh được “nguyên nhân khởi đầu” dẫn đến thảm cảnh đầu tư thất bại, kéo theo đó một chuỗi bi kịch tiếp diễn phía sau theo lẽ thường tình dĩ nhiên cũng sẽ không thể nào xảy ra được nữa.
+
+Lại nhìn sang tựa đề mới của cuốn tự truyện này mà xem — 《Sự Phấn Đấu Của Ta》!
+
+Từ ngữ mới tràn đầy năng lượng tích cực làm sao! Vừa nhìn vào đã đem lại cho người ta một cảm giác bừng bừng sức sống và tinh thần chiến đấu sục sôi!
+
+Cái tên này và cái thứ “cuộc đời bi thảm” kia hoàn toàn đại diện cho hai thái độ nhân sinh một trời một vực. Điều này chứng tỏ bản thân mình trong tương lai nhất định đã sở hữu một cuộc đời vô cùng tích cực và xán lạn!
+
+Tương lai! Tương lai tươi sáng quang huy chắc chắn đang mở rộng vòng tay chờ đón ta!
+
+Mạnh Lãng mang theo tâm trạng vô cùng hưng phấn lật mở trang sách.
+
+【Thuở nhỏ, ước mơ của tôi là trở thành chú công an, sau này ước mơ hoàn thành được một nửa: tôi đã biến thành một ông chú.
+
+Lớn lên một chút, ước mơ của tôi là lương năm triệu tệ một năm, cưới được cô giáo hướng dẫn xinh đẹp, bước lên đỉnh cao nhân sinh. Kết quả là tôi vừa mới chạm mốc lương năm vạn tệ một năm thì cô giáo hướng dẫn đã lên xe hoa lấy chồng, chú rể dĩ nhiên không phải tôi.
+
+Thế là tôi hiểu ra, làm người thì phải biết chân lấm tay bùn, trước hết cứ đặt ra một mục tiêu nhỏ: gia nhập một công ty thuộc top 500 thế giới!
+
+...
+
+Tôi đã thành công! Tôi vào làm việc tại Bảo hiểm Nhân thọ Hoa Hạ, trở thành một nhân viên kinh doanh bảo hiểm!
+
+...
+
+Đến cuối cùng, tôi rốt cuộc cũng vỡ lẽ làm người tuyệt đối không thể cứ an phận thủ thường, giống như lời Tony lão sư từng nói, phải để tiền đẻ ra tiền thì mới không biến thành nô lệ của kim tiền.
+
+Tôi vay mượn khắp lượt họ hàng thân thích, quẹt sạch hạn mức thẻ tín dụng, thậm chí còn vay thêm đòn bẩy tài chính kịch kim, dốc toàn bộ vốn liếng tài sản để bán khống cổ phiếu Năng Lượng Hoa Hạ, rồi hân hoan đón chào cuộc khủng hoảng sụp đổ thị trường chứng khoán năm 2018, kiếm được hũ vàng đầu tiên trong cuộc đời!
+
+Thế nhưng... đó cũng chính là hũ vàng cuối cùng...
+
+Ngay đúng vào lúc tôi đang đắc ý tột cùng, chuẩn bị giương buồm thi triển hoài bão lớn... thì Tiểu Vũ chết!
+
+Đúng vậy, cô bé Tiểu Vũ đáng yêu, hiểu chuyện đến mức khiến người ta xót xa ấy... đã chết!
+
+Con bé mới chỉ có sáu tuổi đầu, đang ở độ tuổi ngây thơ hồn nhiên nhất, vừa mới chuẩn bị đón nhận những năm tháng tươi đẹp nhất của cuộc đời, vậy mà lại bị người ta tàn nhẫn sát hại ngay trong chính căn phòng trọ!
+
+Thi thể được tìm thấy từ trong một bồn hoa gần khu nhà, nghe nói trước khi trút hơi thở cuối cùng con bé còn phải chịu đựng sự hành hạ tàn độc mất hết nhân tính.
+
+Khi tôi hay tin dữ này, bi thương, phẫn nộ, bất lực... 
+
+Đặc biệt là khi nhìn thấy trên bản tin thời sự khuôn mặt nhỏ nhắn trắng bệch, không còn lấy một giọt máu của con bé, cả người tôi như muốn sụp đổ hoàn toàn.
+
+Thiên sứ hiện diện nơi nhân gian, thế nhưng, ác quỷ cũng lẩn khuất ngay bên cạnh!
+
+Thế nhưng, tin dữ thực sự tàn khốc lại còn nằm ở phía sau...
+
+Ngày thứ hai sau khi phát hiện thi thể nạn nhân, cảnh sát đã gõ cửa tìm đến tận nhà tôi.
+
+Bởi vì sau khi tiến hành điều tra thu thập chứng cứ, toàn bộ chứng cứ phạm tội vậy mà lại đều chỉ thẳng vào... TÔI!!
+
+Camera an ninh góc phố, dấu vân tay lưu lại trên cánh cửa, hung khí gây án và chiếc áo dính máu vứt bên cạnh thi thể, cùng cả những sợi tóc và biểu bì da hung thủ để lại hiện trường...
+
+Không sai một ly, toàn bộ chứng cứ đều chỉ đích danh tôi!
+
+Trăm miệng cũng khó lòng bào chữa!
+
+...
+
+Với tư cách là bị cáo, tôi bị áp giải bước lên bục xét xử của tòa án. Không có nhân chứng trông thấy, không có chứng cứ ngoại phạm, càng không một ai đứng ra đồng cảm, làn sóng dư luận nghiêng hẳn một chiều đầy căm phẫn bất lợi cho tôi.
+
+Đối diện với ánh mắt phẫn nộ ngập tràn sát khí muốn băm vằm tôi ra từng mảnh của chị gái Tiểu Vũ, tôi chỉ biết nở một nụ cười cay đắng xót xa.
+
+Đối diện với tiếng gào khóc xé gan xé ruột của cha mẹ già nơi hàng ghế dự khán, lòng tôi đau đớn như bị ngàn vạn mũi dao cào xé.
+
+Cuối cùng, do tính chất vụ án đặc biệt nghiêm trọng và tàn ác, tôi bị tuyên phạt mức án tù chung thân.
+
+Không có gì bất ngờ xảy ra, tôi sẽ phải chôn vùi toàn bộ phần đời còn lại của mình sau song sắt nhà tù.
+
+...
+
+Tôi không cam tâm!
+
+Tôi không cam tâm bản thân mình cứ thế phải chịu nỗi oan khuất tày trời mà bước chân vào ngục tối! Tôi không cam tâm để cho kẻ thủ ác thực sự nhởn nhơ ngoài vòng pháp luật!
+
+Thế là, trong chốn lao tù tăm tối, tôi điên cuồng vùi đầu học luật, rèn luyện thể lực, vô cùng tích cực phối hợp cải tạo lao động để tranh thủ từng cơ hội giảm án, thậm chí còn âm thầm mài mòn từng chút một một chiếc thìa inox.
+
+Chỉ cầu mong có một ngày nào đó, khi bản thân còn sống trên cõi đời này có thể bước chân ra khỏi cánh cổng sắt kia, tự tay truy tìm kẻ sát nhân thực sự để đưa hắn ra trước vành móng ngựa chịu tội!
+
+Vì chính bản thân tôi, và cũng là để báo thù cho Tiểu Vũ!
+
+...
+
+Thế nhưng sự thật trớ trêu đã chứng minh, tình tiết phim ảnh rốt cuộc cũng chỉ là phim ảnh hư cấu, hiện thực cuộc đời tàn khốc hơn phim ảnh gấp vạn lần.
+
+Mười năm sau.
+
+Do môi trường khắc nghiệt trong tù và sự lao lực quá độ kéo dài suốt nhiều năm, tôi nôn ra máu rồi ngất lịm đi.
+
+Kết quả chẩn đoán y tế: Ung thư dạ dày giai đoạn cuối...
+
+Sự phấn đấu của tôi... rốt cuộc chẳng qua chỉ là công dã tràng xe cát...】
+
+Mạnh Lãng đứng chôn chân tại chỗ im lặng như một bức tượng đá suốt mười phút đồng hồ.
+
+Sau đó, hắn rốt cuộc cũng không tài nào nhịn nổi nữa, nghiến răng nghiến lợi gầm lên một câu chửi thề vang dội:
+
+“ĐM!”
+
+Đã bảo tương lai tươi sáng quang huy của bố mày đâu rồi hả?
+
+Cái bản cập nhật này so ra còn thê thảm hơn cả cuốn “Cuộc Đời Bi Thảm” ban đầu nữa!"""
+
+chapters.append({
+    "chapter_id": 712,
+    "chapter_index": 5,
+    "title_translated": "Chương 5: Sự Phấn Đấu Của Ta",
+    "translated_content": ch5_text.strip()
+})
+
+# =========================================================================
+# CHƯƠNG 6: Định Một Mức Giá
+# =========================================================================
+ch6_text = """Mở đầu cuốn sách, vẫn là một tấm ảnh chân dung tác giả như cũ.
+
+Thế nhưng bức ảnh chụp cảnh hắn mặc bộ quần áo bệnh nhân tiều tụy trong bệnh viện trước kia đã hoàn toàn biến mất không còn tăm hơi.
+
+Thay thế vào vị trí đó là một Mạnh Lãng khoác trên mình bộ đồng phục tù nhân màu xanh thẫm, râu ria xồm xoàm lởm chởm, hốc mắt trũng sâu đen ngòm, mái tóc đã điểm bạc nửa đầu, trên khuôn mặt không gợn nổi một tia cười, ngập tràn vẻ không cam lòng cùng nét tang thương trĩu nặng của năm tháng...
+
+Phải công nhận một điều, góc máy mà tay phó nháy lựa chọn quả thực đạt đến độ xuất thần.
+
+Một căn phòng giam chật hẹp tù túng, đồ đạc bày biện đơn sơ đến cùng cực, cùng với khung cửa sổ sắt kiên cố là nơi duy nhất le lói một tia nắng nhạt nhòa chiếu rọi vào bên trong.
+
+Bầu không khí u ám, ngột ngạt và đè nén được kéo căng lên đến đỉnh điểm!
+
+Mạnh Lãng ngồi bệt xuống nền đất, ngơ ngác đờ đẫn nhìn chằm chằm vào bức ảnh đại diện cho một nhánh tương lai nào đó của chính mình, trong đôi mắt ngập tràn vẻ mờ mịt không đáy.
+
+Ngày xưa tôi từng ngây thơ ngỡ rằng, chỉ cần một cú xoạc chân bay người thật tao nhã là có thể nhẹ nhàng nhảy qua được cái hố sâu của cuộc đời. Ai mà ngờ đâu, bản thân vừa hoàn hảo né được cái hố A, thì khoảnh khắc tiếp đất lại cắm thẳng đầu vào một cái hố B khác còn sâu hoắm và tối tăm không thấy đáy...
+
+Bước ngoặt của cuộc đời xưa nay chưa từng chỉ là một ngã ba đường đơn giản với hai sự lựa chọn: một lối dẫn tới bóng đêm tăm tối, còn một lối dẫn về miền ánh sáng chan hòa.
+
+Nó mở ra vô vàn những khả năng khôn lường, rất có thể một lối dẫn tới màn đêm mịt mùng, còn lối đi kia lại đâm thẳng vào một vùng hắc ám thăm thẳm và tuyệt vọng hơn bội phần...
+
+Đến lúc này hắn rốt cuộc mới vỡ lẽ: tương lai quả thực có thể thay đổi, thế nhưng chưa chắc nó đã phát triển theo chiều hướng tốt đẹp hơn, mà hoàn toàn có thể trở nên tồi tệ thê thảm hơn gấp bội!
+
+Dẫu sao thì trong nhánh tương lai của 《Cuộc Đời Bi Thảm》, ít ra bản thân hắn vẫn còn được sống thoi thóp thêm tận mười tám năm cơ mà?
+
+Còn lần này thì hay rồi, thảm hại hơn gấp bội, chỉ sau mười năm đã vội vã nhận cơm hộp về chầu trời, phá vỡ kỷ lục sống sót ngắn nhất từ trước tới nay.
+
+Đường đời đâu đâu cũng rình rập cạm bẫy, muốn bình an vô sự sống đến ngày nhắm mắt xuôi tay do tuổi già sao mà trần ai khoai củ đến thế này...
+
+...
+
+“Alo, Lãng Tử à.”
+
+“A Hiền, trưa nay mày có rảnh không?”
+
+“Rảnh chứ, có việc gì thế?”
+
+“Tự nhiên tao muốn tìm người nói chuyện một chút, cùng đi ăn bữa cơm đi, tao bao.”
+
+“Ủa? Mày bị làm sao thế?”
+
+“Không sao, chỉ là thấy lòng đắng cay quá thôi.”
+
+“Cái đó... mày chắc chắn không phải đang kiếm cớ lừa tao đi để gạ mua bảo hiểm đấy chứ?”
+
+“...”
+
+“Thôi được rồi được rồi, thế vẫn ra quán cũ nhé?”
+
+“Không! Dân dưỡng sinh, linh hồn dưỡng sinh, người làm dưỡng sinh tuyệt đối không ăn món cay ma lạt thảng.”
+
+“Phụt! Mày bốc phét cái trò dưỡng sinh gì với tao đấy? Cỡ mày mà cũng đòi cai món cay ma lạt thảng á?”
+
+“Ừ! Vừa mới cai xong tức thì!”
+
+Đầu dây bên kia im lặng như tờ suốt chừng mười giây đồng hồ: “Xem ra chuyện lần này không hề nhỏ rồi. Được thôi, thế mày muốn đi đâu ăn?”
+
+“Ngay quán cơm chay dưới chân tòa nhà trọ của tao.”
+
+“Ặc...”
+
+...
+
+Nửa tiếng sau, tại quán cơm chay mang tên “Lục Hợp Trai”.
+
+“Thưa quý khách, hai vị muốn dùng món gì ạ?”
+
+Bà chủ quán trạc ngoài bốn mươi tuổi, phong vận vẫn còn vô cùng đằm thắm mặn mà, dùng chất giọng dịu dàng như rót mật vào tai, đôi mắt đong đầy sóng nước đưa thực đơn sang cho... người ngồi đối diện với Mạnh Lãng.
+
+“Để bạn tôi gọi món đi ạ.” Đoàn Hiền mang vẻ mặt đầy cổ quái đẩy tập thực đơn chi chít những cái tên món ăn xa lạ sang trước mặt Mạnh Lãng.
+
+Đoàn Hiền chính là bạn cùng phòng ký túc xá thời đại học kiêm bạn chí cốt chí thân của Mạnh Lãng.
+
+Trong cuộc bình chọn công khai trên diễn đàn mạng nội bộ của trường năm đó, hắn hiên ngang chiếm giữ vị trí No.2 trên bảng xếp hạng “Mười Đại Nam Khôi Khoa Đại”!
+
+Sở hữu đôi chân dài miên man, chiều cao một mét tám mươi, tỷ lệ cơ thể chuẩn mực như tượng tạc, kết hợp cùng đôi mắt của Lưu Đức Hoa, hàng lông mày của Quách Phú Thành, sống mũi cao thẳng của Lương Triều Vỹ và khuôn miệng quyến rũ của Kim Thành Vũ...
+
+Phụ nữ nhìn vào thì tim đập chân run chỉ muốn phạm tội, còn đàn ông nhìn vào thì... chỉ muốn hung hăng in một dấu giày cỡ 42 lên gương mặt đẹp trai thuần khiết 24K đạt điểm mười chất lượng cao của hắn.
+
+Tóm lại, đây là mẫu đàn ông sinh ra để làm bạn thân của phái đẹp, một tay sát thủ tuyệt thế có khả năng hạ gục mọi đối tượng khác giới từ già tới trẻ!
+
+Tiện thể nhắc luôn: năm đó kẻ duy nhất vượt mặt hắn để chễm chệ ngồi lên ngai vàng No.1 chính là quý tử của thầy Trưởng phòng Giáo vụ.
+
+Chỉ cần nhìn vẻ mặt mê mẩn như bị hớp hồn của bà chủ quán cùng mấy cô em nhân viên phục vụ xung quanh cứ liên tục dáo dác liếc mắt đưa tình sang bàn này, là đủ hiểu sức công phá của tên này đối với phái nữ khủng khiếp đến nhường nào.
+
+Mạnh Lãng đối với cảnh tượng này từ lâu đã tập thành thói quen mắt điếc tai ngơ.
+
+Hắn đón lấy quyển thực đơn, đảo mắt lướt qua hai lượt rồi bắt đầu đọc vanh vách tên món:
+
+“Cho một phần khoai tây củ cải hấp, một phần khai thủy bạch thái, hai bát cháo hạt dẻ, thêm một đĩa salad rau củ tươi nữa nhé. Nhớ dặn nhà bếp ít đường, ít muối, cực ít dầu mỡ, tuyệt đối không nêm bột ngọt hay hạt nêm, cảm ơn chị.”
+
+“Ơ...”
+
+Bà chủ quán bị màn “gọi món cá nhân hóa” tinh tế đến mức hà khắc của Mạnh Lãng làm cho sững sờ mất một nhịp, thế nhưng rất nhanh sau đó đã lấy lại nụ cười nghề nghiệp đầy mê hoặc:
+
+“Vâng ạ, xin quý khách vui lòng đợi trong giây lát!”
+
+Có bà chủ quán đích thân xuống bếp giục đồ, chỉ trong chớp mắt các món ăn đã được bưng lên đầy đủ tươm tất.
+
+Món khoai tây củ cải hấp chín trong veo lấp lánh, búp bắp cải non được tỉa tót thành hình hoa sen bung nở kiều diễm giữa làn nước dùng trong vắt nhìn thấu tận đáy bát, đĩa salad rau củ phối màu vô cùng bắt mắt, cùng hai bát cháo hạt dẻ đang bốc khói nghi ngút tỏa ra hương thơm ngọt bùi quyến rũ lòng người.
+
+Lại thêm mấy cô em phục vụ xinh xắn đứng túc trực ngay bên cạnh, chỉ cần hơi khẽ vẫy tay một cái là tranh nhau ùa tới phục vụ tận răng.
+
+Đi ăn cùng cái thằng ranh này có một cái lợi ích không thể phủ nhận: bất kể là lê la quán cóc vỉa hè hay nhà hàng sang trọng, xác suất cực cao là đều được tận hưởng dịch vụ đãi ngộ khách quý VIP chẳng khác nào nhà hàng gắn sao Michelin.
+
+Đoàn Hiền liếc nhìn bàn đồ ăn thanh đạm đến mức không gợn lấy một chấm váng mỡ, rồi lại nhìn sang Mạnh Lãng đang dùng nước sôi khử trùng tỉ mỉ từng ngóc ngách của bát đũa chén chén với vẻ mặt vô cùng thành kính, trong lòng không khỏi cạn lời.
+
+Thằng nhãi này không phải là bị ai bắt cóc tráo hàng rồi đấy chứ?
+
+Làm ơn trả lại thằng bạn thân bình thường ăn xong đống đồ ăn dầu bẩn bị tào tháo đuổi suốt đêm hôm sau vẫn gào thét rủ tao đi càn quét quán tiếp theo về đây mau!
+
+Hắn rốt cuộc cũng không nhịn nổi nữa, hướng về phía Mạnh Lãng buông ra một câu tra khảo đánh thẳng vào tâm can:
+
+“Thế tóm lại là mày đang tính đường lãng tử quay đầu, quy y cửa Phật đấy à? Rốt cuộc là vì sao thế?”
+
+Nghe vậy, Mạnh Lãng đang khẽ cong ngón tay cẩn thận lau chùi từng chiếc đũa, ngẩng lên đáp lại bằng một vẻ mặt thản nhiên như nước:
+
+“Bởi vì khát vọng sinh tồn chết tiệt này chứ sao.”
+
+“...”
+
+Mất một lúc lâu sau mới chấn chỉnh lại được khả năng ngôn ngữ, Đoàn Hiền dè dặt dò hỏi: “Rốt cuộc là đã xảy ra chuyện gì rồi?”
+
+Mạnh Lãng im lặng không đáp, gắp một cọng rau trong đĩa salad đưa lên miệng, nhai nhai cọng rau bina nhạt thếch vô vị, khóe mắt hắn khẽ giật giật, cố gắng hết sức mới nuốt trôi được mớ thức ăn xuống cổ họng.
+
+Hắn chậm rãi đặt đũa xuống bàn, sau đó thở dài một hơi thật sâu: “Haizz!”
+
+Cả hai lần tương lai đều chết vì ung thư dạ dày giai đoạn cuối, điều này khiến Mạnh Lãng nhận thức sâu sắc một chân lý: chế độ ăn uống lành mạnh quả thực có tầm quan trọng sống còn!
+
+Đáng tiếc là trong lần đầu tiên ở 《Cuộc Đời Bi Thảm》 hắn hoàn toàn mù tịt không hề hay biết, còn ở lần thứ hai trong 《Sự Phấn Đấu Của Ta》 thì bản thân ngồi sau song sắt căn bản chẳng có điều kiện để mà chăm sóc sức khỏe.
+
+Bởi vậy, dưỡng sinh là chuyện bắt buộc phải làm, và nó được xếp vào hàng ưu tiên số một trong chiến dịch “nghịch thiên cải mệnh”.
+
+Không lo dưỡng sinh giữ mạng, đến cái án phạt tù chung thân còn ngồi không nổi đến ngày mãn hạn, thử hỏi còn bi kịch nào thảm hại hơn thế nữa!
+
+Hắn còn dự tính thu xếp thời gian chạy tới bệnh viện lớn khám tổng quát một chuyến, tiện thể làm luôn cái nội soi dạ dày. Ừm, tốt nhất là chọn gói nội soi không đau gây mê cho an toàn.
+
+“Không có gì to tát cả, chẳng qua là vừa mới vấp phải một khúc quanh không vượt qua nổi trong đời, đột nhiên ngộ ra chân lý sinh mệnh con người quả thực đáng quý biết bao.”
+
+Ngộ ra sinh mệnh đáng quý? Nghe thấy câu thoại quen thuộc này, lại kết hợp với hành vi kỳ quặc và tâm trạng tụt dốc thê thảm của Mạnh Lãng, sắc mặt Đoàn Hiền bỗng nhiên biến đổi kinh hoàng:
+
+“Không thể nào? Chẳng lẽ... mày mắc bệnh nan y giai đoạn cuối rồi? Đừng có chơi trò máu chó ngược tâm thế chứ mày!”
+
+Mạnh Lãng thản nhiên liếc nhìn hắn một cái:
+
+“Hiện tại thì chưa, thế nhưng, chắc cũng sắp rồi.”
+
+“Tao...”
+
+Trong bụng Đoàn Hiền có cả một bồ lời muốn chửi thề xả ra, thế nhưng lại nghẹn ứ ở cổ họng chẳng biết phải bắt đầu từ đâu.
+
+Cái gì gọi là “chắc cũng sắp rồi”? Cái món bệnh tật quỷ quái này mà cũng có trò dự đoán chắc là sắp rồi được à?
+
+Trên thực tế, Mạnh Lãng nói ra câu này hoàn toàn là có cơ sở khoa học đàng hoàng.
+
+Ban nãy hắn vừa tranh thủ lúc rảnh rỗi lên Baidu tra cứu thông tin: ung thư dạ dày thuộc dạng khối u ác tính ở hệ tiêu hóa, quá trình từ giai đoạn khởi phát ban đầu phát triển đến giai đoạn cuối cùng thông thường chỉ mất vỏn vẹn khoảng một đến hai năm, hoặc cùng lắm là ba đến năm năm, tốc độ diễn tiến bệnh cực kỳ mau lẹ.
+
+Bởi vậy, ngay cả đối với một Mạnh Lãng có tuổi thọ ngắn hơn trong phiên bản 《Sự Phấn Đấu Của Ta》, thì thời điểm phát bệnh thông thường chắc chắn cũng phải rơi vào khoảng năm năm sau, đó là còn tính trong điều kiện môi trường sống trong trại giam vô cùng tồi tàn khắc nghiệt.
+
+Mạnh Lãng ở thời điểm hiện tại nhiều nhất chắc cũng chỉ đang ở giai đoạn “viêm dạ dày nhẹ” mà thôi, hoàn toàn thuộc vào diện trạng thái bán khỏe mạnh vẫn còn nước để cứu vãn.
+
+Đoàn Hiền thấy vẻ mặt Mạnh Lãng nghiêm túc đứng đắn chẳng có nét nào giống như đang nói đùa, lại nhất thời không thể nắm bắt được rốt cuộc thằng bạn mình đang gặp phải chuyện trắc trở gì, chỉ đành mở lời an ủi:
+
+“Mày cứ thích đùa dai! Nhìn mày vẫn còn sức mở miệng nói móc thế này, tình hình chắc chắn chưa đến mức nghiêm trọng đâu. Thuyền đến đầu cầu tự nhiên thẳng, trên đời này làm quái gì có ngọn núi nào mà con người không vượt qua nổi!”
+
+Nghe vậy, Mạnh Lãng bèn nghiêm túc hỏi lại một câu: “Thế lỡ như vừa bước qua ngọn núi này lại đụng ngay phải một vực thẳm khác thì sao?”
+
+“Lại đụng vực thẳm à? Thế thì lại nhảy tiếp! Một bước nhảy không qua thì nhảy thêm bước nữa, mày đâu phải chỉ có cụt một chân!”
+
+Mạnh Lãng ngẩn người ra một thoáng, im lặng ngẫm nghĩ một hồi, sau đó vẻ mặt dần dần trở nên thanh thản, chậm rãi gật đầu:
+
+“Ừm! Lời mày nói quả thực rất có lý, tao cảm thấy trong lòng nhẹ nhõm hơn nhiều rồi đấy.”
+
+“Thế chứ lại! Nào, kể cho thằng anh em này nghe xem rốt cuộc mày đã gặp phải chuyện khó khăn gì. Cơ mà nói trước nhé, nếu dính líu đến chuyện phụ nữ lằng nhằng thì miễn bàn!”
+
+“Ừ! Quy củ của mày tao hiểu rất rõ!” Mạnh Lãng gật đầu lia lịa.
+
+Nói về chuyện lập quy tắc của Đoàn Hiền, thì nguồn cơn phải lần mò về tận thời còn học đại học.
+
+Năm đó, có một thằng bạn chơi khá thân với Đoàn Hiền trót đem lòng thầm thương trộm nhớ một cô em khóa dưới. Thằng kia lắm mưu nhiều kế, bày trò dàn dựng một màn kịch “anh hùng cứu mỹ nhân” để lấy lòng người đẹp.
+
+Thế nhưng số trời trớ trêu, khâu tuyển chọn diễn viên quần chúng lại mắc phải sai lầm chết người: hắn lại ngu ngốc rủ ngay Đoàn Hiền đóng giả làm tên cướp để cho đủ quân số.
+
+Kết cục của vở kịch thì ai cũng có thể đoán ra được.
+
+Tuy rằng Đoàn Hiền đóng vai một tên cướp lưu manh đầu trộm đuôi cướp, thế nhưng nhan sắc đỉnh cao của hắn lại dễ dàng xuyên thủng cả chiếc tất da trùm đầu!
+
+Kết quả là cô em khóa dưới chẳng thèm đoái hoài gì đến anh hùng, mà quay sang đổ gục hoàn toàn trước vẻ đẹp trai của tên cướp, mắc phải hội chứng Stockholm nặng nề không thể cứu chữa. Còn gã “anh hùng” kia thì chỉ biết ôm mặt khóc ngất trong nhà vệ sinh.
+
+Mặc dù sau đó Đoàn Hiền đã năm lần bảy lượt thẳng thừng từ chối cô gái để vạch rõ ranh giới lập trường, thế nhưng hai người bạn thân cuối cùng vẫn trở mặt thành thù, đường ai nấy đi trong cay đắng.
+
+Kể từ dạo đó, Đoàn Hiền rơi vào trạng thái tự bế chấn thương tâm lý. Sau này hắn buông thả bản thân, thay người yêu như thay áo, phần nhiều cũng bắt nguồn từ cái vết thương lòng năm xưa ấy.
+
+Mạnh Lãng cân nhắc lựa chọn từ ngữ cẩn thận một lát, lúc này mới chậm rãi mở lời:
+
+“Thực ra là thế này, sự tình thì vô cùng phức tạp, có rất nhiều chuyện tao cũng không biết phải giải thích với mày thế nào cho thấu đáo, thôi thì tao cứ nói ngắn gọn, chọn phần có thể giải thích được để nói với mày nhé.”
+
+“Ừ! Mày nói đi!” Đoàn Hiền mang bộ dạng chăm chú lắng nghe.
+
+“Tao thiếu tiền.”
+
+“...”
+
+Sợ nhất là không khí bỗng nhiên im bặt, sợ nhất là bạn thân bỗng nhiên dành sự quan tâm đặc biệt cho mình?
+
+Sau một hồi lâu đứng hình chết trân, sắc mặt của Đoàn Hiền bắt đầu biến chuyển không ngừng: thoạt tiên từ xanh lét chuyển sang trắng bệch, rồi lại từ trắng bệch đen sầm lại như mực tàu, quả thực muôn màu muôn vẻ đặc sắc vô cùng.
+
+Hắn dùng khuôn mặt không chút cảm xúc nhìn chằm chằm vào Mạnh Lãng, nhìn đến mức khiến ánh mắt đối phương phải ngượng ngùng lấm lét lảng tránh sang chỗ khác.
+
+“Hóa ra là mày diễn sâu, bày trò dạo đầu nãy giờ chỉ để mở mồm vay tiền tao?”
+
+“Cũng không hẳn là thế đâu, tao thấy lòng đắng cay buồn tủi thật lòng nên mới gọi mày ra tâm sự giãi bày cho vơi bớt đấy chứ, tâm trạng vừa mới tốt lên một cái tao mới sực nhớ ra việc chính cần làm.” Mạnh Lãng có chút chột dạ gãi đầu biện bạch.
+
+Đoàn Hiền phải cố hết sức bình sinh mới kìm nén được thôi thúc muốn bê cả đĩa bắp cải luộc úp thẳng lên đầu thằng bạn nối khố.
+
+“Mày muốn vay bao nhiêu?”
+
+“Cái đó thì phải xem... tình bạn giữa hai chúng ta đáng giá bao nhiêu tiền rồi.”
+
+“Tình bạn của tao với mày mà có thể đem ra đong đếm bằng mấy đồng bạc bẩn thỉu à?”
+
+“Nếu như có thể, tao hy vọng... mày có thể tự tay định giá cho nó một con số cụ thể.”
+
+Đoàn Hiền: “...”"""
+
+chapters.append({
+    "chapter_id": 713,
+    "chapter_index": 6,
+    "title_translated": "Chương 6: Định Một Mức Giá",
+    "translated_content": ch6_text.strip()
+})
+
+# =========================================================================
+# CHƯƠNG 7: Kẻ Thích Spoil
+# =========================================================================
+ch7_text = """“Ting tong! Tài khoản Chi Phó Bảo của bạn vừa nhận được số tiền 50.000 tệ.”
+
+Mạnh Lãng trố tròn hai mắt kinh ngạc: “Rõ ràng là tốt nghiệp cùng một trường đại học ra, cớ sao cuộc sống của tao với mày lại như thuộc về hai giai cấp hoàn toàn khác biệt thế này? Cái nghề bất động sản của chúng mày kiếm chác béo bở đến mức ấy cơ à?”
+
+“Không phải do tao kiếm tiền quá giỏi, mà là do mày lăn lộn quá bết bát đấy thôi!”
+
+“Này này! Lời này xát muối vào tim đau lắm đấy nhé, người khổ sở với nhau đừng có bóc mẽ làm tổn thương nhau chứ lị. Mà khoan đã, mày không thèm hỏi xem tao mượn tiền để làm cái gì à?”
+
+“Hồi còn học đại học đi đánh nhau, mày có từng mở mồm hỏi tao vì sao phải đánh trước khi lao vào đấm phụ không?”
+
+“Không hề.”
+
+“Thế thì việc quái gì phải hỏi nhiều.”
+
+Trong lòng Mạnh Lãng dâng lên một nỗi xúc động nghẹn ngào: “Yên tâm đi người anh em, tao nhất định sẽ đền đáp ân tình này của mày chu đáo...”
+
+“Thôi dẹp đi, đừng có sến súa tởm lợm thế. Nhưng tao cảnh cáo mày trước đấy nhé: cờ bạc, ma túy hay mại dâm tuyệt đối không được đụng vào, bằng không thì tình bạn anh em chấm dứt tại đây.”
+
+“Tao là cái loại người tha hóa đốn mạt như thế chắc!”
+
+Bởi vậy mới nói, những lúc đời người rơi xuống vực sâu tăm tối nhất, có được một người bạn chí cốt đáng tin cậy bên cạnh quan trọng đến nhường nào. Mạnh Lãng quét sạch hoàn toàn nỗi u ám chán chường sau khi đọc xong cuốn 《Sự Phấn Đấu Của Ta》, ngọn lửa ý chí chiến đấu trong lồng ngực lại một lần nữa bùng cháy rừng rực.
+
+Ông trời đã bày ra một chuỗi hố sâu liên hoàn bẫy rập đúng không? Vậy thì ông đây sẽ nhảy qua từng cái một cho ông sáng mắt ra!
+
+Và cái gì cần né thì nhất quyết phải né, mà số tiền nào kiếm được thì dứt khoát không thể bỏ qua lấy một đồng!
+
+Hắn bưng bát cháo hạt dẻ lên, ngửa cổ ừng ực húp sạch bong trong chớp mắt, đưa tay quẹt ngang khóe miệng, tràn đầy nhuệ khí nói: “Chiều nay tao còn có chút việc bận quan trọng phải làm, mày cứ từ từ mà thưởng thức nhé, tao xin phép lượn trước đây!”
+
+“Ủa? Có việc gì gấp thế?” Đoàn Hiền đang gắp miếng bắp cải đưa vào miệng, ngơ ngác ngẩng đầu nhìn hắn.
+
+“Chạy mấy chuyến qua ngân hàng!”
+
+“Cái giề cơ????”
+
+Đi ngân hàng thì cứ nói đi ngân hàng, cái quái gì mà lại là “chạy mấy chuyến qua ngân hàng”?
+
+Chỉ trong chớp mắt ngẩn ngơ không kịp hiểu mô tê gì, bóng lưng của Mạnh Lãng đã thoăn thoắt lướt như một cơn gió biến mất sau cánh cửa quán.
+
+Đoàn Hiền nhét cọng bắp cải vào miệng, ngậm nửa cọng rau khẽ cau mày trầm ngâm suy nghĩ.
+
+Chẳng hiểu sao cứ có cảm giác chỗ nào đó sai sai?
+
+“Xin chào quý khách, tổng hóa đơn của bàn mình hết 128 tệ, có thẻ hội viên được giảm giá hai mươi phần trăm ạ.” Đúng lúc này, bà chủ quán với đôi mắt long lanh ngập tràn tình ý bước tới tươi cười đưa hóa đơn thanh toán sang trước mặt hắn.
+
+Đoàn Hiền: “...”
+
+Bảo là mày mời cơ mà cái thằng chết dẫm này?
+
+Đang lúc nghẹn họng uất ức, chuông điện thoại trong túi bỗng reo vang. Hắn liếc nhìn màn hình rồi nhấn nút nghe máy:
+
+“Alo, mẹ ạ? Có chuyện gì thế mẹ... Cái gì cơ?!” Sắc mặt Đoàn Hiền trong tích tắc bỗng chốc đại biến...
+
+...
+
+Mạnh Lãng nói đi mấy chuyến ngân hàng, thì quả thực là hắn đã lượn qua một loạt các ngân hàng thật.
+
+Ngân hàng Hoa Hạ, Ngân hàng Công Thương, Ngân hàng Xây Dựng, Ngân hàng Hoa Tín, Ngân hàng Dân Sinh...
+
+Mạnh Lãng chẳng khác nào một chú chuột túi chăm chỉ cần mẫn, thoăn thoắt chạy đôn chạy đáo khắp các tổ chức tài chính lớn nhỏ trong thành phố.
+
+“Xin chào chị, tôi muốn làm thủ tục mở thẻ tín dụng.”
+
+“Vâng ạ, anh muốn mở loại thẻ tín dụng nào ạ?”
+
+“Cái loại nào có hạn mức quẹt thẻ cao nhất ấy!”
+
+Cùng một câu mở màn quen thuộc, cùng một quy trình thủ tục không đổi, Mạnh Lãng đã lặp đi lặp lại tổng cộng tới bảy lần liên tiếp.
+
+Rút chứng minh thư nhân dân, điền thông tin biểu mẫu, mở thẻ, kích hoạt.
+
+Cũng may là các ngân hàng hiện nay đều đẩy mạnh dịch vụ tự động hóa không dùng giấy tờ, hiệu suất làm thẻ cực kỳ nhanh gọn lẹ, toàn bộ quy trình từ đầu đến cuối không vượt quá mười lăm phút đồng hồ.
+
+Dù vậy, Mạnh Lãng cũng phải chạy đua thục mạng tới sát giờ các phòng giao dịch đóng cửa mới kịp hoàn thành xong xuôi.
+
+Bảy chiếc thẻ tín dụng mới cứng nằm gọn trong túi quần chính là thành quả rực rỡ suốt một buổi chiều bôn ba vất vả, cộng thêm hai chiếc thẻ cũ vốn có từ trước, Mạnh Lãng đã sở hữu trong tay tổng cộng chín chiếc thẻ tín dụng các loại, chính thức tấn thăng trở thành một “Tạp Sư” (Bậc thầy chơi thẻ)!
+
+Thẻ tín dụng ấy mà, nó có thể cùng bạn ngắm cảnh tiểu kiều lưu thủy hữu tình, cũng có thể cùng bạn phiêu du trong cõi phong hoa tuyết nguyệt lãng mạn. Lúc bình thường có thể không dùng tới, nhưng nhất định không thể không có trong ví, vào những thời khắc then chốt sinh tử, nó chính là chiếc két sắt ứng cứu khẩn cấp của bạn.
+
+Không sai chút nào! Mạnh Lãng dự định dùng chiêu bài thẻ tín dụng này để giải quyết dứt điểm giai đoạn “tích lũy tư bản nguyên thủy ban đầu”.
+
+Trong tình cảnh đã nắm chắc mười mươi trong tay thông tin sắp tới sẽ xảy ra một cuộc sụp đổ thị trường chứng khoán kinh hoàng, làm thế nào để trong thời gian ngắn nhất huy động được một lượng vốn ban đầu khổng lồ, nhằm tiến hành nghiệp vụ bán khống ngược dòng thị trường, chính là chìa khóa then chốt quyết định “hàm lượng vàng” của hũ vàng đầu tiên trong đời Mạnh Lãng.
+
+Tiền bạc tuy không phải là vạn năng, thế nhưng một khi muốn thay đổi vận mệnh số phận, không có tiền thì tuyệt đối là vạn vạn lần không thể làm nên trò trống gì!
+
+Dĩ nhiên, việc mở thẻ tín dụng với tần suất dày đặc trong một khoảng thời gian ngắn như thế này chắc chắn sẽ để lại vết tích tiêu cực ảnh hưởng đến điểm số tín dụng cá nhân trong một thời gian nhất định.
+
+Thế nhưng Mạnh Lãng căn bản chẳng hề mảy may bận tâm lo lắng: một khi đã kiếm được cả đống tiền rồi, thì dùng tiền đập vào mặt ngân hàng cũng dư sức vực dậy điểm số tín dụng đẹp đẽ như thuở ban đầu!
+
+Khi hắn lê từng bước chân thấm mệt quay trở về đến chân cầu thang khu nhà trọ, ánh hoàng hôn chiều tà đã ngả bóng vàng vọt khắp con ngõ nhỏ.
+
+Kết quả là vừa mới quẹo qua một khúc quanh.
+
+“Rầm!” “Ái chà!”
+
+Một bóng người nhỏ bé thoắt cái đã va sầm vào bên hông Mạnh Lãng.
+
+Bản thân hắn da dày thịt béo thì chẳng hề hấn gì, thế nhưng cái bóng nhỏ nhắn kia lại bị lực đẩy dội ngược khiến cả người ngã ngửa đập mông xuống đất. Chiếc túi nilon đang xách trên tay cũng tuột khỏi tay rơi lộp bộp xuống mặt đường, mấy củ khoai tây bên trong lăn lóc vương vãi khắp nơi, thu hút ánh nhìn tò mò của những người đi đường quanh đó.
+
+“Ơ kìa? Cháu có sao không đấy?” Trông thấy đối phương là một bé gái nhỏ nhắn, Mạnh Lãng vội vàng bước tới đỡ con bé dậy.
+
+“Dạ cháu không sao, cháu xin lỗi chú ạ, là do cháu không cẩn thận đụng trúng chú.” Cô bé lộ vẻ hoảng hốt vội vàng cúi đầu lí nhí nhận lỗi với Mạnh Lãng.
+
+“Không sao đâu, cháu cũng đâu phải cố ý.” Mạnh Lãng dĩ nhiên đời nào lại đi so đo tính toán với một đứa trẻ con nít.
+
+Thế nhưng chất giọng này nghe sao mà quen tai đến lạ lùng thế nhỉ?
+
+Nhìn thấy cô bé đang cuống cuồng luống cuống cúi người nhặt từng củ khoai tây vương vãi dưới đất, Mạnh Lãng cũng vội vã ngồi xổm xuống nhặt phụ giúp con bé một tay.
+
+Đúng lúc này, ánh mắt hắn vô tình lướt qua lòng bàn tay của cô bé, bắt gặp một vệt máu đỏ tươi rớm ra, hắn lập tức khựng lại:
+
+“Cháu bị thương rồi kìa?”
+
+Cô bé rụt vội bàn tay nhỏ nhắn lại sau lưng, cất giọng rụt rè nhút nhát: “Dạ không sao đâu chú, chỉ là trầy xước chút da thôi ạ.”
+
+Mạnh Lãng nhặt củ khoai tây cuối cùng bỏ lại vào túi, đưa mắt ngó vào bên trong: vài củ khoai tây, một mớ rau xanh, thêm mấy quả cà chua và dăm ba quả trứng gà.
+
+Hắn đưa mắt đánh giá kỹ lưỡng cô bé trước mặt từ trên xuống dưới.
+
+Chiều cao chỉ tầm chừng một mét hai mươi, trên người đang khoác bộ đồng phục của trường tiểu học Thanh Tùng nằm ở khu phố bên cạnh, khuôn mặt tròn phúng phính trắng trẻo bụ bẫm, đôi mắt to tròn đen láy long lanh trông vô cùng đáng yêu ngoan ngoãn.
+
+Mới chỉ tầm khoảng sáu bảy tuổi đầu, ở cái độ tuổi này đáng lẽ ra phải là lúc được cha mẹ chiều chuộng đưa đón đi học về mỗi ngày, thế nhưng hiện tại cô bé lại giống hệt như một bà nội trợ tí hon xách theo chiếc túi đồ ăn nặng trĩu đi chợ về, cảnh tượng này thoạt nhìn vừa có chút hài hước buồn cười, nhưng ngẫm lại càng thấy xót xa trong lòng.
+
+“Cháu chào chú cháu về ạ!” Cô bé tỏ ra vô cùng lễ phép xách lấy túi đồ, cúi gập người chào Mạnh Lãng một cái thật đàng hoàng, rồi mới xoay người rảo bước rời đi.
+
+Mạnh Lãng nhìn thấy bóng dáng nhỏ thó đang chật vật xách theo chiếc túi siêu thị to gần bằng nửa thân người, bước chân vội vã như thể đang chạy đua với thời gian, trong lòng bỗng dâng lên một nỗi xót xa khó tả.
+
+Cô bé đang cắm cúi đi phía trước bỗng nhiên cảm thấy bàn tay mình nhẹ bẫng, ngẩng đầu lên mới phát hiện ra người chú ban nãy đã vượt lên trước, giật lấy chiếc túi xách từ tay mình.
+
+“Vừa khéo chú cũng tiện đường đi cùng hướng, để chú xách hộ một đoạn.”
+
+Cô bé thoáng ngập ngừng ngơ ngác một nhịp, thế nhưng thấy Mạnh Lãng đã tự nhiên sải bước đi lên phía trước, con bé chỉ đành lí nhí cất tiếng: “Cháu cảm ơn chú ạ”, rồi nhanh chân rảo bước vượt lên trước để dẫn đường.
+
+Ánh hoàng hôn vàng óng ả kéo dài bóng của hai người ngả dài trên con đường lát gạch cũ. Thế nhưng càng đi tiếp, biểu cảm trên khuôn mặt của Mạnh Lãng lại càng trở nên quái dị khó tả.
+
+Lờ mờ trong tâm trí, Mạnh Lãng dường như đã lờ mờ nhận thức ra được một điều gì đó kinh hoàng.
+
+Quả nhiên, khi hai người cùng dừng bước dưới chân tòa nhà số 5 của khu tập thể, biểu cảm trên mặt Mạnh Lãng phải dùng từ “đặc sắc muôn màu” mới có thể lột tả hết được.
+
+“Chú ơi, cháu về đến nhà rồi ạ.”
+
+Mạnh Lãng dùng ánh mắt vô cùng phức tạp nhìn chăm chú vào cô bé: “Cháu... tên là Tiểu Vũ đúng không? Nhà cháu ở phòng 302?”
+
+“Ủa? Sao chú lại biết tên cháu ạ?”
+
+Đâu chỉ đơn thuần là biết tên cháu thôi đâu, nhờ phúc của cháu mà kiếp sau chú còn bị gông cổ tống vào ngục tù mọt gông, bị người đời nguyền rủa nghìn năm bia miệng nữa cơ đấy!
+
+“Đây chính là... cái gọi là sự an bài của số phận hay sao...”
+
+Hắn lẩm bẩm thì thầm một mình, trong không gian mờ ảo dường như có thể lắng nghe thấy tiếng bánh răng của cỗ máy vận mệnh đang rít lên từng tràng “ken két” ma quái.
+
+Hắn rốt cuộc cũng đã xâu chuỗi và thấu suốt được một số nghi vấn then chốt bấy lâu nay.
+
+Ví dụ như, vì sao một cô bé rõ ràng chưa từng xuất hiện lấy một lần nào trong dòng thời gian của cuốn 《Cuộc Đời Bi Thảm》, mang tên Tiểu Vũ này...
+
+Vậy mà khi bước sang cuốn 《Sự Phấn Đấu Của Ta》, sự xuất hiện của con bé lại đủ sức làm đảo lộn và thay đổi hoàn toàn cả một đời của chính hắn?
+
+Chỉ có duy nhất một lời giải thích thỏa đáng mà thôi.
+
+Bản thân hắn trong không thời gian của 《Cuộc Đời Bi Thảm》 căn bản chưa từng bao giờ gặp gỡ cô bé này!
+
+Thế nhưng ngay trong ngày hôm nay, tương lai của 《Cuộc Đời Bi Thảm》 đã bị chính bàn tay hắn can thiệp làm biến đổi.
+
+Bản thân hắn vì muốn kiếm hũ vàng đầu tiên nên mới lặn lội đi mở một loạt thẻ tín dụng, và cũng chính vì nguyên nhân ấy, hắn mới tình cờ đụng độ và gặp gỡ Tiểu Vũ vào đúng thời khắc hoàng hôn ngày hôm nay, sợi tơ số phận giữa hai người kể từ đó bắt đầu quấn chặt lấy nhau không thể tách rời.
+
+Để rồi cuối cùng, tương lai mới rẽ nhánh và biến chuyển thành cuốn 《Sự Phấn Đấu Của Ta》!
+
+Đầu óc Mạnh Lãng đang điên cuồng vận hành với công suất cực đại, và trong thâm tâm hắn bỗng nhiên nảy sinh ra một giả thuyết còn đáng sợ và rùng mình hơn gấp bội phần.
+
+Theo lẽ thường tình, một vụ án mạng giết người dã man xảy ra ngay tại căn phòng sát vách nhà mình, cho dù nạn nhân có là một cô bé xa lạ hoàn toàn không quen biết, thì bản thân hắn cũng phải ghi nhớ sâu sắc trong lòng chứ.
+
+Thế nhưng trong toàn bộ nội dung của 《Cuộc Đời Bi Thảm》, chưa từng có lấy một dòng chữ nào nhắc tới sự việc chấn động này.
+
+Liệu có phải do khi ấy hắn đang chìm đắm trong cơn khủng hoảng nợ nần vì đầu tư thất bại, tinh thần rơi vào trạng thái bế tắc tự bế trầm cảm nên hoàn toàn thờ ơ lãnh đạm với thế sự xung quanh?
+
+Hay là bởi vì không trực tiếp gánh chịu nỗi đau thấu xương, nên vụ án mạng ấy đối với hắn nhiều nhất cũng chỉ là một mẩu tin thời sự ngắn ngủi vài chục giây thoáng qua trên bản tin truyền hình, căn bản không xứng đáng để được ghi chép vào cuốn hồi ký cuộc đời?
+
+Hay là nói... ở trong cái không thời gian ban đầu kia... cô bé này căn bản CHƯA TỪNG BỊ CHẾT?!
+
+Toàn thân Mạnh Lãng bỗng nhiên cứng đờ như hóa đá.
+
+Nếu như cái khả năng cuối cùng kia mới là chân tướng sự thật, vậy thì điều đó đồng nghĩa với việc... cái chết thảm khốc của cô bé... rất có thể lại do chính bàn tay hắn gián tiếp gây ra?
+
+Ta không giết Bá Nhân, nhưng Bá Nhân lại vì ta mà chết!
+
+Nếu như không phải vì bản thân hắn muốn thay đổi số phận bi kịch của mình, thì cô bé ngây thơ hồn nhiên này có lẽ vẫn đang được sống yên bình nương tựa bên người chị gái.
+
+Ở một tương lai xa xôi phía trước, con bé có lẽ sẽ thi đỗ vào một trường đại học mơ ước, rồi cùng người mình yêu xây dựng nên một mái ấm gia đình ngập tràn hạnh phúc...
+
+Vậy mà bản thân hắn chỉ vì lợi ích sinh tồn của riêng mình, lại rất có thể đã tước đoạt và chôn vùi cả một đời tươi đẹp của một đứa trẻ vô tội?
+
+Vừa nghĩ tới đây, trong lòng Mạnh Lãng bỗng nhiên dâng trào một cảm giác tội lỗi sâu sắc đến nghẹt thở.
+
+Hắn thậm chí còn nảy sinh một nỗi thôi thúc mãnh liệt muốn quay ngược dòng thời gian, thà rằng để cho mọi thứ quay trở về đúng quỹ đạo bi thảm ban đầu còn hơn.
+
+Khoan đã! Bây giờ tuyệt đối không phải là lúc để ngồi đây tự trách bản thân!
+
+Mình đã có thể thay đổi số phận được một lần, thì dứt khoát sẽ có thể thay đổi được nó lần thứ hai!
+
+Mạnh Lãng cố ép não bộ của mình phải lấy lại sự bình tĩnh tuyệt đối, bắt đầu sắp xếp lại các nút thắt trên dòng vận mệnh.
+
+“Nếu như cuộc hội ngộ chiều hôm nay chính là cội nguồn của mọi chuyện, vậy thì đồng nghĩa với việc, tên hung thủ kia rất có thể đã tận mắt chứng kiến cảnh tượng mình và Tiểu Vũ đi cùng nhau dưới sân, thế nên hắn mới nảy sinh ra kế hoạch tàn độc: sát hại Tiểu Vũ rồi đổ vấy tội ác lên đầu mình nhằm giá họa!
+
+Một kế hoạch gài bẫy chu toàn và kín kẽ đến mức độ ấy, chứng tỏ hắn rất có thể đã âm thầm theo dõi rình rập Tiểu Vũ từ rất lâu rồi!
+
+Nói cách khác, gã sát nhân đó... hiện tại rất có thể... đang lẩn khuất ngay tại nơi này!”
+
+Vừa nghĩ tới khả năng ấy, Mạnh Lãng giật nảy mình kinh hãi.
+
+Hắn lập tức ngẩng phắt đầu lên, phóng ánh mắt sắc như dao quét mạnh ra bốn phía chung quanh.
+
+Trong khoảnh khắc liếc mắt quét qua, tại một góc khuất cách đó không xa, một bóng đen trùm mũ kín mít, đeo khẩu trang che kín mặt vừa mới xoay người lướt qua góc tường, thoắt cái đã biến mất sau khúc quanh.
+
+Đồng tử của Mạnh Lãng đột ngột co rút lại thành một chấm nhỏ!
+
+Nếu như hắn chỉ là một người đi đường bình thường vô tư lự, khi bắt gặp một bóng người qua đường như thế, có lẽ căn bản sẽ chẳng bao giờ bận tâm để mắt tới.
+
+Thế nhưng vô cùng đáng tiếc cho tên hung thủ kia, Mạnh Lãng hắn đâu phải là người bình thường!
+
+Hắn chính là vị “độc giả của thượng đế” đã đọc trọn vẹn toàn bộ kịch bản của bộ “truyện tranh án mạng kinh dị”, hay nói một cách trần trụi dân dã hơn, hắn chính là một “kẻ thích spoil kịch bản”!
+
+Đeo khẩu trang thì còn có thể ngụy biện là do cảm cúm sổ mũi, thế nhưng trời đã chập choạng tối nhá nhem mặt người thế này rồi, ngươi còn trùm cái mũ kín mít đầu làm cái giống gì?
+
+Hơn nữa con đường mòn nhỏ kia, nếu như hắn nhớ không lầm, thì quả thực là dẫn ra một cổng phụ phía sau của khu tập thể, thế nhưng cái cánh cổng phụ ấy từ lâu đã bị ban quản lý khóa xích sắt chặt cứng quanh năm suốt tháng.
+
+Dân cư sống quanh đây tuyệt đối không một ai là không nắm rõ điều này.
+
+Khóe miệng Mạnh Lãng khẽ nhếch lên thành một nụ cười lạnh lùng đầy gai góc.
+
+Thằng sát nhân khốn kiếp! Mày không ngờ tới đúng không?!
+
+Ngay từ tập một của bộ phim, mày đã bị bố mày khoanh tròn đánh dấu đỏ lên đầu rồi đấy con trai!"""
+
+chapters.append({
+    "chapter_id": 714,
+    "chapter_index": 7,
+    "title_translated": "Chương 7: Kẻ Thích Spoil",
+    "translated_content": ch7_text.strip()
+})
+
+# =========================================================================
+# CHƯƠNG 8: Mọi Tội Lỗi Cứ Đổ Lên Mình Ta
+# =========================================================================
+ch8_text = """Rất nhiều chuyện trên đời này chính là như vậy, trước khi xảy ra thì ngu ngơ như lợn, sau khi mọi sự đã rồi thì ai nấy đều hóa thành Gia Cát Lượng tái thế.
+
+Vô số những manh mối vụn vặt thoạt nhìn tưởng chừng như chẳng có chút liên can dính dáng gì tới nhau, thế nhưng nếu như bản thân đã biết trước kết cục cuối cùng, rồi từ cái kết cục đó mà lần mò suy ngược trở lại, thì mọi thứ dường như đều trở nên vô cùng hợp lý và thuận buồm xuôi gió.
+
+“Chú ơi?” 
+
+Nhìn thấy vẻ mặt cùng những hành động kỳ quặc bất thường của Mạnh Lãng, Tiểu Vũ rụt rè khẽ cất tiếng gọi.
+
+Mạnh Lãng lúc này mới giật mình sực tỉnh hoàn hồn, nhận ra túi thức ăn của con bé vẫn đang nằm gọn trong tay mình.
+
+“Ờ... cháu chắc là chưa biết đâu nhỉ, chú với cháu là hàng xóm sát vách đấy, chú ở ngay phòng 303.” Mạnh Lãng mỉm cười giơ tay chỉ lên tầng lầu.
+
+Tiểu Vũ nghe xong, khuôn miệng nhỏ nhắn lập tức tròn xoe thành một chữ O vô cùng đáng yêu: “Hóa ra chú chính là người... mà chị chủ nhà bảo là cái lão chú ở phòng bên cạnh đấy ạ?”
+
+Khóe miệng Mạnh Lãng méo xệch giật giật liên hồi: “Là cái lão chú biến thái phòng bên cạnh đúng không? Chú nghe thấy hết cả rồi nhé, không thì làm sao chú biết được tên của cháu chứ lị.”
+
+Tiểu Vũ ngẩn người ra một thoáng, sau đó liền đưa hai bàn tay nhỏ bụm miệng cười khúc khích: “Dạ chắc là do chị chủ nhà chưa hiểu rõ về chú thôi ạ, cháu thấy chú rõ ràng là một người tốt mà.”
+
+Bất ngờ được một cô bé con phát cho một tấm “thẻ người tốt”, Mạnh Lãng bày ra vẻ mặt đầy bất đắc dĩ: “Rõ ràng tuổi tác của chú với cô ta cũng ngang ngửa nhau, cớ sao cô ta thì được gọi là chị, còn tôi thì lại bị giáng cấp xuống thành chú thế này...”
+
+“Thế... cháu gọi chú bằng anh nhé?” Tiểu Vũ nghiêng nghiêng chiếc đầu nhỏ ngây thơ hỏi.
+
+“Không cần đâu, cháu cứ gọi cô ta bằng bác cho chú!”
+
+“Hi hi ha ha!”
+
+Hai người một lớn một nhỏ vừa nói vừa cười rảo bước leo lên cầu thang.
+
+Thế nhưng ngay vào khoảnh khắc bóng dáng của hai người vừa mới khuất sau khúc quanh của chân cầu thang, một bóng đen ẩn nấp từ trong góc khuất tăm tối lại từ từ thò đầu bước ra.
+
+Hắn nhìn chằm chằm về hướng hai người vừa biến mất, khóe miệng dưới lớp khẩu trang từ từ ngoác ra thành một nụ cười quái đản, để lộ ra hàm răng trắng ởn lạnh lẽo đến ghê rợn...
+
+...
+
+Mạnh Lãng dĩ nhiên không hề lựa chọn phương án đuổi theo bóng đen kia ngay lập tức.
+
+Đối với một vụ án mạng giết người thậm chí còn chưa hề xảy ra trên thực tế, thì dẫu cho hắn có tóm sống được tên hung thủ lôi xềnh xệch tới đồn công an đi chăng nữa...
+
+Thì rồi sao nữa? Lấy tội danh gì để khởi tố người ta?
+
+Chẳng lẽ lại dõng dạc tuyên bố với các chú công an rằng: tôi chỉ cần liếc mắt một cái là nhìn thấu thằng này là một kẻ sát nhân biến thái, có điều thời gian gây án của nó thì các chú chịu khó đợi thêm hai ngày nữa mới tới?
+
+Làm như vậy thì e rằng tên hung thủ chẳng mảy may hề hấn một cọng lông chân, còn bản thân hắn thì chắc chắn sẽ bị tống thẳng vào trại tâm thần khám nghiệm não bộ trước tiên.
+
+Bởi vậy, Mạnh Lãng quyết định tạm thời cứ án binh bất động, ngậm tăm không đánh rắn động cỏ.
+
+Căn cứ theo những gì được ghi chép trong cuốn tự truyện, đối phương một khi đã có thể ngụy tạo ra cả một chuỗi chứng cứ giả tinh vi và kín kẽ đến mức gài bẫy đổ oan hoàn toàn cho hắn, thì chứng tỏ ngoài thủ đoạn giết người tàn nhẫn máu lạnh ra, kẻ này còn sở hữu kiến thức điều tra và kỹ năng chống điều tra hình sự cực kỳ cao thủ.
+
+Một nhân vật nguy hiểm cỡ này chắc chắn thuộc dạng vô cùng khó đối phó, một khi lỡ tay đánh rắn động cỏ làm lộ sơ hở, e rằng chính bản thân hắn cũng sẽ lập tức biến thành mục tiêu bị thủ tiêu trước tiên.
+
+Ưu thế lớn nhất của Mạnh Lãng ở thời điểm hiện tại chính là: địch ở ngoài sáng, còn ta ở trong tối.
+
+Kẻ địch chỉ đơn thuần coi hắn là một con cừu non béo bở để gài bẫy gánh tội thay, thế nhưng trên thực tế, hắn lại là một con sói già hung hãn đang khoác trên mình bộ da cừu.
+
+Đối phương ngỡ mình là thợ săn đi săn mồi, nhưng thực chất hắn mới là con mồi, còn ta mới chính là kẻ đi săn thực thụ!
+
+...
+
+Trước cửa phòng 302.
+
+“Của cháu đây!” Mạnh Lãng chìa túi thức ăn trả lại cho Tiểu Vũ.
+
+“Cháu cảm ơn chú ạ!” Tiểu Vũ đón lấy chiếc túi nilon, thế nhưng lại không hề có ý định tra chìa khóa mở cửa ngay, mà ngược lại đôi mắt to tròn cứ lặng lẽ nhìn chằm chằm vào Mạnh Lãng.
+
+Mạnh Lãng thoáng ngẩn người, ngay sau đó liền hiểu ra lý do, bất giác bật cười thành tiếng.
+
+Hắn móc chùm chìa khóa trong túi ra lắc lắc mấy cái kêu leng keng, rồi đưa tay mở toang cánh cửa phòng trọ số 303 sát vách.
+
+“Thấy chưa nào, chú đâu có lừa gạt cháu đâu, cái củ cải nhỏ nhà cháu cảnh giác ghê gớm thật đấy.”
+
+Cô nhóc này tuy bề ngoài trông có vẻ ngây thơ đơn thuần, thế nhưng bên trong lại sở hữu một tâm trí chín chắn vượt xa lứa tuổi bạn bè đồng trang lứa. Điều này vừa khiến Mạnh Lãng cảm thấy kinh ngạc khâm phục, nhưng đồng thời lại càng trào dâng nỗi xót xa vô bờ bến.
+
+Bởi lẽ người ta thường nói: một đứa trẻ được gia đình yêu thương chiều chuộng thì chẳng bao giờ chịu lớn, còn những đứa trẻ thiếu thốn tình thương thì luôn phải bắt bản thân trưởng thành từ rất sớm...
+
+Tiểu Vũ nhìn thấy Mạnh Lãng đích thực là người thuê trọ ở phòng 303 bên cạnh, lúc này mới nở một nụ cười e thẹn bẽn lẽn, đoạn rút chiếc chìa khóa trong túi áo ra, có chút vụng về cắm vào ổ khóa vặn mở cánh cửa.
+
+“Tiểu Vũ đấy à, sao hôm nay đi chợ về muộn thế hả, mau vào nấu cơm nhanh lên đi, chị mày đói sắp chết lả ra rồi đây này...” Nghe thấy tiếng lách cách mở cửa, bên trong phòng vọng ra tiếng càu nhàu của một người phụ nữ.
+
+“Dạ em biết rồi chị ơi, em vào nấu ngay đây ạ!”
+
+“Rầm!” 
+
+Cánh cửa phòng 302 đóng sập lại cái rụp, bỏ mặc một mình Mạnh Lãng đứng ngơ ngác đờ đẫn giữa luồng gió lạnh nơi hành lang.
+
+Hóa ra bé Tiểu Vũ không chỉ phải tự mình đi chợ mua đồ ăn, mà đến cả việc nấu nướng phục vụ cơm nước trong nhà cũng là do một tay con bé cáng đáng hay sao?
+
+Đây rốt cuộc là cái thứ bà chị thần thánh phương nào thế không biết?
+
+Trong đầu Mạnh Lãng bất giác hiện lên hình ảnh một bà chị béo ục ịch độc ác đang vắt chân chữ ngũ ngồi rung đùi cắn hạt dưa trên ghế sofa xem phim, còn bé Tiểu Vũ thì thắt chiếc tạp dề quá khổ, phải bắc một chiếc ghế đẩu nhỏ đứng chới với bên bếp lò để xào nấu xoong chảo...
+
+Chẳng lẽ... bà chị này thực chất là con riêng của mẹ kế hay sao?
+
+Đây đích thị là phiên bản cô bé Lọ Lem đời thực rồi còn gì nữa!
+
+Thế nhưng ngẫm đi ngẫm lại, một đứa em gái ngoan ngoãn, hiểu chuyện và đảm đang đến mức này... bản thân mình cũng thèm khát muốn có một đứa biết bao...
+
+Nhìn cánh cửa phòng 302 đang đóng kín mít, trong tâm trí Mạnh Lãng lại hiện lên nụ cười bẽn lẽn ngây thơ của Tiểu Vũ, quyết tâm cứu vớt cô bé trong lòng hắn lại càng thêm phần kiên định vững vàng hơn bao giờ hết.
+
+Một đứa trẻ số phận đã quá đỗi bất hạnh và chịu nhiều thiệt thòi như thế này, tuyệt đối không được phép phải đón nhận một cái chết thảm khốc oan nghiệt như những gì cuốn sách kia đã viết!
+
+Thực ra Mạnh Lãng hoàn toàn có quyền lựa chọn phương án phủi tay quay lưng bỏ đi. Đối mặt với một tên sát nhân máu lạnh giết người không chớp mắt, mọi hành động can thiệp dính líu vào vũng nước đục này đều tiềm ẩn hiểm nguy chết người khôn lường.
+
+Hắn chỉ cần đơn giản dọn đồ đạc chuyển đi nơi khác thuê trọ, thì cái gì mà vụ án mạng kinh hoàng, cái gì mà tai bay vạ gió ngồi tù oan ức, tất cả sẽ lập tức tan thành mây khói, vĩnh viễn không thể chạm tới được hắn.
+
+Đây rõ ràng là phương án đơn giản nhất, trực tiếp nhất, và sở hữu độ an toàn cao nhất để thay đổi số phận của bản thân.
+
+Thế nhưng... Mạnh Lãng căn bản không tài nào vượt qua nổi cửa ải lương tâm của chính mình!
+
+Gia huấn của dòng họ Mạnh nhà hắn từ ngàn xưa đã dạy rõ ràng: Sinh mệnh là điều ta muốn, mà điều nghĩa cũng là điều ta muốn; nếu như không thể vẹn tròn được cả đôi đường, thì thà xả thân bỏ mạng để giữ trọn lấy điều nghĩa khí!
+
+Đã là do ta mà cớ sự này mới khởi nguồn, vậy thì bao nhiêu tội lỗi oan khiên đày ải, cứ việc đổ hết lên thân ta gánh vác!
+
+...
+
+Mạnh Lãng quay trở vào căn phòng trọ của mình.
+
+Hắn lôi cuốn 《Sự Phấn Đấu Của Ta》 được giấu kỹ dưới đáy tủ quần áo ra đặt lên bàn.
+
+Điều khiến hắn có đôi chút thất vọng là lần này cuốn sách lại chẳng hề xuất hiện bất kỳ sự biến đổi mới nào, ngay cả những nét chữ in trên mặt giấy cũng không hề có dấu hiệu mờ nhạt đi dù chỉ một chút.
+
+Mạnh Lãng khẽ cau mày rơi vào trầm tư suy nghĩ.
+
+Có lẽ chỉ đơn thuần là việc bản thân phát hiện ra sự tồn tại của tên hung thủ thì vẫn chưa đủ sức nặng để tạo nên sự thay đổi bước ngoặt cho tương lai?
+
+Hay là nói, cơ chế “cập nhật phiên bản mới” của cuốn sách ma thuật này cần phải có một khoảng thời gian làm nguội nhất định? Phải để cho cánh bướm vỗ thêm một lúc nữa trong dòng thời gian?
+
+Nghĩ tới đây, Mạnh Lãng lập tức nhớ lại mốc thời gian: thời điểm hắn nhận được cuốn tự truyện kỳ bí này là vào tối ngày hôm qua, và lần đầu tiên cuốn sách phát sinh sự “cập nhật” biến đổi là vào khoảng mười hai giờ trưa ngày hôm nay.
+
+Chẳng lẽ mười hai giờ trưa hàng ngày chính là một mốc thời gian cố định then chốt?
+
+Ừm! Phải khoanh tròn gạch chân ghi nhớ điểm mấu chốt này!
+
+Mạnh Lãng quyết định cứ cách một khoảng thời gian nhất định sẽ lại lôi sách ra quan sát tỉ mỉ một lần, nhằm thăm dò và nắm bắt cho bằng được “tần suất cập nhật” chính xác của nó.
+
+Nếu như cuốn tự truyện này được thiết lập theo cơ chế “ngày cập nhật một lần”, “tuần cập nhật một lần”, hay thậm chí là “tháng cập nhật một lần”, vậy thì hiển nhiên bản thân hắn bắt buộc phải trân quý và tận dụng triệt để từng cơ hội quý giá để dòm ngó trước tương lai...
+
+Hắn lại một lần nữa lật giở từng trang sách 《Sự Phấn Đấu Của Ta》, bắt đầu vắt óc tìm tòi thêm nhiều manh mối giá trị ẩn giấu bên trong nhằm phục vụ cho kế hoạch xoay chuyển vận mệnh.
+
+Trải qua một chuỗi suy nghĩ sâu sắc suốt thời gian qua, Mạnh Lãng cơ bản đã xác định rõ ràng phương pháp sử dụng chuẩn xác nhất cho cuốn “tự truyện” thần kỳ này.
+
+Nếu bản thân cứ khoanh tay ngồi yên không làm gì cả, thì tương lai dĩ nhiên sẽ không bao giờ có bất kỳ sự biến chuyển nào.
+
+Bởi vậy, hắn cần phải tranh thủ trước khi cuốn “tự truyện” bước vào giai đoạn biến đổi, tự mình vạch ra một kế hoạch hành động chu toàn và có khả năng xoay chuyển tương lai cao nhất rồi dốc sức thực hiện nó.
+
+Sau đó, hắn sẽ căn cứ vào bức tranh “tương lai mới” được cuốn “tự truyện” cập nhật phản hồi về, để tiến hành rà soát sửa đổi những sai sót trong kế hoạch, từng bước từng bước bẻ gãy số phận bi kịch.
+
+Nếu như cái “tương lai mới” nhận được vẫn chưa thực sự như ý muốn, vậy thì lại tiếp tục thực hiện lại vòng lặp quy trình trên: một lần chưa được thì làm hai lần, hai lần chưa xong thì làm ba lần, cho đến khi nào đạt được một “nhân sinh hoàn mỹ” đúng như mong ước mới thôi!
+
+Còn về việc thế nào mới được coi là một “nhân sinh hoàn mỹ” đích thực, thì tạm thời Mạnh Lãng vẫn chưa có thời gian để nghĩ xa xôi tới mức ấy.
+
+Thế nhưng chí ít ra, nó tuyệt đối không thể là một cuộc đời phải chôn vùi trong chốn lao tù tăm tối...
+
+Quy trình tuần hoàn này thoạt nhìn có nét tương đồng rất lớn với chu trình PDCA kinh điển thường thấy trong công tác quản lý sản xuất của các doanh nghiệp hiện đại ngày nay.
+
+Chu trình PDCA, tức là Plan (Lập kế hoạch), Do (Thực hiện), Check (Kiểm tra đánh giá) và Act (Xử lý điều chỉnh).
+
+Sau khi một chu trình kết thúc, nếu như sản phẩm làm ra vẫn chưa đạt tiêu chuẩn lý tưởng, người ta sẽ tiến hành điều chỉnh lại các thông số kỹ thuật đầu vào, rồi tiếp tục thực hiện lại chu trình nói trên, liên tục sửa sai hết lần này đến lần khác, cho đến khi nào cho ra lò được một sản phẩm hoàn hảo không tì vết mới thôi.
+
+Tuy rằng bối cảnh áp dụng có phần khác biệt một trời một vực, thế nhưng đạo lý cốt lõi bên trong thì hoàn toàn tương thông với nhau.
+
+Quả thực phải gửi lời cảm ơn chân thành sâu sắc tới cô giáo hướng dẫn xinh đẹp thời đại học đã tận tình truyền thụ lại bài học nhân sinh quý báu này!
+
+...
+
+Nửa tiếng đồng hồ sau, Mạnh Lãng rốt cuộc cũng trích xuất ra được những nội dung mang tính then chốt và sống còn nhất liên quan trực tiếp đến vụ án mạng từ toàn bộ văn bản của cuốn 《Sự Phấn Đấu Của Ta》:
+
+【Ngay đúng vào lúc tôi đang đắc ý tột cùng, chuẩn bị giương buồm thi triển hoài bão lớn... thì Tiểu Vũ chết!】
+
+【Camera an ninh góc phố, dấu vân tay lưu lại trên cánh cửa, hung khí gây án và chiếc áo dính máu vứt bên cạnh thi thể, cùng cả những sợi tóc và biểu bì da hung thủ để lại hiện trường... Toàn bộ chứng cứ đều chỉ đích danh tôi!】
+
+【Không có nhân chứng trông thấy, không có chứng cứ ngoại phạm, càng không một ai đứng ra đồng cảm, làn sóng dư luận nghiêng hẳn một chiều đầy căm phẫn bất lợi cho tôi.】
+
+Thông qua việc trích xuất và phân tích kỹ lưỡng, Mạnh Lãng đã rút ra được một số kết luận mang tính bản chất:
+
+Thời điểm vụ án mạng dã man này phát sinh hẳn là phải diễn ra sau khi hắn đã kiếm được hũ vàng đầu tiên trong đời, tức là không lâu sau khi cuộc khủng hoảng sụp đổ thị trường chứng khoán nổ ra.
+
+Và những chứng cứ thép mang tính chất chí mạng chống lại hắn trong vụ án này bao gồm: camera an ninh góc phố, dấu vân tay trên cửa, hung khí và chiếc áo dính máu vứt cạnh thi thể, sợi tóc và biểu bì da của chính hắn rơi rớt tại hiện trường vụ án mạng, không có nhân chứng ngoại phạm, không có bằng chứng chứng minh mình vô tội...
+
+“Camera an ninh góc phố...” 
+
+Mạnh Lãng đưa tay lên vuốt cằm, trong chớp mắt bỗng nghĩ ra điều gì đó, hàm răng bất giác nhói đau ê ẩm:
+
+“Không lẽ nào... chính là cái cảnh tượng chiều hôm nay mình và Tiểu Vũ cùng nhau đi bộ dưới sân khu nhà đã bị camera an ninh ghi lại toàn bộ rồi chứ?”
+
+Trong tình huống điều tra thông thường, sau khi một vụ án mạng kinh hoàng bùng phát, ban chuyên án công an chắc chắn sẽ lập tức trích xuất toàn bộ dữ liệu camera giám sát trong khu vực, để rà soát xem trong khoảng thời gian gần đây nhất bé Tiểu Vũ có từng tiếp xúc qua lại với người lạ mặt nào hay không.
+
+Bản thân hắn với tư cách là một người hàng xóm sát vách, lại vừa khéo là một người xa lạ vừa mới tiếp xúc thân mật với Tiểu Vũ, không còn nghi ngờ gì nữa, chắc chắn sẽ bị cơ quan điều tra đưa ngay vào danh sách “đối tượng tình nghi trọng điểm số một”!
+
+Thậm chí ngay cả hành động có lòng tốt chủ động xách hộ đồ ăn giúp con bé chiều nay, cũng rất có thể sẽ bị phía cảnh sát quy chụp coi đó là bằng chứng đanh thép cho thấy hắn đang “chủ động tiếp cận con mồi nhằm tìm kiếm cơ hội ra tay”.
+
+Rất có khả năng tên sát nhân biến thái kia đã khôn khéo lợi dụng triệt để những “điều kiện thuận lợi trời cho” này, thế nên hắn mới lựa chọn mình để làm “con cừu thế mạng” hoàn hảo nhất!
+
+“Thế nhưng... còn về dấu vân tay, hung khí gây án, chiếc áo dính máu, cùng với cả tóc và tế bào da rơi rớt tại hiện trường thì giải thích làm sao đây? Mấy cái thứ đồ vật mang tính định tội chết người ấy, tổng thể không thể nào là do chính bản thân mình tự tay mang vứt ở hiện trường vụ án được chứ?”
+
+Mạnh Lãng cau mày trầm ngâm suy tư hồi lâu, đôi mắt bỗng nhiên khẽ lóe lên một tia sáng sắc lạnh, lờ mờ suy đoán ra một khả năng vô cùng khả thi.
+
+Vậy thì hiện tại chỉ còn lại duy nhất một từ khóa phụ quan trọng khác nữa mà thôi... Làn sóng dư luận!
+
+Một vụ án mạng giết người tàn bạo man rợ đến nhường ấy, đặc biệt nạn nhân lại là một bé gái ngây thơ mới chỉ tròn sáu tuổi đầu, thủ đoạn gây án lại cực kỳ dã man mất hết nhân tính, thì phản ứng của dư luận xã hội sẽ bùng nổ dữ dội và phẫn nộ đến mức độ nào, Mạnh Lãng chỉ cần dùng tới bán cầu não dưới cũng dư sức mường tượng ra được.
+
+Lùng sục danh tính cá nhân, bạo lực mạng tràn lan... Dưới cơn thịnh nộ ngút trời của hàng triệu con người như thế, áp lực truyền thông và búa rìu dư luận khổng lồ chắc chắn sẽ tạo nên sự can thiệp và tác động tiêu cực cực kỳ ghê gớm lên toàn bộ tiến trình điều tra và xét xử của cơ quan tư pháp.
+
+Ngay cả lực lượng công an điều tra, dưới sức ép ngàn cân đè nặng từ các cấp lãnh đạo và áp lực xã hội, cũng sẽ có xu hướng lựa chọn phương án nhanh chóng kết thúc chuyên án trong thời gian sớm nhất có thể.
+
+Nếu như vậy, thì dẫu cho trong toàn bộ chuỗi chứng cứ của vụ án có xuất hiện đôi chút điểm nghi vấn mập mờ hay sơ hở nhỏ nào đó, e rằng cũng sẽ nhanh chóng bị làn sóng phẫn nộ ngút trời của dư luận cuốn phăng và vùi lấp hoàn toàn!
+
+Chẳng lẽ... đây cũng chính là một trong những toan tính thâm độc khiến tên hung thủ cố tình lựa chọn ra tay bằng những thủ đoạn tàn ác man rợ đến như vậy?
+
+Toàn thân Mạnh Lãng bỗng chốc lạnh toát từ đầu đến chân.
+
+Không còn chút nghi ngờ nào nữa, tên sát nhân giấu mặt này, tuyệt đối là một kẻ hiểm độc, xảo quyệt khôn lường, hơn nữa còn nắm rất rõ quy trình điều tra hình sự, trình tự xét xử tư pháp, thậm chí là cực kỳ am hiểu tâm lý học đám đông và nghệ thuật dẫn dắt dư luận xã hội!
+
+Dù sao thì Mạnh Lãng cũng chỉ là một người bình thường bằng xương bằng thịt, đối mặt với một đối thủ tàn độc và thâm sâu khó lường cỡ này, nếu bảo trong lòng không có lấy một chút sợ hãi run rẩy thì rõ ràng là đang tự dối lòng.
+
+“Hay là... mình cứ mua trước cho bản thân một gói bảo hiểm nhân thọ phòng thân cái đã nhỉ?”"""
+
+chapters.append({
+    "chapter_id": 715,
+    "chapter_index": 8,
+    "title_translated": "Chương 8: Mọi Tội Lỗi Cứ Đổ Lên Mình Ta",
+    "translated_content": ch8_text.strip()
+})
+
+output_data = {
+    "chapters": chapters
+}
+
+output_path = "data/translated_novel_2_batch2.json"
+with open(output_path, "w", encoding="utf-8") as f:
+    json.dump(output_data, f, ensure_ascii=False, indent=2)
+
+print("Successfully written", len(chapters), "chapters to", output_path)

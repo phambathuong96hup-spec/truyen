@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" stroke="#38bdf8" stroke-width="8"/>
+  <path d="M 120 380 L 120 180 Q 240 220 250 200 L 250 400 Q 240 420 120 380 Z" fill="url(#cyanGrad)" />
+  <path d="M 392 380 L 392 180 Q 272 220 262 200 L 262 400 Q 272 420 392 380 Z" fill="url(#purpleGrad)" />
+  <circle cx="256" cy="130" r="32" fill="#f59e0b" filter="drop-shadow(0 0 12px rgba(245, 158, 11, 0.8))"/>
+  <path d="M 256 90 L 260 120 L 290 124 L 260 128 L 256 158 L 252 128 L 222 124 L 252 120 Z" fill="#ffffff" />
+</svg>
