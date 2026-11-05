@@ -18,13 +18,30 @@ PROGRESS_FILE = "data/translation_progress.json"
 
 SAC_HIEP_NOVEL_IDS = [6, 7, 8, 9, 10, 11, 12, 13, 14]
 
-SYSTEM_PROMPT = (
-    "Bạn là dịch giả tiểu thuyết Trung - Việt hàng đầu. "
-    "Hãy dịch đoạn văn tiểu thuyết sau sang tiếng Việt sắc sảo, tự nhiên, mượt mà, "
-    "đúng chuẩn văn phong tiểu thuyết sắc hiệp / tiên hiệp. "
-    "Giữ nguyên tên riêng nhân vật và địa danh theo phiên âm Hán-Việt (ví dụ: Long Nhất, Tây Môn Vô Hận, Tuyết Nhi, v.v.). "
-    "Dịch sát nghĩa, đầy đủ chi tiết cảnh sắc, không cắt bỏ, không thêm lời bình hay giải thích."
-)
+from clean_hanviet import clean_translated_text
+
+def get_system_prompt_for_novel(novel_title: str) -> str:
+    modern_keywords = ["Đô Thị", "Hiện Đại", "Trò Chơi", "Thương Trường", "Trùng Sinh Đô Thị", "Giàu Nhất", "Bạo Phú", "Đại Y", "Cảnh Sát", "Tỷ Phú", "Tục Nhân", "Toàn Cầu"]
+    if any(kw.lower() in novel_title.lower() for kw in modern_keywords):
+        return (
+            "Bạn là đại dịch giả tiểu thuyết đô thị, hiện đại, thương trường và võng du hàng đầu. "
+            "Nhiệm vụ: Dịch đoạn văn tiểu thuyết tiếng Trung sau sang tiếng Việt cực kỳ mượt mà, sống động, tự nhiên, đúng bối cảnh hiện đại.\n"
+            "QUY TẮC BẮT BUỘC:\n"
+            "1. 100% TIẾNG VIỆT: Tuyệt đối không để sót bất kỳ chữ Hán / tiếng Trung nào trong bản dịch.\n"
+            "2. BỐI CẢNH HIỆN ĐẠI: Sử dụng từ ngữ đương đại phù hợp (công ty, hợp đồng, đầu tư, khởi nghiệp, sếp, trợ lý, game thủ, xe hơi, căn hộ, mạng xã hội...).\n"
+            "3. XƯNG HÔ HIỆN ĐẠI: anh, em, tôi, hắn, gã, lão bản... Lời thoại sắc sảo, tự nhiên như ngôn ngữ đời sống hiện nay.\n"
+            "4. Dịch đầy đủ chi tiết, không cắt bớt, không thêm lời bình."
+        )
+    else:
+        return (
+            "Bạn là một đại dịch giả tiểu thuyết tiên hiệp, kiếm hiệp, dị giới và sắc hiệp cổ trang hàng đầu. "
+            "Nhiệm vụ: Dịch đoạn văn tiểu thuyết tiếng Trung sau sang tiếng Việt cực kỳ mượt mà, sâu sắc, có hồn, câu văn diễm lệ quyến rũ, đúng chuẩn văn phong tiểu thuyết mạng cổ trang.\n"
+            "QUY TẮC BẮT BUỘC:\n"
+            "1. TUYỆT ĐỐI 100% TIẾNG VIỆT: Không để sót bất kỳ một chữ Hán / tiếng Trung nào trong bản dịch.\n"
+            "2. TÊN RIÊNG & THUẬT NGỮ: Bắt buộc dùng âm Hán-Việt cổ trang chuẩn mực (ví dụ: Long Nhất, Lãnh U U, Lộ Thiến Á, Tây Môn Vô Hận, Tuyết Nhi, Thương Lam Đại Lục, Đằng Long Thành, Như Ý Băng Tằm Ty, Phất Không Chưởng). Tuyệt đối KHÔNG dịch sang tiếng Anh (CẤM dùng Princess, Cold Youyou, Dragon One).\n"
+            "3. VĂN PHONG CỔ TRANG CÓ HỒN: Dùng hệ thống từ ngữ Hán-Việt tao nhã, truyền cảm. Xưng hô chuẩn mực: hắn, chàng, nàng, muội, tỷ tỷ, phu nhân, công tử. Khi miêu tả tình cảm ái ân sắc hiệp, phải viết thật uyển chuyển, giàu cảm xúc, gợi cảm và tinh tế (ví dụ: xuân tình dạt dào, mây mưa hoan lạc, thân hình ngọc ngà mềm nhũn trong lồng ngực, ngọc thể lung linh, bờ môi anh đào khẽ hé rên rỉ, hương thơm ngạt ngào...). Tuyệt đối không dịch thô thiển máy móc.\n"
+            "4. Dịch sát nghĩa, đầy đủ chi tiết, không tóm tắt hay cắt bớt tình tiết. Chỉ trả về nội dung bản dịch tiếng Việt hoàn chỉnh."
+        )
 
 def update_progress_file(novel_id: int, novel_title: str, ch_index: int, total_chapters: int, completed_count: int):
     data = {
@@ -119,14 +136,16 @@ def smart_chunk_text(text: str, max_chars: int = 500) -> list[str]:
 
     return chunks
 
-async def translate_chunk_with_local_ai(client: httpx.AsyncClient, chunk: str, max_retries: int = 2) -> str:
+async def translate_chunk_with_local_ai(client: httpx.AsyncClient, chunk: str, system_prompt: str = None, max_retries: int = 2) -> str:
+    if not system_prompt:
+        system_prompt = get_system_prompt_for_novel("cổ trang")
     payload = {
         "model": "qwen",
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Dịch đoạn sau sang tiếng Việt:\n\n{chunk}"}
         ],
-        "temperature": 0.3,
+        "temperature": 0.35,
         "max_tokens": 800,
         "stream": False
     }
@@ -138,7 +157,7 @@ async def translate_chunk_with_local_ai(client: httpx.AsyncClient, chunk: str, m
             res_json = resp.json()
             msg = res_json["choices"][0]["message"]
             text = (msg.get("content") or "").strip()
-            return text
+            return clean_translated_text(text)
         except Exception as e:
             if attempt < max_retries:
                 await asyncio.sleep(2)
@@ -161,6 +180,16 @@ def git_commit_and_push(msg: str):
 
 async def translate_chapter(client: httpx.AsyncClient, ch_id: int, novel_id: int, ch_index: int, title: str, source_url: str, raw_content: str) -> bool:
     print(f"\n---> [Chương {ch_index}] Đang dịch: {title}")
+
+    # 0. Get novel title for contextual prompt
+    conn_pre = sqlite3.connect(DB_PATH)
+    c_pre = conn_pre.cursor()
+    c_pre.execute("SELECT title FROM novels WHERE id = ?", (novel_id,))
+    nrow = c_pre.fetchone()
+    novel_title = nrow[0] if nrow else ""
+    conn_pre.close()
+
+    system_prompt = get_system_prompt_for_novel(novel_title)
 
     # 1. Fetch raw content if needed
     if not raw_content or len(raw_content.strip()) < 100 or "正文内容待抓取" in raw_content:
@@ -190,6 +219,7 @@ async def translate_chapter(client: httpx.AsyncClient, ch_id: int, novel_id: int
     title_resp = await client.post(LOCAL_AI_URL, json=title_payload, timeout=30.0)
     translated_title = title_resp.json()["choices"][0]["message"]["content"].strip()
     translated_title = translated_title.replace('"', '').replace("'", "").strip()
+    translated_title = clean_translated_text(translated_title)
     print(f"     [Tiêu đề dịch]: {translated_title}")
 
     # 3. Translate Chunks with smart chunking (500 chars max)
@@ -199,11 +229,11 @@ async def translate_chapter(client: httpx.AsyncClient, ch_id: int, novel_id: int
     
     for idx, chunk in enumerate(chunks, 1):
         print(f"       Đoạn {idx}/{len(chunks)} ({len(chunk)} ký tự)...", end="", flush=True)
-        tr = await translate_chunk_with_local_ai(client, chunk)
+        tr = await translate_chunk_with_local_ai(client, chunk, system_prompt=system_prompt)
         translated_pieces.append(tr)
         print(" OK!")
 
-    full_translation = "\n\n".join(translated_pieces)
+    full_translation = clean_translated_text("\n\n".join(translated_pieces))
 
     # 4. Save to DB
     conn = sqlite3.connect(DB_PATH)
