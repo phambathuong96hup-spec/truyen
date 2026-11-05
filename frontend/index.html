@@ -583,14 +583,15 @@
             <svg v-else class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4l5 5m0 0H5m4 0V5m11-1l-5 5m0 0h4m-4 0V5M4 20l5-5m0 0H5m4 0v4m11 1l-5-5m0 0h4m-4 0v4"/></svg>
           </button>
 
-          <!-- Full Width 100% Quick Button -->
-          <button @click="toggleFullWidth" :title="readerSettings.maxWidth === '100%' ? 'Thu gọn khung đọc (W)' : 'Hiển thị toàn trang 100% (W)'" :class="[readerSettings.maxWidth === '100%' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold' : 'hover:bg-black/10 dark:hover:bg-white/10 text-inherit border border-current/20 opacity-75']" class="px-2 py-1 rounded-lg text-xs font-mono flex items-center gap-1 transition">
+          <!-- Full Width 100% Quick Button (Desktop only) -->
+          <button @click="toggleFullWidth" :title="readerSettings.maxWidth === '100%' ? 'Thu gọn khung đọc (W)' : 'Hiển thị toàn trang 100% (W)'" :class="[readerSettings.maxWidth === '100%' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold' : 'hover:bg-black/10 dark:hover:bg-white/10 text-inherit border border-current/20 opacity-75']" class="hidden sm:flex px-2 py-1 rounded-lg text-xs font-mono items-center gap-1 transition">
             <span>100%</span>
           </button>
 
           <!-- Bilingual Toggle -->
-          <button @click="isBilingual = !isBilingual" :class="[isBilingual ? 'bg-sky-500 text-white shadow-sm' : 'hover:bg-black/10 dark:hover:bg-white/10 text-inherit border border-current/20']" class="px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition">
-            <span>Song ngữ</span>
+          <button @click="isBilingual = !isBilingual" :class="[isBilingual ? 'bg-sky-500 text-white shadow-sm' : 'hover:bg-black/10 dark:hover:bg-white/10 text-inherit border border-current/20']" class="px-2 sm:px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition">
+            <span class="hidden sm:inline">Song ngữ</span>
+            <span class="sm:hidden font-mono text-[11px]">中/Vi</span>
           </button>
 
           <!-- AI Entity Extraction -->
@@ -677,122 +678,123 @@
         </template>
       </div>
 
-      <!-- ==================== END-OF-CHAPTER HERO TRANSITION CARD ==================== -->
-      <div class="mt-16 sm:mt-24 pt-8 border-t reader-surface border-current/10">
-        <!-- Status Completion Bar -->
-        <div class="flex items-center justify-between text-xs reader-text-subtle mb-6">
-          <div class="flex items-center gap-2">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20"></span>
-            <span>Đã hoàn thành <strong>Chương {{ currentChapter.chapter_index }}</strong></span>
+      <!-- ==================== MOBILE-OPTIMIZED END-OF-CHAPTER NAV ==================== -->
+      <div class="mt-8 sm:mt-16 pt-6 border-t reader-surface border-current/10 pb-28 sm:pb-20">
+        <!-- Progress Bar & Status -->
+        <div class="mb-4">
+          <div class="flex items-center justify-between text-xs reader-text-subtle mb-2 font-medium">
+            <div class="flex items-center gap-1.5">
+              <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Hết <strong>Chương {{ currentChapter.chapter_index }}</strong></span>
+            </div>
+            <span v-if="currentChapter.total_chapters">
+              {{ currentChapter.chapter_index }} / {{ currentChapter.total_chapters }} ({{ Math.round((currentChapter.chapter_index / currentChapter.total_chapters) * 100) }}%)
+            </span>
           </div>
-          <span v-if="currentChapter.total_chapters" class="font-medium">
-            Tiến độ: {{ currentChapter.chapter_index }} / {{ currentChapter.total_chapters }} ({{ Math.round((currentChapter.chapter_index / currentChapter.total_chapters) * 100) }}%)
-          </span>
-        </div>
-
-        <!-- Big Hero Next Chapter Card -->
-        <div v-if="currentChapter.next_id" class="next-chapter-hero-card p-6 sm:p-8 mb-6 text-center cursor-pointer group" @click="openChapter(currentChapter.next_id)">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-500 border border-amber-500/30 mb-3.5">
-            <span>ĐỌC TIẾP • CHƯƠNG {{ currentChapter.next_index || (currentChapter.chapter_index + 1) }}</span>
+          <!-- Micro Progress Bar -->
+          <div v-if="currentChapter.total_chapters" class="w-full bg-current/10 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 h-full rounded-full transition-all duration-300" :style="{ width: `${Math.round((currentChapter.chapter_index / currentChapter.total_chapters) * 100)}%` }"></div>
           </div>
-          
-          <h3 class="text-xl sm:text-2xl font-bold group-hover:text-amber-500 transition-colors mb-2.5 leading-snug">
-            {{ currentChapter.next_title || ('Chương ' + (currentChapter.next_index || (currentChapter.chapter_index + 1))) }}
-          </h3>
-          <p class="text-xs reader-text-subtle mb-6">Nhấp vào đây hoặc bấm phím mũi tên phải <kbd>→</kbd> để sang chương kế tiếp</p>
+        </div>
 
-          <button class="py-3 px-8 sm:px-10 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-white font-bold text-sm sm:text-base shadow-xl shadow-amber-500/30 transition-all group-hover:scale-105 inline-flex items-center gap-2">
-            <span>Đọc tiếp Chương sau</span>
-            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <!-- End of Novel Notice (if no next chapter) -->
+        <div v-if="!currentChapter.next_id" class="p-4 sm:p-6 text-center rounded-2xl bg-amber-500/10 border border-amber-500/30 mb-4">
+          <span class="text-2xl mb-1 inline-block">🎉</span>
+          <h4 class="text-sm sm:text-base font-bold text-amber-400 mb-1">Bạn đã đọc đến chương mới nhất!</h4>
+          <p class="text-xs reader-text-subtle">Bộ truyện đã đọc hết các chương hiện có. Hệ thống đang tiếp tục cập nhật và dịch các chương mới.</p>
+        </div>
+
+        <!-- Touch-Friendly 3-Button Navigation Bar -->
+        <div class="grid grid-cols-3 gap-2 sm:gap-3 text-xs sm:text-sm select-none mb-3">
+          <!-- Button Chương Trước -->
+          <button 
+            :disabled="!currentChapter.prev_id" 
+            @click="currentChapter.prev_id && openChapter(currentChapter.prev_id)" 
+            class="min-h-[46px] py-2.5 px-2 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 disabled:opacity-30 disabled:pointer-events-none border border-current/15 text-center transition flex items-center justify-center gap-1 font-semibold"
+          >
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+            <span class="truncate">Trước</span>
+          </button>
+
+          <!-- Button Mục Lục -->
+          <button 
+            @click="showTocDrawer = true" 
+            class="min-h-[46px] py-2.5 px-2 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 border border-current/15 text-center transition flex items-center justify-center gap-1 font-semibold"
+          >
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+            <span class="truncate">Mục lục</span>
+          </button>
+
+          <!-- Button Chương Sau (Nổi bật nhất) -->
+          <button 
+            v-if="currentChapter.next_id"
+            @click="openChapter(currentChapter.next_id)" 
+            class="min-h-[46px] py-2.5 px-2 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 active:scale-95 text-white font-bold text-center shadow-lg shadow-amber-500/25 transition flex items-center justify-center gap-1"
+          >
+            <span class="truncate">Sau</span>
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <button 
+            v-else 
+            disabled 
+            class="min-h-[46px] py-2.5 px-2 rounded-xl bg-black/5 dark:bg-white/5 border border-current/10 opacity-30 text-center font-semibold flex items-center justify-center"
+          >
+            <span>Hết</span>
           </button>
         </div>
 
-        <!-- End of Novel Notice -->
-        <div v-else class="p-8 sm:p-10 text-center rounded-2xl bg-black/5 dark:bg-white/5 border border-current/10 mb-6">
-          <span class="text-4xl mb-3 inline-block">🎉</span>
-          <h3 class="text-lg sm:text-xl font-bold mb-2">Bạn đã đọc đến chương mới nhất!</h3>
-          <p class="text-xs sm:text-sm reader-text-subtle max-w-md mx-auto">
-            Bộ truyện này đã đọc hết các chương hiện có. Bạn có thể quay lại mục lục để chọn chương khác hoặc khám phá thêm các bộ truyện mới.
-          </p>
-        </div>
-
-        <!-- Secondary Bottom Navigation Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs mb-8">
-          <!-- Prev Chapter -->
-          <button :disabled="!currentChapter.prev_id" @click="currentChapter.prev_id && openChapter(currentChapter.prev_id)" class="p-3.5 rounded-2xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 disabled:opacity-30 border border-current/10 text-left transition flex flex-col justify-center">
-            <span class="text-[10px] reader-text-subtle flex items-center gap-1">
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-              <span>Chương trước</span>
-            </span>
-            <span class="font-bold truncate mt-1">{{ currentChapter.prev_title || ('Chương ' + currentChapter.prev_index) }}</span>
+        <!-- Quick Utility Links: Scroll to top & Reader Settings -->
+        <div class="flex items-center justify-between text-[11px] sm:text-xs reader-text-subtle pt-2 px-1">
+          <button @click="showSettingsModal = true" class="hover:text-current py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+            <span>Cài đặt</span>
           </button>
 
-          <!-- TOC Drawer Button -->
-          <button @click="showTocDrawer = true" class="p-3.5 rounded-2xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-current/10 text-center transition flex flex-col items-center justify-center">
-            <span class="text-[10px] reader-text-subtle">Danh sách chương</span>
-            <span class="font-bold mt-1 flex items-center gap-1">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
-              <span>Mục lục truyện</span>
-            </span>
-          </button>
+          <!-- Keyboard Shortcuts for PC only -->
+          <div class="hidden md:flex items-center gap-3 text-[11px]">
+            <span><kbd>→</kbd> Sau</span>
+            <span><kbd>←</kbd> Trước</span>
+            <span><kbd>M</kbd> Mục lục</span>
+          </div>
 
-          <!-- Scroll to Top -->
-          <button @click="scrollToTop" class="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-current/10 text-center transition flex flex-col items-center justify-center">
-            <span class="text-[10px] reader-text-subtle">Trở lại đầu trang</span>
-            <span class="font-bold mt-1 flex items-center gap-1">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
-              <span>Lên đỉnh trang</span>
-            </span>
+          <button @click="scrollToTop" class="hover:text-current py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center gap-1 font-medium">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+            <span>Lên đầu trang</span>
           </button>
-        </div>
-
-        <!-- Keyboard Shortcuts Hints for PC -->
-        <div class="hidden sm:flex items-center justify-center gap-4 text-[11px] reader-text-subtle pt-4 border-t border-current/5">
-          <span><kbd>→</kbd> hoặc <kbd>D</kbd> Chương sau</span>
-          <span>•</span>
-          <span><kbd>←</kbd> hoặc <kbd>A</kbd> Chương trước</span>
-          <span>•</span>
-          <span><kbd>F</kbd> Toàn màn hình</span>
-          <span>•</span>
-          <span><kbd>W</kbd> Toàn trang 100%</span>
-          <span>•</span>
-          <span><kbd>M</kbd> Mục lục</span>
-          <span>•</span>
-          <span><kbd>T</kbd> Lên đầu</span>
         </div>
       </div>
     </article>
 
     <!-- ==================== MODERN FLOATING PILL READER DOCK ==================== -->
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 transition-all duration-300" :class="[showReaderControls ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95 pointer-events-none']">
+    <div class="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom,1.25rem))] left-1/2 -translate-x-1/2 z-40 transition-all duration-300 max-w-[95vw]" :class="[showReaderControls ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95 pointer-events-none']">
       <div class="reader-floating-dock flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-full border border-current/15 reader-surface">
         <!-- Nút Chương Trước -->
-        <button :disabled="!currentChapter.prev_id" @click="currentChapter.prev_id && openChapter(currentChapter.prev_id)" class="px-3 py-1.5 rounded-full text-xs font-semibold disabled:opacity-30 hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center gap-1">
+        <button :disabled="!currentChapter.prev_id" @click="currentChapter.prev_id && openChapter(currentChapter.prev_id)" class="px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-semibold disabled:opacity-30 hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 transition flex items-center gap-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-          <span class="hidden sm:inline">Trước</span>
+          <span>Trước</span>
         </button>
 
         <div class="w-px h-4 bg-current/20"></div>
 
         <!-- Nút Mục Lục -->
-        <button @click="showTocDrawer = true" title="Mục lục (M)" class="px-2.5 py-1.5 rounded-full text-xs font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition flex items-center gap-1">
+        <button @click="showTocDrawer = true" title="Mục lục (M)" class="px-2 sm:px-2.5 py-1.5 rounded-full text-xs font-semibold hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 transition flex items-center gap-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
-          <span class="hidden md:inline">Mục lục</span>
+          <span class="hidden sm:inline">Mục lục</span>
         </button>
 
         <!-- Nút Cài Đặt Giao Diện -->
-        <button @click="showSettingsModal = true" title="Cài đặt giao diện & phông chữ" class="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">
+        <button @click="showSettingsModal = true" title="Cài đặt giao diện & phông chữ" class="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
         </button>
 
         <!-- Nút Toàn Màn Hình -->
-        <button @click="toggleFullscreen" :title="isFullscreen ? 'Thoát toàn màn hình (F)' : 'Toàn màn hình (F)'" class="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 text-amber-500 transition">
+        <button @click="toggleFullscreen" :title="isFullscreen ? 'Thoát toàn màn hình (F)' : 'Toàn màn hình (F)'" class="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 text-amber-500 active:scale-95 transition">
           <svg v-if="!isFullscreen" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
           <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4l5 5m0 0H5m4 0V5m11-1l-5 5m0 0h4m-4 0V5M4 20l5-5m0 0H5m4 0v4m11 1l-5-5m0 0h4m-4 0v4"/></svg>
         </button>
 
-        <!-- Nút Toàn Trang 100% -->
-        <button @click="toggleFullWidth" :title="readerSettings.maxWidth === '100%' ? 'Khung vừa 900px (W)' : 'Toàn trang 100% (W)'" :class="[(readerSettings.maxWidth === '100%' || !readerSettings.maxWidth) ? 'text-amber-400 font-bold bg-amber-500/20' : 'text-inherit opacity-75']" class="px-2 py-1 rounded-full text-xs font-mono hover:bg-black/10 dark:hover:bg-white/10 transition">
+        <!-- Nút Toàn Trang 100% (Desktop only) -->
+        <button @click="toggleFullWidth" :title="readerSettings.maxWidth === '100%' ? 'Khung vừa 900px (W)' : 'Toàn trang 100% (W)'" :class="[(readerSettings.maxWidth === '100%' || !readerSettings.maxWidth) ? 'text-amber-400 font-bold bg-amber-500/20' : 'text-inherit opacity-75']" class="hidden sm:inline-flex px-2 py-1 rounded-full text-xs font-mono hover:bg-black/10 dark:hover:bg-white/10 transition">
           100%
         </button>
 
@@ -804,7 +806,7 @@
         <div class="w-px h-4 bg-current/20"></div>
 
         <!-- Nút Chương Sau (Nổi Bật) -->
-        <button :disabled="!currentChapter.next_id" @click="currentChapter.next_id && openChapter(currentChapter.next_id)" class="px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 shadow-md shadow-amber-500/30 disabled:opacity-30 transition flex items-center gap-1">
+        <button :disabled="!currentChapter.next_id" @click="currentChapter.next_id && openChapter(currentChapter.next_id)" class="px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 shadow-md shadow-amber-500/30 disabled:opacity-30 active:scale-95 transition flex items-center gap-1">
           <span>Sau</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </button>
@@ -1123,7 +1125,7 @@
   </div>
 
   <!-- 2. Modal: Cài đặt AI & Quy tắc Cào (Settings) -->
-  <div v-if="showSettingsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+  <div v-if="currentView !== 'reader' && showSettingsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
       <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800">
         <h3 class="text-base font-bold text-white flex items-center gap-2">

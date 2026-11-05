@@ -70,11 +70,15 @@ def clean_piaotia_html(html_bytes: bytes) -> tuple[str, str]:
     title = h1.get_text().strip() if h1 else ""
     for tag in soup(['script', 'style', 'table', 'center', 'ul', 'ol', 'form', 'nav', 'ins']):
         tag.decompose()
+    for br in soup.find_all(['br', 'p']):
+        br.replace_with('\n')
     text = soup.get_text()
     lines = [l.strip() for l in text.splitlines() if l.strip()]
     filtered = []
     for line in lines:
-        if any(kw in line for kw in ["飘天文学", "返回目录", "上一章", "下一章", "加入书签", "推荐本书", "选择背景", "fontbig"]):
+        if len(line) < 150 and any(kw in line for kw in ["飘天文学", "返回目录", "上一章", "下一章", "加入书签", "推荐本书", "选择背景", "fontbig", "重要声明", "最新全本"]):
+            continue
+        if line == title:
             continue
         filtered.append(line)
     
@@ -143,12 +147,15 @@ async def translate_chunk_with_local_ai(client: httpx.AsyncClient, chunk: str, m
 
 def git_commit_and_push(msg: str):
     try:
-        subprocess.run(["git", "add", "data/novels.db"], check=True, capture_output=True)
+        subprocess.run(["git", "add", "data/novels.db", "data/translation_progress.json"], check=True, capture_output=True)
         subprocess.run(["git", "commit", "-m", msg], check=True, capture_output=True)
         push_res = subprocess.run(["git", "push", "origin", "main"], check=True, capture_output=True, text=True)
         print(f"     [🚀 GitHub] Đã đẩy dữ liệu mới lên GitHub thành công!")
         return True
     except subprocess.CalledProcessError as e:
+        # If nothing to commit, return quietly
+        if "nothing to commit" in str(e) or e.returncode == 1:
+            return True
         print(f"     [!] Git push note: {e}")
         return False
 
@@ -216,6 +223,10 @@ async def translate_chapter(client: httpx.AsyncClient, ch_id: int, novel_id: int
 
     c.execute("SELECT count(*) FROM chapters WHERE novel_id = ? AND translation_status = 'completed'", (novel_id,))
     comp_count = c.fetchone()[0]
+    try:
+        conn.execute("PRAGMA wal_checkpoint(TRUNCATE);")
+    except Exception:
+        pass
     conn.close()
 
     print(f"     [✓] Hoàn thành Chương {ch_index} ({len(full_translation)} ký tự tiếng Việt) | Tiến độ: {comp_count}/{total_caps}")
