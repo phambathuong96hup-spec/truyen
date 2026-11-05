@@ -182,6 +182,31 @@ COMMON_FIXES = {
     "trong lòng ông": "trong lòng hắn",
     "lưỡi của ông": "đầu lưỡi của hắn",
     "lưỡi hắn": "đầu lưỡi của hắn",
+    "mũ bảo hộ": "chiến khôi",
+    "mũ bảo hiểm": "chiến khôi",
+    "Ngải thú": "Nghiệt súc",
+    "ngải thú": "nghiệt súc",
+    "Vị Rings Không Gian Siêu Cấp": "Nhẫn Không Gian Siêu Cấp",
+    "Vị Rings Không Gian": "Nhẫn Không Gian",
+    "Rings Không Gian": "Nhẫn Không Gian",
+    "Rings": "Nhẫn",
+    "rings": "nhẫn",
+    "Tây Môn Ngộ": "Tây Môn Nộ",
+    "Đông Phương Vân": "Đông Phương Uyển",
+    "lòng ông": "lòng hắn",
+    "ông một chút": "hắn một chút",
+    "ông nhanh chóng": "hắn nhanh chóng",
+    "ông bèn": "hắn bèn",
+    "ông nhìn": "hắn nhìn",
+    "ông nói": "hắn nói",
+    "ông cười": "hắn cười",
+    "lòng của ông": "lòng của hắn",
+    "tay của ông": "tay của hắn",
+    "mắt của ông": "mắt của hắn",
+    "một đại tông sư dịch thuật sắc hiệp": "thiếu chủ phong lưu khét tiếng",
+    "đại tông sư dịch thuật sắc hiệp": "thiếu chủ phong lưu khét tiếng",
+    "đại tông sư dịch thuật": "thiếu chủ phong lưu",
+
     "weak": "yếu ớt",
     "Weak": "Yếu ớt",
     "Harley": "Hạ Lê",
@@ -223,6 +248,12 @@ def clean_translated_text(text: str) -> str:
     if not text:
         return ""
     
+    # Strip prompt meta headers if any leaked
+    text = re.sub(r'^\s*\*\*SẮC HIỆP[^\n]*\n*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'^\s*\*Đoạn văn dịch[^\n]*\n*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'^\s*\*Hạ Lê[^\n]*\n*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'^\s*---+\s*\n*', '', text)
+
     # Step 1: Apply phrase fixes
     for k, v in COMMON_FIXES.items():
         text = text.replace(k, v)

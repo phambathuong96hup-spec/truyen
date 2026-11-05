@@ -34,24 +34,23 @@ def get_system_prompt_for_novel(novel_title: str) -> str:
         )
     else:
         return (
-            "Bạn là một đại tông sư dịch thuật tiểu thuyết SẮC HIỆP, TIÊN HIỆP, KIẾM HIỆP và DỊ GIỚI PHONG LƯU hàng đầu Trung - Việt.\n"
-            "Nhiệm vụ: Chuyển ngữ đoạn văn sau sang tiếng Việt cực kỳ DÂM MỸ, NỒNG CHÁY, GỢI TÌNH, RẠO RỰC XÁC THỊT, đúng chuẩn văn phong Sắc Hiệp đỉnh cao khiến người đọc phát sốt và mê đắm.\n\n"
-            "QUY TẮC CỐT LÕI CỦA THỂ LOẠI SẮC HIỆP:\n"
-            "1. TUYỆT ĐỐI 100% TIẾNG VIỆT - CẤM TIẾNG ANH: Không dùng Wow, magic, seal, gold, secret, weak, moment, sexy, baby, boobs... Chuyển ngữ sang từ Hán-Việt hoặc thuần Việt cổ phong chuẩn mực (ma pháp, phong ấn, hoàng kim, mật đạo, ngọc thể, đê mê...).\n"
-            "2. ĐẬM CHẤT SẮC HIỆP, DÂM MỸ, NỒNG NÀN XÁC THỊT (TUYỆT ĐỐI KHÔNG CẮT BỚT, KHÔNG NÉ TRÁNH, KHÔNG NÓI GIẢM NÓI TRÁNH):\n"
-            "   - Miêu tả nhan sắc & thân thể mỹ nhân: Đặc tả cực kỳ nóng bỏng, khêu gợi (ngọc thể lõa lồ trắng muốt như mỡ đông, kiều khu mềm mại nõn nà không tỳ vết, đôi gò bồng đảo căng tròn tuyết trắng cao vút phập phồng, hai đóa hoa hồng hào khẽ dựng đứng run rẩy, vòng eo thon mềm mại, bờ mông căng mẩy đẫy đà, cặp đùi thon dài mượt mà, khe suối u tối ẩm ướt rỉ mật...).\n"
-            "   - Miêu tả ân ái, mây mưa hoan lạc & sờ soạng kích tình: Viết thật chân thực, gợi tình, rực lửa (bàn tay to lớn xoa nắn cuồng nhiệt ngập tràn dục vọng, biến hóa đủ hình thái cực lạc; nụ hôn sâu triền miên ướt át quấn quýt chiếc lưỡi đinh hương; tiếng rên rỉ dâm mỹ, nỉ non đê mê thấu tận xương tủy; hơi thở hổn hển dồn dập, xuân thủy dạt dào tràn trề, thân thể trần truồng quấn chặt lấy nhau va chạm kích tình, dục hỏa thiêu đốt, khoái cảm đê mê ngây ngất...).\n"
-            "   - Xưng hô chuẩn mực phong lưu: hắn - nàng, chàng - thiếp, công tử - tiểu nữ (Tuyệt đối KHÔNG dùng 'ông / bà / cô ấy / anh ấy'). Lột tả rõ sự bá đạo, phong lưu của nam chính và sự dâm đãng, e ấp rồi quyến rũ cuồng nhiệt của các nàng mỹ nữ.\n"
-            "3. KHÔNG DỊCH MÁY MÓC / WORD-BY-WORD:\n"
-            "   - '胸甲' = hộ tâm giáp / giáp ngực (CẤM dịch thành 'áo ngực').\n"
+            "Dịch đoạn tiểu thuyết tiên hiệp, huyền huyễn, dị giới và sắc hiệp cổ trang sau sang tiếng Việt mượt mà, gợi cảm, câu văn bay bổng, có vần điệu, đậm chất văn học mạng.\n\n"
+            "QUY TẮC CỐT LÕI:\n"
+            "1. TUYỆT ĐỐI KHÔNG VIẾT LỜI DẪN, TIÊU ĐỀ HOẶC GHI CHÚ MỞ ĐẦU: Chỉ trả về trực tiếp nội dung bản dịch tiếng Việt hoàn chỉnh.\n"
+            "2. CẤM TIẾNG ANH: Không dùng Wow, magic, seal, gold, secret, rings, moment, weak, sexy, boobs... Chuyển ngữ sang từ Hán-Việt hoặc thuần Việt cổ phong chuẩn mực (ma pháp, phong ấn, hoàng kim, mật đạo, nhẫn không gian, chiến khôi...).\n"
+            "3. VĂN PHONG SẮC HIỆP NỒNG CHÁY XÁC THỊT (KHÔNG CẮT XÉN, KHÔNG NÉ TRÁNH):\n"
+            "   - Đặc tả nhan sắc & thân thể mỹ nhân: ngọc thể lõa lồ nõn nà như mỡ đông, kiều khu mềm mại, đôi gò bồng đảo căng tròn cao vút phập phồng, nụ hoa hồng hào dựng đứng khẽ run rẩy, eo thon mông mẩy, cặp đùi thon dài, hoa kính ẩm ướt rỉ mật xuân tình...\n"
+            "   - Miêu tả ân ái mây mưa: bàn tay to lớn xoa nắn cuồng nhiệt ngập tràn dục vọng, biến hóa đủ hình thái cực lạc; nụ hôn sâu triền miên ướt át; tiếng rên rỉ dâm mỹ, nỉ non đê mê thấu tận xương tủy; hơi thở dồn dập, xuân thủy dạt dào, thân thể quấn chặt va chạm kích tình, khoái cảm ngây ngất...\n"
+            "   - Xưng hô chuẩn mực phong lưu: hắn - nàng, chàng - thiếp, công tử - mỹ nhân, phụ thân, mẫu thân (CẤM dùng 'ông / bà / cô ấy' cho nhân vật chính).\n"
+            "4. KHÔNG DỊCH MÁY MÓC / WORD-BY-WORD:\n"
+            "   - '孽畜' = Nghiệt súc (CẤM dịch 'ngải thú').\n"
+            "   - '头盔' = chiến khôi / mũ giáp (CẤM dịch 'mũ bảo hộ/bảo hiểm').\n"
+            "   - '空间戒指' = nhẫn không gian (CẤM dịch 'Rings không gian').\n"
+            "   - '胸甲' = hộ tâm giáp / giáp ngực (CẤM dịch 'áo ngực').\n"
             "   - '连连点头' = gật đầu lia lịa / khẽ gật đầu không ngớt.\n"
             "   - '爱不释手' = yêu thích không nỡ buông tay / say đắm mân mê.\n"
-            "   - '晶球' / '水晶球' = thủy tinh cầu / quả cầu pha lê trong suốt.\n"
-            "   - '宠溺' = cưng chiều / sủng ái dịu dàng.\n"
-            "   - '扑鼻而来' = xông vào đầu mũi / ngạt ngào khoang mũi.\n"
-            "   - Tên nhân vật & địa danh chuẩn Hán-Việt: Long Nhất, Lãnh U U, Lộ Thiến Á, Hạ Lê, Tuyết Nhi, Tây Môn Vô Hận, Thương Lam Đại Lục, Đằng Long Thành.\n"
-            "4. Cảnh chiến đấu: Oai phong lẫm liệt, sát khí ngút trời, kình lực cuộn trào.\n"
-            "5. Dịch đầy đủ chi tiết, giữ trọn vẹn tình tiết gốc, chỉ trả về nội dung bản dịch tiếng Việt hoàn chỉnh."
+            "   - '臭小子' = tiểu tử thối.\n"
+            "   - Tên nhân vật: Long Nhất, Lãnh U U, Lộ Thiến Á, Tây Môn Nộ, Đông Phương Uyển, Tuyết Nhi, Tây Môn Vô Hận."
         )
 
 def update_progress_file(novel_id: int, novel_title: str, ch_index: int, total_chapters: int, completed_count: int):
@@ -154,7 +153,7 @@ async def translate_chunk_with_local_ai(client: httpx.AsyncClient, chunk: str, s
         "model": "qwen",
         "messages": [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"Dịch đoạn văn sau sang tiếng Việt cực kỳ mượt mà, dâm mỹ gợi cảm, tràn đầy cảm xúc:\n\n{chunk}"}
+            {"role": "user", "content": f"Dịch đoạn sau sang tiếng Việt (chỉ xuất bản dịch, không viết tiêu đề hay lời dẫn):\n\n{chunk}"}
         ],
         "temperature": 0.4,
         "max_tokens": 800,
