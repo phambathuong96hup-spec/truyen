@@ -44,6 +44,8 @@ const app = createApp({
     const novels = ref([]);
     const chapters = ref([]);
     const chapterSearch = ref('');
+    const tocChapterSearch = ref('');
+    const isChaptersLoading = ref(false);
     const chapterFilter = ref('all'); // all, completed, pending
     const librarySearch = ref('');
     const isLoading = ref(false);
@@ -226,6 +228,47 @@ const app = createApp({
       }
     }
 
+    // 2.1 Load Chapters for Novel (Used by Reader & TOC Drawer)
+    async function loadChaptersForNovel(novelId, force = false) {
+      if (!novelId) return;
+      if (!force && chapters.value && chapters.value.length > 0 && chapters.value[0]?.novel_id === novelId) {
+        return;
+      }
+      isChaptersLoading.value = true;
+      try {
+        const cRes = await fetch(`/api/novels/${novelId}/chapters?limit=5000`);
+        if (cRes.ok) {
+          chapters.value = await cRes.json();
+        }
+      } catch (e) {
+        console.warn('Lỗi tải danh sách chương:', e);
+      } finally {
+        isChaptersLoading.value = false;
+      }
+    }
+
+    // 2.2 Direct read from novel card (Resume or Start from Ch 1)
+    async function readNovel(novel) {
+      if (!novel) return;
+      if (novel.last_read_chapter_id) {
+        await openChapter(novel.last_read_chapter_id);
+      } else {
+        try {
+          const res = await fetch(`/api/novels/${novel.id}/chapters?limit=1`);
+          if (res.ok) {
+            const list = await res.json();
+            if (list.length > 0) {
+              await openChapter(list[0].id);
+              return;
+            }
+          }
+        } catch (e) {
+          console.warn('Lỗi mở chương đầu:', e);
+        }
+        await openNovelDetail(novel.id);
+      }
+    }
+
     // 3. Add Novel from URL
     async function submitNovelUrl() {
       if (!novelUrlForm.url.trim()) {
@@ -351,6 +394,20 @@ const app = createApp({
         // Sync read progress to server
         syncReadingProgress(currentChapter.value.novel_id, currentChapter.value.id, currentChapter.value.chapter_index);
 
+        const novelId = currentChapter.value.novel_id;
+        selectedNovelId.value = novelId;
+
+        // Auto background load chapters and novel details if missing
+        if (!selectedNovel.value || selectedNovel.value.id !== novelId) {
+          fetch(`/api/novels/${novelId}`)
+            .then(r => r.json())
+            .then(data => { selectedNovel.value = data; })
+            .catch(() => {});
+        }
+        if (!chapters.value || chapters.value.length === 0 || chapters.value[0]?.novel_id !== novelId) {
+          loadChaptersForNovel(novelId);
+        }
+
         // Restore scroll position after DOM renders
         await nextTick();
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -366,6 +423,39 @@ const app = createApp({
         isLoading.value = false;
       }
     }
+
+    // 7.1 Open TOC Drawer in Reader with auto-load and scroll
+    async function openTocDrawer() {
+      showTocDrawer.value = true;
+      if (currentChapter.value) {
+        const novelId = currentChapter.value.novel_id;
+        if (!chapters.value || chapters.value.length === 0 || chapters.value[0]?.novel_id !== novelId) {
+          await loadChaptersForNovel(novelId);
+        }
+      }
+      await nextTick();
+      scrollToActiveTocChapter();
+    }
+
+    function scrollToActiveTocChapter() {
+      setTimeout(() => {
+        const activeEl = document.querySelector('.toc-active-chapter');
+        if (activeEl) {
+          activeEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+      }, 80);
+    }
+
+    watch(showTocDrawer, async (isOpen) => {
+      if (isOpen && currentChapter.value) {
+        const novelId = currentChapter.value.novel_id;
+        if (!chapters.value || chapters.value.length === 0 || chapters.value[0]?.novel_id !== novelId) {
+          await loadChaptersForNovel(novelId);
+        }
+        await nextTick();
+        scrollToActiveTocChapter();
+      }
+    });
 
     // 8. Stream Translation
     async function startStreamTranslation(chapterId, force = false) {
@@ -832,8 +922,13 @@ const app = createApp({
       );
     });
 
+    const removeAccents = (str) => {
+      if (!str) return '';
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
+    };
+
     const filteredChapters = computed(() => {
-      let list = chapters.value;
+      let list = chapters.value || [];
       if (chapterFilter.value === 'completed') {
         list = list.filter(c => c.translation_status === 'completed');
       } else if (chapterFilter.value === 'pending') {
@@ -841,14 +936,48 @@ const app = createApp({
       }
 
       if (chapterSearch.value.trim()) {
-        const q = chapterSearch.value.toLowerCase();
-        list = list.filter(c =>
-          c.title.toLowerCase().includes(q) ||
-          (c.title_translated && c.title_translated.toLowerCase().includes(q)) ||
-          c.chapter_index.toString() === q
-        );
+        const rawQ = chapterSearch.value.trim().toLowerCase();
+        const cleanQ = rawQ.replace(/^(chương|chuong|#)\s*/i, '').trim();
+        const qNum = parseInt(cleanQ, 10);
+        const normQ = removeAccents(rawQ);
+
+        list = list.filter(c => {
+          if (!isNaN(qNum) && c.chapter_index === qNum) return true;
+          if (cleanQ && c.chapter_index.toString().includes(cleanQ)) return true;
+
+          const viTitle = (c.title_translated || '').toLowerCase();
+          if (viTitle.includes(rawQ) || removeAccents(viTitle).includes(normQ)) return true;
+
+          const zhTitle = (c.title || '').toLowerCase();
+          if (zhTitle.includes(rawQ)) return true;
+
+          return false;
+        });
       }
       return list;
+    });
+
+    const tocFilteredChapters = computed(() => {
+      let list = chapters.value || [];
+      if (!tocChapterSearch.value.trim()) return list;
+
+      const rawQ = tocChapterSearch.value.trim().toLowerCase();
+      const cleanQ = rawQ.replace(/^(chương|chuong|#)\s*/i, '').trim();
+      const qNum = parseInt(cleanQ, 10);
+      const normQ = removeAccents(rawQ);
+
+      return list.filter(c => {
+        if (!isNaN(qNum) && c.chapter_index === qNum) return true;
+        if (cleanQ && c.chapter_index.toString().includes(cleanQ)) return true;
+
+        const viTitle = (c.title_translated || '').toLowerCase();
+        if (viTitle.includes(rawQ) || removeAccents(viTitle).includes(normQ)) return true;
+
+        const zhTitle = (c.title || '').toLowerCase();
+        if (zhTitle.includes(rawQ)) return true;
+
+        return false;
+      });
     });
 
     // Bilingual paragraph pairing
@@ -1014,7 +1143,11 @@ const app = createApp({
       } else if (e.key === 'w' || e.key === 'W') {
         toggleFullWidth();
       } else if (e.key === 'm' || e.key === 'M') {
-        showTocDrawer.value = !showTocDrawer.value;
+        if (showTocDrawer.value) {
+          showTocDrawer.value = false;
+        } else {
+          openTocDrawer();
+        }
       } else if (e.key === 't' || e.key === 'T') {
         scrollToTop();
       }
@@ -1228,6 +1361,12 @@ const app = createApp({
       chapters,
       filteredNovels,
       filteredChapters,
+      tocFilteredChapters,
+      tocChapterSearch,
+      isChaptersLoading,
+      openTocDrawer,
+      readNovel,
+      loadChaptersForNovel,
       chapterSearch,
       chapterFilter,
       librarySearch,

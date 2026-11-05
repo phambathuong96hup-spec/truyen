@@ -202,7 +202,7 @@
             </div>
 
             <!-- Resume Button -->
-            <button @click="openChapter(novel.last_read_chapter_id || 1)" class="w-full py-1.5 px-3 bg-slate-800 hover:bg-sky-500 text-slate-200 hover:text-white rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition">
+            <button @click="readNovel(novel)" class="w-full py-1.5 px-3 bg-slate-800 hover:bg-sky-500 text-slate-200 hover:text-white rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" stroke-width="2"/></svg>
               <span>Đọc tiếp</span>
             </button>
@@ -718,7 +718,7 @@
 
           <!-- Button Mục Lục -->
           <button 
-            @click="showTocDrawer = true" 
+            @click="openTocDrawer()" 
             class="min-h-[46px] py-2.5 px-2 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 border border-current/15 text-center transition flex items-center justify-center gap-1 font-semibold"
           >
             <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
@@ -777,7 +777,7 @@
         <div class="w-px h-4 bg-current/20"></div>
 
         <!-- Nút Mục Lục -->
-        <button @click="showTocDrawer = true" title="Mục lục (M)" class="px-2 sm:px-2.5 py-1.5 rounded-full text-xs font-semibold hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 transition flex items-center gap-1">
+        <button @click="openTocDrawer()" title="Mục lục (M)" class="px-2 sm:px-2.5 py-1.5 rounded-full text-xs font-semibold hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 transition flex items-center gap-1">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
           <span class="hidden sm:inline">Mục lục</span>
         </button>
@@ -1397,15 +1397,29 @@
   <div v-if="showTocDrawer" class="fixed inset-0 z-50 flex bg-black/60 backdrop-blur-sm" @click.self="showTocDrawer = false">
     <div class="w-80 max-w-[85vw] h-full bg-slate-900 border-r border-slate-800 p-4 flex flex-col shadow-2xl">
       <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-        <h3 class="text-sm font-bold text-white">Mục Lục Chương</h3>
-        <button @click="showTocDrawer = false" class="text-slate-400 hover:text-white">✕</button>
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Mục Lục Chương</span>
+          <span v-if="chapters.length > 0" class="text-xs font-normal text-slate-400">({{ chapters.length }})</span>
+        </h3>
+        <button @click="showTocDrawer = false" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">✕</button>
       </div>
 
-      <input v-model="chapterSearch" type="text" placeholder="Tìm chương..." class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3 py-2 text-white placeholder-slate-500 mb-3 focus:outline-none focus:border-sky-500">
+      <div class="relative mb-3">
+        <input v-model="tocChapterSearch" type="text" placeholder="Tìm chương (số chương, tiêu đề)..." class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl pl-3 pr-8 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500">
+        <button v-if="tocChapterSearch" @click="tocChapterSearch = ''" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white text-xs">✕</button>
+      </div>
 
       <div class="flex-1 overflow-y-auto space-y-1 pr-1">
-        <div v-for="c in filteredChapters" :key="c.id" @click="openChapter(c.id)" :class="[c.id === currentChapter?.id ? 'bg-sky-500/20 text-sky-400 font-bold border-l-2 border-sky-500 pl-2' : 'hover:bg-slate-800 text-slate-300']" class="p-2 rounded-lg text-xs cursor-pointer truncate transition">
-          #{{ c.chapter_index }} {{ c.title_translated || c.title }}
+        <div v-if="isChaptersLoading" class="py-12 text-center text-slate-400 space-y-2">
+          <svg class="w-6 h-6 animate-spin mx-auto text-sky-400" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+          <p class="text-xs">Đang tải mục lục chương...</p>
+        </div>
+        <div v-else-if="tocFilteredChapters.length === 0" class="py-12 text-center text-slate-500 text-xs">
+          Không tìm thấy chương nào
+        </div>
+        <div v-else v-for="c in tocFilteredChapters" :key="c.id" @click="openChapter(c.id)" :class="[c.id === currentChapter?.id ? 'toc-active-chapter bg-sky-500/20 text-sky-400 font-bold border-l-2 border-sky-500 pl-2' : 'hover:bg-slate-800 text-slate-300']" class="p-2 rounded-lg text-xs cursor-pointer truncate transition flex items-center justify-between gap-2">
+          <span class="truncate">#{{ c.chapter_index }} {{ c.title_translated || c.title }}</span>
+          <span v-if="c.translation_status === 'completed'" class="shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-400" title="Đã dịch"></span>
         </div>
       </div>
     </div>
