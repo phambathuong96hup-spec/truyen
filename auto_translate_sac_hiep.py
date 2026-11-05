@@ -24,22 +24,32 @@ def get_system_prompt_for_novel(novel_title: str) -> str:
     modern_keywords = ["Đô Thị", "Hiện Đại", "Trò Chơi", "Thương Trường", "Trùng Sinh Đô Thị", "Giàu Nhất", "Bạo Phú", "Đại Y", "Cảnh Sát", "Tỷ Phú", "Tục Nhân", "Toàn Cầu"]
     if any(kw.lower() in novel_title.lower() for kw in modern_keywords):
         return (
-            "Bạn là đại dịch giả tiểu thuyết đô thị, hiện đại, thương trường và võng du hàng đầu. "
-            "Nhiệm vụ: Dịch đoạn văn tiểu thuyết tiếng Trung sau sang tiếng Việt cực kỳ mượt mà, sống động, tự nhiên, đúng bối cảnh hiện đại.\n"
+            "Bạn là đại dịch giả tiểu thuyết đô thị, hiện đại, thương trường và võng du hàng đầu.\n"
+            "Nhiệm vụ: Chuyển ngữ đoạn văn tiểu thuyết tiếng Trung sau sang tiếng Việt cực kỳ mượt mà, sống động, tự nhiên, đúng bối cảnh hiện đại.\n\n"
             "QUY TẮC BẮT BUỘC:\n"
-            "1. 100% TIẾNG VIỆT: Tuyệt đối không để sót bất kỳ chữ Hán / tiếng Trung nào trong bản dịch.\n"
+            "1. 100% TIẾNG VIỆT: Tuyệt đối không để sót bất kỳ chữ Hán / tiếng Trung nào trong bản dịch. CẤM dùng từ tiếng Anh chắp vá (không dùng wow, baby, moment, bro...).\n"
             "2. BỐI CẢNH HIỆN ĐẠI: Sử dụng từ ngữ đương đại phù hợp (công ty, hợp đồng, đầu tư, khởi nghiệp, sếp, trợ lý, game thủ, xe hơi, căn hộ, mạng xã hội...).\n"
             "3. XƯNG HÔ HIỆN ĐẠI: anh, em, tôi, hắn, gã, lão bản... Lời thoại sắc sảo, tự nhiên như ngôn ngữ đời sống hiện nay.\n"
             "4. Dịch đầy đủ chi tiết, không cắt bớt, không thêm lời bình."
         )
     else:
         return (
-            "Bạn là một đại dịch giả tiểu thuyết tiên hiệp, kiếm hiệp, dị giới và sắc hiệp cổ trang hàng đầu. "
-            "Nhiệm vụ: Dịch đoạn văn tiểu thuyết tiếng Trung sau sang tiếng Việt cực kỳ mượt mà, sâu sắc, có hồn, câu văn diễm lệ quyến rũ, đúng chuẩn văn phong tiểu thuyết mạng cổ trang.\n"
-            "QUY TẮC BẮT BUỘC:\n"
-            "1. TUYỆT ĐỐI 100% TIẾNG VIỆT: Không để sót bất kỳ một chữ Hán / tiếng Trung nào trong bản dịch.\n"
-            "2. TÊN RIÊNG & THUẬT NGỮ: Bắt buộc dùng âm Hán-Việt cổ trang chuẩn mực (ví dụ: Long Nhất, Lãnh U U, Lộ Thiến Á, Tây Môn Vô Hận, Tuyết Nhi, Thương Lam Đại Lục, Đằng Long Thành, Như Ý Băng Tằm Ty, Phất Không Chưởng). Tuyệt đối KHÔNG dịch sang tiếng Anh (CẤM dùng Princess, Cold Youyou, Dragon One).\n"
-            "3. VĂN PHONG CỔ TRANG CÓ HỒN: Dùng hệ thống từ ngữ Hán-Việt tao nhã, truyền cảm. Xưng hô chuẩn mực: hắn, chàng, nàng, muội, tỷ tỷ, phu nhân, công tử. Khi miêu tả tình cảm ái ân sắc hiệp, phải viết thật uyển chuyển, giàu cảm xúc, gợi cảm và tinh tế (ví dụ: xuân tình dạt dào, mây mưa hoan lạc, thân hình ngọc ngà mềm nhũn trong lồng ngực, ngọc thể lung linh, bờ môi anh đào khẽ hé rên rỉ, hương thơm ngạt ngào...). Tuyệt đối không dịch thô thiển máy móc.\n"
+            "Bạn là một đại tông sư dịch thuật tiểu thuyết tiên hiệp, kiếm hiệp, dị giới và sắc hiệp cổ trang hàng đầu Trung - Việt.\n"
+            "Nhiệm vụ: Chuyển ngữ đoạn văn sau sang tiếng Việt với văn phong cổ trang uyển chuyển, diễm lệ, tràn đầy cảm xúc, đọc lôi cuốn như các bản dịch kinh điển trên Tangthuvien.\n\n"
+            "QUY TẮC CỐT LÕI:\n"
+            "1. TUYỆT ĐỐI 100% TIẾNG VIỆT - CẤM TIẾNG ANH: Tuyệt đối không chen bất kỳ từ tiếng Anh nào (CẤM: Wow, magic, seal, gold, secret, weak, moment, sexy...). Phải chuyển ngữ sang Hán-Việt hoặc thuần Việt cổ phong (ma pháp, phong ấn, hoàng kim, mật đạo, khoảnh khắc, yếu ớt...).\n"
+            "2. KHÔNG DỊCH MÁY MÓC / WORD-BY-WORD (Tuyệt đối không dịch ngô nghê):\n"
+            "   - '胸甲' = hộ tâm giáp / giáp ngực (CẤM dịch thành 'áo ngực').\n"
+            "   - '连连点头' = gật đầu lia lịa / khẽ gật đầu không ngớt (CẤM dịch 'liền liền chút điểm đầu').\n"
+            "   - '爱不释手' = yêu thích không nỡ buông tay / say đắm mân mê (CẤM dịch 'chơi vơi').\n"
+            "   - '晶球' / '水晶球' = thủy tinh cầu / quả cầu pha lê trong suốt.\n"
+            "   - '宠溺' = cưng chiều / sủng ái dịu dàng.\n"
+            "   - '扑鼻而来' = xông vào đầu mũi / thơm ngát đầu mũi.\n"
+            "   - Tên nhân vật & địa danh chuẩn Hán-Việt: Long Nhất, Lãnh U U, Lộ Thiến Á, Hạ Lê, Tuyết Nhi, Tây Môn Vô Hận, Thương Lam Đại Lục, Đằng Long Thành.\n"
+            "3. VĂN PHONG SẮC HIỆP & CẢM XÚC NỒNG NÀN:\n"
+            "   - Miêu tả mỹ nhân: dùng từ ngữ gợi cảm, thanh nhã (kiều khu mềm mại, ngọc thể lung linh, bờ môi anh đào khẽ hé, da trắng như tuyết, eo thon mềm mại, đôi gò bồng đảo phập phồng...).\n"
+            "   - Cảm xúc ái ân & tình cảm: khắc họa sâu sắc ánh mắt, nụ cười, nhịp tim rộn ràng, dục hỏa bùng cháy, xuân tình dạt dào, dịu dàng triền miên...\n"
+            "   - Cảnh chiến đấu: oai phong lẫm liệt, sát khí ngút trời, kình lực cuộn trào.\n"
             "4. Dịch sát nghĩa, đầy đủ chi tiết, không tóm tắt hay cắt bớt tình tiết. Chỉ trả về nội dung bản dịch tiếng Việt hoàn chỉnh."
         )
 
@@ -207,23 +217,27 @@ async def translate_chapter(client: httpx.AsyncClient, ch_id: int, novel_id: int
         return False
 
     # 2. Translate Title
+    m = re.search(r'第\s*\d+\s*章\s*(.*)', title)
+    core_title = m.group(1).strip() if m else title.strip()
     title_payload = {
         "model": "qwen",
         "messages": [
-            {"role": "system", "content": f"Dịch tiêu đề chương {ch_index} sang tiếng Việt ngắn gọn, giữ âm Hán-Việt cho tên riêng (ví dụ: Chương {ch_index}: Đại Địa Chi Hùng). Chỉ trả về tiêu đề dịch, không giải thích:"},
-            {"role": "user", "content": title}
+            {"role": "system", "content": "Dịch tên chương tiểu thuyết sau sang tiếng Việt chuẩn âm Hán-Việt hoặc thuần Việt cổ phong ngắn gọn, súc tích (ví dụ: 秘道 -> Mật Đạo, 掉进金窟了 -> Rơi Vào Động Vàng). Tuyệt đối CẤM dùng tiếng Anh. Chỉ trả về đúng tên dịch, không giải thích:"},
+            {"role": "user", "content": core_title}
         ],
-        "temperature": 0.2,
-        "max_tokens": 60
+        "temperature": 0.1,
+        "max_tokens": 40
     }
     title_resp = await client.post(LOCAL_AI_URL, json=title_payload, timeout=30.0)
-    translated_title = title_resp.json()["choices"][0]["message"]["content"].strip()
-    translated_title = translated_title.replace('"', '').replace("'", "").strip()
-    translated_title = clean_translated_text(translated_title)
+    core_translated = title_resp.json()["choices"][0]["message"]["content"].strip()
+    core_translated = core_translated.replace('"', '').replace("'", "").strip()
+    core_translated = clean_translated_text(core_translated)
+    core_translated = re.sub(r'^(Chương\s*\d+[:\s]*)', '', core_translated, flags=re.IGNORECASE).strip()
+    translated_title = f"Chương {ch_index}: {core_translated}"
     print(f"     [Tiêu đề dịch]: {translated_title}")
 
-    # 3. Translate Chunks with smart chunking (500 chars max)
-    chunks = smart_chunk_text(raw_content, max_chars=500)
+    # 3. Translate Chunks with smart chunking (600 chars max)
+    chunks = smart_chunk_text(raw_content, max_chars=600)
     print(f"     [Dịch] Chia thành {len(chunks)} đoạn dịch tối ưu...")
     translated_pieces = []
     
