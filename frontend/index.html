@@ -222,7 +222,7 @@
           ⚡ Tất cả (3,050+ bộ)
         </button>
         <button @click="selectedSourceMode = 'curated'; loadDiscoverNovels()" :class="[selectedSourceMode === 'curated' ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-800 text-slate-300 hover:text-white']" class="px-3 py-1.5 rounded-xl transition">
-          💎 Siêu Phẩm Chọn Lọc (Top Hot)
+          🏆 Top 100 Siêu Phẩm Kinh Điển
         </button>
         <button @click="selectedSourceMode = 'live'; loadDiscoverNovels()" :class="[selectedSourceMode === 'live' ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20' : 'bg-slate-800 text-slate-300 hover:text-white']" class="px-3 py-1.5 rounded-xl transition">
           🌐 Trực Tuyến Web Trung (3,000+ Truyện)
@@ -231,7 +231,7 @@
 
       <div class="text-[11px] sm:text-xs text-slate-400 flex items-center gap-2">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Đang có <strong class="text-amber-400 font-bold">{{ discoverTotal || 3050 }}</strong> bộ truyện sẵn sàng clone & dịch</span>
+        <span>Đang có <strong class="text-amber-400 font-bold">{{ selectedSourceMode === 'curated' ? '100' : (discoverTotal || '3,160+') }}</strong> bộ truyện sẵn sàng đọc & dịch</span>
       </div>
     </div>
 
