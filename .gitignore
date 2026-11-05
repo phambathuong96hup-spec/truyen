@@ -39,3 +39,6 @@ Thumbs.db
 *.db-wal
 *.db-shm
 *.db-journal
+
+# Large dictionary raw data
+data/VietPhrase.txt
